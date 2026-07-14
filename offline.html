@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ei verkkoyhteyttä - SafetyFlash</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #0f172a;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            max-width: 400px;
+        }
+
+        .offline-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        p {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        .retry-btn {
+            background: #fee000;
+            color: #0f172a;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📡</div>
+        <h1>Ei verkkoyhteyttä</h1>
+        <p>Tarkista internet-yhteys ja yritä uudelleen.</p>
+        <button class="retry-btn" onclick="location.reload()">Yritä uudelleen</button>
+    </div>
+</body>
+
+</html>
