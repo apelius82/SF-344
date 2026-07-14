@@ -1,0 +1,213 @@
+/* Tag-based multi-select for role categories in user modal */
+
+.sf-selected-categories {
+    min-height: 60px;
+    padding: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.sf-no-selection {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.sf-category-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+}
+
+.sf-category-chip:hover {
+    background: #2563eb;
+}
+
+.sf-chip-text {
+    line-height: 1.2;
+}
+
+.sf-chip-remove {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+    line-height: 1;
+}
+
+.sf-chip-remove:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sf-search-select {
+    position: relative;
+}
+
+.sf-search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.sf-search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.sf-search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-top: 4px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sf-search-dropdown.hidden {
+    display: none;
+}
+
+.sf-dropdown-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sf-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.sf-dropdown-item:hover {
+    background: #f8fafc;
+}
+
+.sf-dropdown-worksite {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.sf-dropdown-type {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.sf-type-site-manager {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.sf-type-approver {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.sf-type-reviewer {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.sf-dropdown-empty {
+    padding: 16px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sf-category-chip {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    .sf-selected-categories {
+        min-height: 50px;
+        padding: 8px;
+    }
+}
+
+/* Additional roles chip styling */
+.sf-selected-roles {
+    min-height: 60px;
+    padding: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.sf-role-chip {
+    background: #8b5cf6 !important;
+    /* Purple for roles */
+}
+
+.sf-role-chip:hover {
+    background: #7c3aed !important;
+}
+
+.sf-dropdown-role-name {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+/* Toggle label styling */
+.sf-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.sf-toggle-label {
+    font-weight: 500;
+    color: #374151;
+    user-select: none;
+}
+
+/* Email notification field improvements */
+#sfEmailNotificationField {
+    margin-top: 16px;
+}
+
+#sfEmailNotificationField .sf-field-help {
+    margin-bottom: 12px;
+}

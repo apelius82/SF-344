@@ -1,0 +1,99 @@
+/* ========================================
+   GLOBAL LAYOUT SYSTEM
+   ======================================== */
+
+/* Main page container - wraps all page content */
+.sf-page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Page header - contains title and action buttons */
+.sf-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Page actions container (for buttons like "Uusi palaute", "Lisää käyttäjä") */
+.sf-page-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Content card - white cards for content sections */
+.sf-content-card {
+    background: #ffffff;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Section title inside cards */
+.sf-section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Filter/toolbar section */
+.sf-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-end;
+}
+
+.sf-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sf-filter-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sf-page-container {
+        padding: 1rem;
+    }
+
+    .sf-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sf-content-card {
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .sf-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-page-container {
+        padding: 0.75rem;
+    }
+
+}

@@ -1,0 +1,857 @@
+/* ==========================================================
+   VIEW / WORKFLOW
+
+   Prosessikaavion perusrakenne, vaiheet ja askelmerkit.
+   Tooltipit ja myöhemmät override-korjaukset siirretään erikseen.
+   ========================================================== */
+
+/* ========================================
+   WORKFLOW PROGRESS - COMPACT CLEAN
+   ======================================== */
+
+.sf-workflow-progress-card {
+    margin-top: 0.55rem;
+    margin-bottom: 0.65rem;
+    padding: 0.58rem 0.65rem;
+    overflow: visible;
+    border-radius: 14px;
+}
+
+.sf-workflow-progress-header {
+    margin-bottom: 0.45rem;
+}
+
+.sf-workflow-progress-title {
+    margin: 0;
+    color: #111827;
+    font-size: 0.86rem;
+    font-weight: 850;
+    letter-spacing: -0.01em;
+}
+
+.sf-workflow-progress-description,
+.sf-workflow-phase-subtitle {
+    display: none;
+}
+
+.sf-workflow-phase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.42rem;
+}
+
+.sf-workflow-phase {
+    display: grid;
+    grid-template-columns: minmax(150px, 185px) minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.52rem 0.62rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.035);
+}
+
+.sf-workflow-phase--investigation {
+    border-color: #ddd6fe;
+    background: #fdfcff;
+}
+
+.sf-workflow-phase-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.sf-workflow-phase-number {
+    flex: 0 0 auto;
+    width: 2.3rem;
+    height: 2.3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+    font-size: 0.76rem;
+    font-weight: 900;
+}
+
+.sf-workflow-phase--investigation .sf-workflow-phase-number {
+    background: #f5f3ff;
+    border-color: #ddd6fe;
+    color: #6d28d9;
+}
+
+.sf-workflow-phase-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.sf-workflow-phase-title {
+    margin: 0;
+    color: #111827;
+    font-size: 0.82rem;
+    font-weight: 850;
+    line-height: 1.15;
+}
+
+.sf-workflow-phase-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.08rem;
+    padding: 0.12rem 0.38rem;
+    border-radius: 999px;
+    font-size: 0.56rem;
+    font-weight: 850;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.sf-workflow-phase-badge--done {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.sf-workflow-phase-badge--active {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.sf-workflow-steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0;
+    align-items: start;
+}
+
+.sf-workflow-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.22rem;
+    min-width: 0;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    cursor: help;
+}
+
+.sf-workflow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0.7rem;
+    left: calc(50% + 0.78rem);
+    right: calc(-50% + 0.78rem);
+    height: 2px;
+    background: #e5e7eb;
+    z-index: 0;
+}
+
+.sf-workflow-step--done:not(:last-child)::after {
+    background: #22c55e;
+}
+
+.sf-workflow-step--active:not(:last-child)::after {
+    background: linear-gradient(90deg, #2563eb 0%, #e5e7eb 100%);
+}
+
+.sf-workflow-step-marker {
+    position: relative;
+    z-index: 1;
+    width: 1.42rem;
+    height: 1.42rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #f8fafc;
+    border: 2px solid #e5e7eb;
+    color: #94a3b8;
+}
+
+.sf-workflow-step--done .sf-workflow-step-marker {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: #ffffff;
+    box-shadow: 0 3px 10px rgba(22, 163, 74, 0.22);
+}
+
+.sf-workflow-step--active .sf-workflow-step-marker {
+    background: #ffffff;
+    border-color: #2563eb;
+    color: #2563eb;
+    box-shadow: 0 3px 12px rgba(37, 99, 235, 0.2);
+}
+
+.sf-workflow-step--skipped .sf-workflow-step-marker {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #94a3b8;
+    box-shadow: none;
+}
+
+.sf-workflow-step--skipped .sf-workflow-step-dot {
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.sf-workflow-step--skipped .sf-workflow-step-label {
+    color: #94a3b8;
+}
+
+.sf-workflow-step--skipped:not(:last-child)::after {
+    background: #cbd5e1;
+}
+
+.sf-workflow-step-check {
+    font-size: 0.76rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.sf-workflow-step-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: #cbd5e1;
+}
+
+.sf-workflow-step-spinner {
+    width: 0.86rem;
+    height: 0.86rem;
+    border-radius: 999px;
+    border: 2px solid rgba(37, 99, 235, 0.18);
+    border-top-color: #2563eb;
+    animation: sfWorkflowSpin 0.8s linear infinite;
+}
+
+@keyframes sfWorkflowSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.sf-workflow-step-content,
+.sf-workflow-step-date,
+.sf-workflow-step-user {
+    display: none;
+}
+
+.sf-workflow-step-label {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    color: #111827;
+    font-size: 0.62rem;
+    font-weight: 800;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sf-workflow-step--active .sf-workflow-step-label {
+    color: #2563eb;
+}
+
+.sf-workflow-step--pending .sf-workflow-step-label {
+    color: #94a3b8;
+}
+
+.sf-workflow-step:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+@media (max-width: 1180px) {
+    .sf-workflow-phase {
+        grid-template-columns: 1fr;
+        gap: 0.55rem;
+    }
+
+    .sf-workflow-steps {
+        grid-template-columns: repeat(5, minmax(76px, 1fr));
+        overflow-x: auto;
+        padding-bottom: 0.15rem;
+        scrollbar-width: thin;
+    }
+
+    .sf-workflow-step {
+        min-width: 76px;
+    }
+}
+
+@media (max-width: 640px) {
+    .sf-workflow-progress-card {
+        padding: 0.62rem;
+    }
+
+    .sf-workflow-phase {
+        padding: 0.55rem;
+    }
+
+    .sf-workflow-step-label {
+        font-size: 0.58rem;
+    }
+}
+
+/* =========================================================
+   WORKFLOW ACCORDION SUMMARY
+   Tiivis nykytila + avattava prosessikaavio
+========================================================= */
+
+.sf-workflow-progress-card--accordion {
+    margin-top: 0.75rem !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border-radius: 18px !important;
+}
+
+.sf-workflow-progress-card--accordion[open] {
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1) !important;
+}
+
+.sf-workflow-summary {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, auto) 34px !important;
+    align-items: center !important;
+    gap: 0.9rem !important;
+    min-height: 70px !important;
+    padding: 0.75rem 0.95rem !important;
+    list-style: none !important;
+    cursor: pointer !important;
+    border-radius: 18px !important;
+    background: #ffffff !important;
+    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease !important;
+}
+
+.sf-workflow-summary::-webkit-details-marker {
+    display: none !important;
+}
+
+.sf-workflow-summary:hover {
+    background: #f8fafc !important;
+    box-shadow: inset 0 0 0 1px #e2e8f0 !important;
+}
+
+.sf-workflow-summary:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.28) !important;
+    outline-offset: 3px !important;
+}
+
+.sf-workflow-summary-left {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    min-width: 0 !important;
+}
+
+.sf-workflow-summary-text {
+    min-width: 0 !important;
+}
+
+.sf-workflow-summary-title {
+    display: block !important;
+    color: #111827 !important;
+    font-size: 0.98rem !important;
+    font-weight: 900 !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.sf-workflow-summary-status {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.55rem !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.sf-workflow-status-label {
+    color: #64748b !important;
+    font-size: 0.7rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+}
+
+.sf-workflow-status-value {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.42rem !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 34px !important;
+    padding: 0.38rem 0.75rem !important;
+    border-radius: 999px !important;
+    font-size: 0.86rem !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    text-align: left !important;
+}
+
+.sf-workflow-status-value span:last-child {
+    min-width: 0 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.sf-workflow-status-value--done {
+    background: #dcfce7 !important;
+    color: #15803d !important;
+}
+
+.sf-workflow-status-value--active {
+    background: #dbeafe !important;
+    color: #1d4ed8 !important;
+}
+
+.sf-workflow-status-value .sf-workflow-step-spinner {
+    width: 0.9rem !important;
+    height: 0.9rem !important;
+    flex: 0 0 0.9rem !important;
+}
+
+.sf-workflow-summary-arrow {
+    width: 32px !important;
+    height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 999px !important;
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+    transition: transform 0.22s ease, background 0.18s ease, color 0.18s ease !important;
+}
+
+.sf-workflow-summary-arrow::before {
+    content: "" !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-right: 3px solid currentColor !important;
+    border-bottom: 3px solid currentColor !important;
+    transform: rotate(-45deg) !important;
+    margin-left: -3px !important;
+    transition: transform 0.22s ease, margin 0.22s ease !important;
+}
+
+.sf-workflow-progress-card--accordion[open] .sf-workflow-summary-arrow {
+    background: #0f172a !important;
+    color: #ffffff !important;
+}
+
+.sf-workflow-progress-card--accordion[open] .sf-workflow-summary-arrow::before {
+    transform: rotate(45deg) !important;
+    margin-left: 0 !important;
+    margin-top: -4px !important;
+}
+
+.sf-workflow-accordion-body {
+    display: grid !important;
+    grid-template-rows: 0fr !important;
+    opacity: 0 !important;
+    transform: translateY(-6px) !important;
+    transition: grid-template-rows 0.28s ease, opacity 0.22s ease, transform 0.22s ease !important;
+}
+
+.sf-workflow-progress-card--accordion[open] .sf-workflow-accordion-body {
+    grid-template-rows: 1fr !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.sf-workflow-accordion-body > .sf-workflow-phase-list {
+    min-height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 0.75rem 0.75rem !important;
+    margin-top: 10px !important;
+}
+
+.sf-workflow-progress-card--accordion[open] .sf-workflow-accordion-body > .sf-workflow-phase-list {
+    overflow: visible !important;
+}
+
+/* =========================================================
+   WORKFLOW HTML TOOLTIP FINAL
+========================================================= */
+
+.sf-workflow-step::before {
+    display: none !important;
+    content: none !important;
+}
+
+.sf-workflow-progress-card--accordion,
+.sf-workflow-accordion-body,
+.sf-workflow-phase-list,
+.sf-workflow-phase,
+.sf-workflow-steps,
+.sf-workflow-step {
+    overflow: visible !important;
+}
+
+.sf-workflow-step {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.sf-workflow-step:hover,
+.sf-workflow-step:focus-visible {
+    z-index: 5000 !important;
+}
+
+.sf-workflow-tooltip {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: calc(100% + 12px) !important;
+    z-index: 2147483000 !important;
+    width: max-content !important;
+    min-width: 260px !important;
+    max-width: 360px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.55rem !important;
+    padding: 0.9rem 1rem !important;
+    border-radius: 16px !important;
+    background: #ffffff !important;
+    border: 1px solid #dbe3ef !important;
+    box-shadow: 0 24px 56px rgba(15, 23, 42, 0.28) !important;
+    color: #1f2937 !important;
+    text-align: left !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) translateY(6px) !important;
+    transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease !important;
+}
+
+.sf-workflow-tooltip::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 50% !important;
+    bottom: -10px !important;
+    transform: translateX(-50%) rotate(45deg) !important;
+    width: 20px !important;
+    height: 20px !important;
+    background: #ffffff !important;
+    box-shadow: 6px 6px 18px rgba(15, 23, 42, 0.08) !important;
+    z-index: -1 !important;
+}
+
+.sf-workflow-step:hover .sf-workflow-tooltip,
+.sf-workflow-step:focus-visible .sf-workflow-tooltip {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(-50%) translateY(0) !important;
+}
+
+.sf-workflow-tooltip-title {
+    display: block !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    color: #0f172a !important;
+    font-size: 0.84rem !important;
+    font-weight: 850 !important;
+    line-height: 1.25 !important;
+}
+
+.sf-workflow-tooltip-state {
+    display: inline-flex !important;
+    align-items: center !important;
+    align-self: flex-start !important;
+    min-height: 24px !important;
+    padding: 0.22rem 0.55rem !important;
+    border-radius: 999px !important;
+    font-size: 0.74rem !important;
+    font-weight: 750 !important;
+    line-height: 1.1 !important;
+}
+
+.sf-workflow-tooltip-state--done {
+    background: #dcfce7 !important;
+    color: #15803d !important;
+}
+
+.sf-workflow-tooltip-state--active {
+    background: #dbeafe !important;
+    color: #1d4ed8 !important;
+}
+
+.sf-workflow-tooltip-state--pending,
+.sf-workflow-tooltip-state--skipped {
+    background: #f1f5f9 !important;
+    color: #64748b !important;
+}
+
+.sf-workflow-tooltip-row {
+    display: grid !important;
+    grid-template-columns: 112px minmax(0, 1fr) !important;
+    gap: 0.65rem !important;
+    align-items: start !important;
+}
+
+.sf-workflow-tooltip-key {
+    color: #64748b !important;
+    font-size: 0.74rem !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+.sf-workflow-tooltip-value {
+    min-width: 0 !important;
+    color: #111827 !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    line-height: 1.35 !important;
+    overflow-wrap: anywhere !important;
+}
+
+/* =========================================================
+   WORKFLOW LAYER FIX
+========================================================= */
+
+.view-layout,
+.sf-view-content,
+.view-left,
+.view-right,
+.preview-box,
+.sf-workflow-progress-card--accordion,
+.sf-workflow-accordion-body,
+.sf-workflow-phase-list,
+.sf-workflow-phase,
+.sf-workflow-steps,
+.sf-workflow-step {
+    overflow: visible !important;
+}
+
+.view-left {
+    position: relative !important;
+    z-index: 50 !important;
+}
+
+.view-right {
+    z-index: 10 !important;
+}
+
+.preview-download-wrapper {
+    z-index: 20 !important;
+}
+
+.sf-workflow-progress-card--accordion {
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+.sf-workflow-progress-card--accordion:hover,
+.sf-workflow-progress-card--accordion[open] {
+    z-index: 5000 !important;
+}
+
+.sf-workflow-step {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.sf-workflow-step:hover,
+.sf-workflow-step:focus-visible {
+    z-index: 2147483000 !important;
+}
+
+.sf-workflow-tooltip {
+    z-index: 2147483000 !important;
+}
+
+/* =========================================================
+   WORKFLOW RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+    .sf-workflow-summary {
+        grid-template-columns: minmax(0, 1fr) 34px !important;
+    }
+
+    .sf-workflow-summary-status {
+        grid-column: 1 / -1 !important;
+        margin-left: 2.35rem !important;
+        margin-top: -0.1rem !important;
+    }
+
+    .sf-workflow-status-value {
+        max-width: calc(100vw - 150px) !important;
+        white-space: normal !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .sf-workflow-summary {
+        grid-template-columns: minmax(0, 1fr) 30px !important;
+        gap: 0.55rem !important;
+        min-height: 64px !important;
+        padding: 0.68rem 0.72rem !important;
+    }
+
+    .sf-workflow-summary-status {
+        grid-column: 1 / -1 !important;
+        justify-content: flex-start !important;
+        margin-left: 2.25rem !important;
+        margin-top: -0.15rem !important;
+    }
+
+    .sf-workflow-status-label {
+        font-size: 0.62rem !important;
+    }
+
+    .sf-workflow-status-value {
+        max-width: calc(100vw - 160px) !important;
+        min-height: 28px !important;
+        padding: 0.28rem 0.55rem !important;
+        font-size: 0.72rem !important;
+    }
+
+    .sf-workflow-summary-arrow {
+        grid-column: 2 !important;
+        grid-row: 1 / span 2 !important;
+        width: 30px !important;
+        height: 30px !important;
+        justify-self: end !important;
+    }
+
+    .sf-workflow-summary-title {
+        font-size: 0.88rem !important;
+    }
+
+    .sf-workflow-progress-card--accordion .sf-workflow-phase-list {
+        gap: 0.45rem !important;
+    }
+
+    .sf-workflow-progress-card--accordion .sf-workflow-phase {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sf-workflow-tooltip {
+        display: none !important;
+    }
+}
+
+/* =========================================================
+   WORKFLOW: piilota vaiheotsikoiden toistavat statusbadget
+========================================================= */
+
+.sf-workflow-phase-badge {
+    display: none !important;
+}
+
+/* =========================================================
+   WORKFLOW TYPE ICONS
+========================================================= */
+
+.sf-workflow-phase-icon-wrap {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+.sf-workflow-phase-icon {
+    width: 60px !important;
+    height: 60px !important;
+    display: block !important;
+    object-fit: contain !important;
+}
+
+.sf-workflow-phase--original .sf-workflow-phase-icon-wrap {
+    background: #fff7ed !important;
+}
+
+.sf-workflow-phase--investigation .sf-workflow-phase-icon-wrap {
+    background: #f0fdf4 !important;
+}
+
+/* =========================================================
+   VIEW - WORKFLOW STATUS COLORS MATCH LIST VIEW
+========================================================= */
+
+.sf-workflow-status-value--tone-draft {
+    background: var(--status-draft-bg, #f3f4f6) !important;
+    color: var(--status-draft-text, #111827) !important;
+}
+
+.sf-workflow-status-value--tone-pending-supervisor {
+    background: var(--status-pending-supervisor-bg, #e0f2fe) !important;
+    color: var(--status-pending-supervisor-text, #0369a1) !important;
+}
+
+.sf-workflow-status-value--tone-pending {
+    background: var(--status-pending-bg, #fee000) !important;
+    color: var(--status-pending-text, #111827) !important;
+}
+
+.sf-workflow-status-value--tone-request-info {
+    background: var(--status-request-bg, #fb923c) !important;
+    color: var(--status-request-text, #111827) !important;
+}
+
+.sf-workflow-status-value--tone-reviewed {
+    background: var(--status-reviewed-bg, #dbeafe) !important;
+    color: var(--status-reviewed-text, #1e3a8a) !important;
+}
+
+.sf-workflow-status-value--tone-comms {
+    background: var(--status-comms-bg, #3b82f6) !important;
+    color: var(--status-comms-text, #ffffff) !important;
+}
+
+.sf-workflow-status-value--tone-published {
+    background: var(--status-published-bg, #16a34a) !important;
+    color: var(--status-published-text, #ffffff) !important;
+}
+
+.sf-workflow-status-value--tone-other {
+    background: var(--status-other-bg, #e0f2fe) !important;
+    color: var(--status-other-text, #0369a1) !important;
+}
+
+.sf-workflow-status-value--tone-pending .sf-workflow-step-spinner {
+    border-color: rgba(17, 24, 39, 0.18) !important;
+    border-top-color: #111827 !important;
+}
+
+.sf-workflow-status-value--tone-comms .sf-workflow-step-spinner,
+.sf-workflow-status-value--tone-published .sf-workflow-step-spinner {
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    border-top-color: #ffffff !important;
+}
+
+.sf-workflow-step-skipped {
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 700;
+    color: #94a3b8;
+}

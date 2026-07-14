@@ -1,0 +1,400 @@
+/**
+ * SafetyFlash Copy-to-Clipboard Styles
+ */
+
+/* ===== COPY BUTTON ===== */
+.sf-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sf-copy-btn:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.sf-copy-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sf-copy-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.sf-copy-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.sf-copy-btn-label {
+    white-space: nowrap;
+}
+
+/* ===== LOADING SPINNER ===== */
+.sf-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #e2e8f0;
+    border-top-color: #0f172a;
+    border-radius: 50%;
+    animation: sf-spin 0.6s linear infinite;
+}
+
+@keyframes sf-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== BUTTON POSITIONING ===== */
+.sf-copy-btn[data-position="top-right"] {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 100;
+}
+
+.sf-copy-btn[data-position="bottom-right"] {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 100;
+}
+
+.sf-copy-btn[data-position="bottom-left"],
+.sf-copy-btn-compact[data-position="bottom-left"] {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 100 !important;
+}
+
+/* List page card positioning - BOTTOM-LEFT corner, inside card-thumb */
+.card-thumb .sf-copy-btn,
+.card-thumb .sf-copy-btn-compact {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    top: auto !important;
+    right: auto !important;
+    opacity: 0.95 !important;
+    padding: 6px !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    z-index: 15 !important;
+    /* Above thumbnail but below modal */
+    max-width: calc(100% - 16px) !important;
+    max-height: calc(100% - 16px) !important;
+}
+
+.card-thumb .sf-copy-btn:hover,
+.card-thumb .sf-copy-btn-compact:hover {
+    opacity: 1 !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Ensure card-actions doesn't overlap with copy button */
+.card-actions {
+    z-index: 5 !important;
+}
+
+/* Hide label in card thumbnails - show only icon */
+.card-thumb .sf-copy-btn .sf-copy-btn-label {
+    display: none;
+}
+
+/* ===== COMPACT BUTTON VARIANT (for list) ===== */
+.sf-copy-btn-compact {
+    padding: 6px 10px;
+    font-size: 12px;
+    gap: 4px;
+}
+
+.sf-copy-btn-compact svg,
+.sf-copy-btn-compact img {
+    width: 14px;
+    height: 14px;
+}
+
+/* Hide label on compact buttons */
+.sf-copy-btn-compact .sf-copy-btn-label {
+    display: none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+
+    /* Hide label on mobile, show only icon */
+    .sf-copy-btn-label {
+        display: none;
+    }
+
+    .sf-copy-btn {
+        padding: 10px;
+        min-width: 40px;
+        justify-content: center;
+    }
+
+    .sf-copy-btn-compact {
+        padding: 8px;
+        min-width: 36px;
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+
+    .sf-copy-btn,
+    .sf-spinner {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* Focus visible for keyboard navigation */
+.sf-copy-btn:focus-visible {
+    outline: 2px solid #0f172a;
+    outline-offset: 2px;
+}
+/* ===== SUCCESS FLASH ANIMATION ===== */
+.sf-copy-btn.success-flash,
+.sf-copy-btn-compact.success-flash {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #fff !important;
+    border-color:  #059669 !important;
+    animation: successPulse 0.6s ease;
+}
+
+@keyframes successPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+    50% {
+        transform:  scale(1.08);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+}
+
+/* Success flash for images inside copy button */
+.sf-copy-btn.success-flash img,
+.sf-copy-btn-compact.success-flash img {
+    filter: brightness(0) invert(1);
+}
+/* ===== SUCCESS/ERROR STATE - SHOW TEXT ===== */
+.sf-copy-btn.success-flash .sf-copy-btn-label,
+.sf-copy-btn-compact.success-flash .sf-copy-btn-label,
+.sf-copy-btn.error-flash .sf-copy-btn-label,
+.sf-copy-btn-compact.error-flash .sf-copy-btn-label {
+    display: inline !important;
+    font-size: 11px !important;
+    white-space: nowrap !important;
+}
+
+/* Success state: green with checkmark */
+.sf-copy-btn.success-flash,
+.sf-copy-btn-compact.success-flash {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #fff !important;
+    border-color: #059669 !important;
+    padding: 6px 10px !important;
+    min-width: auto !important;
+}
+
+/* Error state: red with X */
+.sf-copy-btn.error-flash,
+.sf-copy-btn-compact.error-flash {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+    color: #fff !important;
+    border-color: #dc2626 !important;
+    padding: 6px 10px !important;
+    min-width: auto !important;
+}
+
+/* Make sure text is visible in card thumbnails */
+.card-thumb .sf-copy-btn.success-flash,
+.card-thumb .sf-copy-btn-compact.success-flash,
+.card-thumb .sf-copy-btn.error-flash,
+.card-thumb .sf-copy-btn-compact.error-flash {
+    width: auto !important;
+    max-width: 140px !important;
+}
+
+/* Success/error icons color */
+.sf-copy-btn.success-flash svg,
+.sf-copy-btn-compact.success-flash svg,
+.sf-copy-btn.error-flash svg,
+.sf-copy-btn-compact.error-flash svg {
+    stroke: #fff !important;
+    flex-shrink: 0;
+}
+/* ===== COPY BUTTON TOOLTIP ===== */
+.sf-copy-btn,
+.sf-copy-btn-compact {
+    position: relative;
+}
+
+.sf-copy-btn:: after,
+.sf-copy-btn-compact::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    background: #1e293b;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tooltip arrow */
+.sf-copy-btn::before,
+.sf-copy-btn-compact::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1e293b;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 999;
+}
+
+/* Show tooltip on hover */
+.sf-copy-btn:hover::after,
+.sf-copy-btn: hover::before,
+.sf-copy-btn-compact:hover:: after,
+.sf-copy-btn-compact:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Success tooltip (green) */
+.sf-copy-btn.show-success-tooltip::after,
+.sf-copy-btn-compact.show-success-tooltip:: after {
+    content: attr(data-success-message);
+    background: #10b981;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.sf-copy-btn.show-success-tooltip::before,
+.sf-copy-btn-compact.show-success-tooltip::before {
+    border-top-color: #10b981;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Error tooltip (red) */
+.sf-copy-btn.show-error-tooltip::after,
+.sf-copy-btn-compact.show-error-tooltip::after {
+    content: attr(data-error-message);
+    background: #ef4444;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.sf-copy-btn.show-error-tooltip::before,
+.sf-copy-btn-compact.show-error-tooltip:: before {
+    border-top-color: #ef4444;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+/* ===== LIST PAGE CARD TOOLTIP FIX ===== */
+/* Card thumbnails:  force tooltip to show on hover AND after copy */
+.card-thumb .sf-copy-btn::after,
+.card-thumb .sf-copy-btn-compact::after {
+    bottom: calc(100% + 6px) !important;
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+    max-width: 180px !important;
+    text-align: center !important;
+}
+
+.card-thumb .sf-copy-btn::before,
+.card-thumb .sf-copy-btn-compact::before {
+    bottom: calc(100% + 1px) !important;
+}
+
+/* Ensure tooltip stays visible during success/error states in cards */
+.card-thumb .sf-copy-btn.show-success-tooltip::after,
+.card-thumb .sf-copy-btn-compact.show-success-tooltip::after,
+.card-thumb .sf-copy-btn.show-error-tooltip::after,
+.card-thumb .sf-copy-btn-compact.show-error-tooltip::after {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(-50%) translateY(0) !important;
+}
+
+.card-thumb .sf-copy-btn.show-success-tooltip::before,
+.card-thumb .sf-copy-btn-compact.show-success-tooltip::before,
+.card-thumb .sf-copy-btn.show-error-tooltip::before,
+.card-thumb .sf-copy-btn-compact.show-error-tooltip::before {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Prevent tooltip from being cut off at top of viewport */
+.card-thumb {
+    overflow: visible !important;
+}
+
+.card-thumb-wrapper {
+    overflow: visible !important;
+}
+/* Mobile:  Show tooltip on top (more space) */
+@media (max-width: 768px) {
+
+    .card-thumb .sf-copy-btn::after,
+    .card-thumb .sf-copy-btn-compact::after {
+        bottom: calc(100% + 6px);
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+
+    .card-thumb .sf-copy-btn::before,
+    .card-thumb .sf-copy-btn-compact::before {
+        bottom: calc(100% + 1px);
+    }
+}

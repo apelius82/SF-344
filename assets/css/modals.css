@@ -1,0 +1,3823 @@
+/**
+ * SAFETYFLASH - GLOBAALIT MODAALIT
+ * Yhtenäinen tyyli kaikille modaaleille
+ */
+
+/* ===== MODAALI OVERLAY ===== */
+.sf-modal,
+.sf-library-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Footerissa on z-index: 2147483647 !important → modaalin on oltava sen yli */
+    z-index: 2147483648;
+    padding: 20px;
+
+    opacity: 1;
+    transition: opacity 0.2s ease;
+
+    isolation: isolate;
+}
+
+/* Piilotettu tila */
+.sf-modal.hidden,
+.sf-library-modal.hidden {
+    display: none;
+}
+
+/* Piilota footer kun modal on AKTIIVISESTI AUKI (näkyy käyttäjälle) */
+body.sf-modal-open .view-footer-actions {
+    display: none !important;
+}
+
+/* ===== MODAALI SISÄLTÖ ===== */
+.sf-modal-content,
+.sf-library-modal-content {
+    position: relative;
+    background: #ffffff;
+
+    /* MOBILE: täysleveä */
+    width: 100%;
+    max-width: 100vw;
+
+    /* MOBILE: lähes täyskorkea */
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+
+    /* MOBILE: ei pyöristystä (näyttää “sheetiltä”) */
+    border-radius: 0;
+
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+
+    animation: sfModalSlideIn 0.25s ease;
+    z-index: 2147483649;
+}
+
+@keyframes sfModalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98) translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .sf-modal-content,
+    .sf-library-modal-content {
+        animation: none;
+    }
+}
+
+/* ===== MODAALI HEADER ===== */
+.sf-modal-header,
+.sf-library-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+}
+
+/* Swipe handle for mobile */
+.sf-modal-header::before,
+.sf-library-modal-header::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: #d1d5db;
+    border-radius: 2px;
+}
+
+@media (min-width: 769px) {
+
+    /* Hide handle on desktop */
+    .sf-modal-header::before,
+    .sf-library-modal-header::before {
+        display: none;
+    }
+}
+
+.sf-modal-header h2,
+.sf-modal-header h3,
+.sf-library-modal-header h2,
+.sf-library-modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.35;
+}
+
+/* Jos h2/h3 on suoraan content-sisällä ilman headeria */
+.sf-modal-content>h2,
+.sf-modal-content>h3 {
+    margin: 0;
+    padding: 24px 24px 16px 24px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.35;
+}
+
+/* ===== SULJE-PAINIKE ===== */
+.sf-modal-close,
+.sf-modal-close-btn,
+.sf-library-modal-close,
+[data-modal-close] {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+
+    border: none;
+    background: #f3f4f6;
+    border-radius: 50%;
+
+    font-size: 1.15rem;
+    color: #111827;
+
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+    flex-shrink: 0;
+
+    padding: 0;
+    line-height: 1;
+    /* estää fontti-“pompun” */
+}
+
+.sf-modal-close:hover,
+.sf-modal-close-btn:hover,
+.sf-library-modal-close:hover,
+[data-modal-close]:hover {
+    background: #e5e7eb;
+    box-shadow: 0 6px 18px rgba(2, 6, 23, 0.12);
+}
+
+/* Ei liikuteta nappia hoverissa (ei transformia) */
+.sf-modal-close:active,
+.sf-modal-close-btn:active,
+.sf-library-modal-close:active,
+[data-modal-close]:active {
+    background: #dbeafe;
+}
+
+/* ===== MODAALI BODY ===== */
+.sf-modal-body {
+    padding: 20px 24px;
+}
+
+.sf-modal-body p {
+    margin: 0 0 12px 0;
+    padding: 0;
+    color: #374151;
+    line-height: 1.6;
+}
+
+.sf-modal-content>p {
+    margin: 0 0 12px 0;
+    padding: 0 24px;
+    color: #374151;
+    line-height: 1.6;
+}
+
+.sf-modal-body p:last-child,
+.sf-modal-content>p:last-of-type {
+    margin-bottom: 0;
+        margin-top: 15px;
+}
+
+.sf-modal-note,
+.sf-help-text {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* ===== MODAALI FORM ELEMENTIT ===== */
+.sf-modal-content form {
+    padding: 0 24px 24px 24px;
+}
+
+.sf-modal-content label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.sf-modal-content input[type="text"],
+.sf-modal-content input[type="email"],
+.sf-modal-content input[type="password"],
+.sf-modal-content textarea,
+.sf-modal-content select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    background: #f9fafb;
+    color: #1f2937;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-sizing: border-box;
+}
+
+.sf-modal-content textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.sf-modal-content input:focus,
+.sf-modal-content textarea:focus,
+.sf-modal-content select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ===== MODAALI FOOTER / ACTIONS ===== */
+.sf-modal-footer,
+.sf-modal-actions {
+    display: flex;
+    gap: 12px;
+    padding: 20px 24px;
+    border-top: 1px solid #e5e7eb;
+    justify-content: flex-end;
+    margin-top: 0;
+}
+
+/* Jos form sisällä */
+.sf-modal-content form .sf-modal-actions {
+    margin-top: 20px;
+    padding: 20px 0 0 0;
+}
+
+/* ===== MODAALI PAINIKKEET ===== */
+.sf-modal-footer .sf-btn,
+.sf-modal-actions .sf-btn {
+    min-width: 100px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* HAPTIC FEEL (ei riko layoutia) */
+.sf-btn:active {
+    transform: scale(0.97);
+}
+
+/* Focus ring saavutettavuus */
+.sf-btn:focus-visible,
+.sf-modal-close-btn:focus-visible,
+[data-modal-close]:focus-visible {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.sf-modal-actions .sf-btn-primary,
+.sf-modal-footer .sf-btn-primary {
+    background: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.sf-modal-actions .sf-btn-primary:hover,
+.sf-modal-footer .sf-btn-primary:hover {
+    background: #2563eb;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+}
+
+.sf-modal-actions .sf-btn-secondary,
+.sf-modal-footer .sf-btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.sf-modal-actions .sf-btn-secondary:hover,
+.sf-modal-footer .sf-btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+/* Modaalien sisällä olevat danger-napit */
+.sf-modal-actions .sf-btn-danger,
+.sf-modal-footer .sf-btn-danger {
+    background: #ef4444;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.sf-modal-actions .sf-btn-danger:hover,
+.sf-modal-footer .sf-btn-danger:hover {
+    background: #dc2626;
+}
+
+/* ===== MODAALI KOOT ===== */
+.sf-modal-small .sf-modal-content {
+    max-width: 420px;
+}
+
+.sf-modal-large .sf-modal-content,
+.sf-library-modal-content {
+    max-width: 640px;
+}
+
+.sf-modal-xl .sf-modal-content {
+    max-width: 800px;
+}
+
+/* ===== PRE/CODE DETAILS ===== */
+.sf-details-pre {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 0.8rem;
+    color: #000;
+    overflow-x: auto;
+    max-height: 300px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* ===== SCROLLBAR ===== */
+.sf-modal-content::-webkit-scrollbar,
+.sf-library-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sf-modal-content::-webkit-scrollbar-track,
+.sf-library-modal-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.sf-modal-content::-webkit-scrollbar-thumb,
+.sf-library-modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+/* ===== BODY SCROLL LOCK ===== */
+body.sf-modal-open {
+    overflow: hidden;
+}
+
+/* ===== MOBIILI BOTTOM-SHEET TYYLI ===== */
+@media (max-width: 640px) {
+
+    .sf-modal,
+    .sf-library-modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .sf-modal-content,
+    .sf-library-modal-content {
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0;
+        animation: sfModalSlideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    @keyframes sfModalSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Vedä-indikaattori */
+    .sf-modal-content::before,
+    .sf-library-modal-content::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 4px;
+        background: #d1d5db;
+        border-radius: 2px;
+        margin: 10px auto 0;
+    }
+
+.sf-mobile-sheet-content::before,
+.sf-mobile-sheet-content .sf-modal-header::before,
+.sf-mobile-sheet-content .sf-library-modal-header::before {
+    display: none;
+}
+
+    .sf-bottom-sheet-handle {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 34px;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        cursor: grab;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        box-sizing: border-box;
+    }
+
+    .sf-bottom-sheet-handle::before {
+        content: '';
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 46px;
+        height: 5px;
+        background: #cbd5e1;
+        border-radius: 999px;
+    }
+
+    .sf-bottom-sheet-handle:active {
+        cursor: grabbing;
+    }
+    .sf-modal-header,
+    .sf-library-modal-header {
+        padding: 16px 20px;
+    }
+
+    .sf-modal-body {
+        padding: 16px 20px;
+    }
+
+    .sf-modal-content>p {
+        padding: 0 20px;
+    }
+
+    .sf-modal-footer,
+    .sf-modal-actions {
+        flex-direction: column-reverse;
+        padding: 16px 20px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .sf-modal-footer .sf-btn,
+    .sf-modal-actions .sf-btn {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .sf-modal[data-bottom-sheet] .sf-modal-content>h2,
+    .sf-modal[data-bottom-sheet] .sf-modal-content>h3 {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .sf-modal[data-bottom-sheet] .sf-modal-content form,
+    .sf-modal[data-bottom-sheet] .sf-modal-content>p,
+    .sf-modal[data-bottom-sheet] .sf-modal-header,
+    .sf-modal[data-bottom-sheet] .sf-modal-body,
+    .sf-modal[data-bottom-sheet] .sf-modal-footer,
+    .sf-modal[data-bottom-sheet] .sf-modal-actions {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    #modalComment #commentNotifyWrap {
+        margin-top: 10px !important;
+    }
+
+    #modalComment #commentNotifyWrap label {
+        gap: 8px !important;
+        align-items: flex-start !important;
+        line-height: 1.35;
+    }
+
+    #modalComment #commentNotifyWrap input[type="checkbox"] {
+        margin-top: 2px;
+    }
+}
+
+/* ===== LOGOUT MODAL: otsikko keskelle, X oikealle ilman “hyppimistä” ===== */
+#sfLogoutModal .sf-modal-header {
+    justify-content: space-between;
+}
+
+/* Keskitys: varataan vasemmalle sama tila kuin X-napille */
+#sfLogoutModal .sf-modal-header h3 {
+    flex: 1;
+    text-align: center;
+    padding-left: 36px;
+    /* sama kuin close-napin leveys */
+}
+
+/* Close pysyy oikealla */
+#sfLogoutModal .sf-modal-close-btn {
+    margin-left: auto;
+}
+
+/* ===== JULKAISUMODAALIN CHECKBOXIT ===== */
+.sf-publish-options {
+    margin: 20px 0;
+}
+
+.sf-checkbox-option {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sf-checkbox-option:hover {
+    background: #f1f5f9;
+}
+
+.sf-checkbox-option input[type="checkbox"] {
+    margin-right: 12px;
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+}
+
+.sf-checkbox-label {
+    display: flex;
+    flex-direction: column;
+}
+
+.sf-checkbox-label strong {
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.sf-checkbox-label small {
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* Henkilövahinko-varoitus (punainen tausta) */
+.sf-checkbox-warning {
+    background: #fef2f2;
+    border-left: 4px solid #dc2626;
+}
+
+.sf-checkbox-warning:hover {
+    background: #fee2e2;
+}
+
+/* Otsikon esikatselu */
+.sf-email-subject-preview {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #fefce8;
+    border-radius: 8px;
+    border-left: 4px solid #ca8a04;
+}
+
+.sf-email-subject-preview strong {
+    display: block;
+    color: #78350f;
+    font-size: 12px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.sf-email-subject-preview code {
+    display: block;
+    color: #0f172a;
+    font-family: inherit;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+/* ===== LANGUAGE SELECTION FOR PUBLISH ===== */
+.sf-language-selection {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.sf-language-selection .sf-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.sf-language-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sf-language-checkboxes .sf-checkbox-option {
+    padding: 0.5rem 0.75rem;
+}
+
+.sf-language-checkboxes .sf-checkbox-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f3f4f6;
+}
+
+.sf-language-checkboxes .lang-flag-img {
+    width: 20px;
+    height: 14px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.sf-language-checkboxes .text-muted {
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   SESSION TIMEOUT MODAL
+   ========================================================================== */
+
+/* Piilotettu oletuksena */
+.sf-session-modal.hidden {
+    display: none ! important;
+}
+
+/* Näkyvissä kun session vanhenemassa */
+.sf-session-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 16px;
+}
+
+.sf-session-modal-content {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.sf-session-modal-header {
+    margin-bottom: 16px;
+}
+
+.sf-session-modal-icon {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.sf-session-modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.sf-session-modal-message {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin: 0 0 24px;
+    line-height: 1.5;
+}
+
+.sf-session-modal-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.sf-session-btn {
+    background: #fee000;
+    color: #000;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.sf-session-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.sf-session-btn:active {
+    transform: translateY(0);
+}
+
+/* Mobiili */
+@media (max-width: 480px) {
+    .sf-session-modal-content {
+        padding: 24px 20px;
+        margin: 0 12px;
+    }
+
+    .sf-session-modal-icon {
+        font-size: 48px;
+    }
+
+    .sf-session-modal-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* ==========================================================================
+   PROFILE MODAL
+   ========================================================================== */
+
+.sf-profile-section {
+    margin-bottom: 24px;
+    padding: 0 24px;
+}
+
+.sf-profile-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 16px 0;
+}
+
+.sf-profile-section:first-of-type h3 {
+    margin-top: 8px;
+}
+
+.sf-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.sf-field {
+    margin-bottom: 16px;
+}
+
+.sf-field label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.sf-profile-readonly {
+    padding: 12px 14px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.sf-modal-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 24px 0;
+}
+
+.sf-password-section {
+    padding: 0 24px 24px 24px;
+}
+
+.sf-password-section summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #374151;
+    padding: 12px 0;
+    list-style: none;
+    user-select: none;
+}
+
+.sf-password-section summary::-webkit-details-marker {
+    display: none;
+}
+
+.sf-password-section summary::before {
+    content: '▸';
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.2s ease;
+}
+
+.sf-password-section[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.sf-password-section form {
+    margin-top: 16px;
+    padding: 0;
+}
+
+.sf-password-section .sf-btn {
+    margin-top: 16px;
+}
+
+/* ===== PROFILE TABS ===== */
+.sf-profile-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 0 24px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.sf-profile-tab {
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s ease;
+}
+
+.sf-profile-tab:hover {
+    color: #1f2937;
+}
+
+.sf-profile-tab.active {
+    color: #0f172a;
+    border-bottom-color: #0f172a;
+    background: #fff;
+}
+
+.sf-profile-tab-content {
+    display: none;
+}
+
+.sf-profile-tab-content.active {
+    display: block;
+}
+
+/* Mobiili: tabs skrollattavat */
+@media (max-width: 480px) {
+    .sf-profile-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sf-profile-tab {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .sf-field-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* ===== BOTTOM SHEET - BUTTON OVERRIDES (ladataan viimeisenä) ===== */
+
+/* Yleinen nappilook bottom sheetissä */
+.sf-bottom-sheet .sf-btn {
+    flex: 1;
+    height: 44px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+/* Secondary (Tyhjennä) */
+.sf-bottom-sheet .sf-btn-secondary {
+    background: #ffffff;
+    color: #0b0f18;
+    box-shadow: none;
+}
+
+/* Primary (Valmis) — Tapojärvi keltainen */
+.sf-bottom-sheet .sf-btn-primary {
+    background: #FEE000;
+    color: #000000;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
+}
+
+/* Hover/active */
+.sf-bottom-sheet .sf-btn:hover {
+    transform: translateY(-1px);
+}
+
+.sf-bottom-sheet .sf-btn:active {
+    transform: translateY(0) scale(0.99);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
+}
+
+/* Focus */
+.sf-bottom-sheet .sf-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(254, 224, 0, 0.45);
+}
+
+/* Disabled */
+.sf-bottom-sheet .sf-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ===== RESPONSIVE MODAL FOOTER FIXES ===== */
+/* Ensures modal buttons fit properly and wrap on small screens */
+.sf-modal-footer {
+    flex-wrap: wrap;
+}
+
+.sf-modal-footer .sf-btn {
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+@media (max-width: 640px) {
+    .sf-modal-footer {
+        flex-direction: column;
+    }
+
+    .sf-modal-footer .sf-btn {
+        width: 100%;
+    }
+}
+
+/* ===== TOGGLE SWITCH ===== */
+.sf-toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+}
+
+.sf-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sf-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.sf-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sf-toggle input:checked+.sf-toggle-slider {
+    background-color: #10b981;
+}
+
+.sf-toggle input:checked+.sf-toggle-slider:before {
+    transform: translateX(22px);
+}
+
+.sf-toggle input:focus+.sf-toggle-slider {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.sf-toggle input:disabled+.sf-toggle-slider {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Email notification field layout */
+.sf-email-notification-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.sf-email-notification-label {
+    font-weight: 500;
+    color: #374151;
+    margin: 0 !important;
+}
+
+/* Notification preferences grouped layout */
+.sf-notif-group {
+    margin-bottom: 1.25rem;
+}
+
+.sf-notif-group-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+    margin: 0.75rem 0 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sf-notif-mandatory-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8125rem;
+    color: #1e40af;
+    margin-bottom: 0.75rem;
+}
+
+.sf-notif-label-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.sf-notif-label-wrap .sf-help-text {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.sf-email-notification-field + .sf-email-notification-field {
+    margin-top: 0.375rem;
+}
+
+/* DESKTOP: rajattu leveys ja keskitetty */
+@media (min-width: 1024px) {
+
+    .sf-modal-content,
+    .sf-library-modal-content {
+        border-radius: 16px;
+        width: min(900px, 92vw);
+        max-width: 900px;
+        max-height: 90vh;
+    }
+}
+
+/* Jos haluat nimenomaan kieliversiomodaalille eri leveyden */
+@media (min-width: 1024px) {
+    .sf-modal-content.sf-modal-translation {
+        width: min(980px, 92vw);
+        max-width: 980px;
+    }
+}
+
+/* Profiilimodaali: vakioleveys kaikilla sivuilla */
+@media (min-width: 1024px) {
+    #modalProfile .sf-modal-content {
+        width: min(640px, 92vw);
+        max-width: 640px;
+    }
+}
+
+.sf-modal-content {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ========================================
+   COMMUNICATIONS MODAL (Multi-step)
+   ======================================== */
+
+/* Step container */
+.sf-comms-step {
+    animation: fadeInStep 0.3s ease;
+}
+
+.sf-comms-step.hidden {
+    display: none;
+}
+
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Step indicator */
+.sf-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem 0;
+    gap: 0.5rem;
+}
+
+.sf-step {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.sf-step.active {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.sf-step.done {
+    background: #10b981;
+    color: white;
+}
+
+.sf-step-line {
+    height: 2px;
+    width: 40px;
+    background: #e2e8f0;
+    transition: background 0.3s ease;
+}
+
+.sf-step-line.done {
+    background: #10b981;
+}
+
+/* Language chips (Step 1) */
+.sf-language-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.sf-chip-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 999px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.sf-chip-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.sf-chip-toggle:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sf-chip-toggle.selected {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-chip-toggle:not(.selected) {
+    opacity: 0.6;
+    filter: grayscale(30%);
+}
+
+.sf-chip-toggle span {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #1e293b;
+}
+
+.lang-flag-img {
+    display: block;
+}
+
+/* Radio options (Step 2) - Modern card style */
+.sf-radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.sf-radio-option {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sf-radio-option:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+/* Hide the actual radio button */
+.sf-radio-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Custom radio indicator */
+.sf-radio-option::before {
+    content: '';
+    width: 22px;
+    height: 22px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.sf-radio-option:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-radio-option:has(input:checked)::before {
+    border-color: #3b82f6;
+    background: #3b82f6;
+    box-shadow: inset 0 0 0 4px white;
+}
+
+/* Override generic modal label styles for radio options - Higher Specificity Fix */
+.sf-modal-content .sf-radio-options .sf-radio-option,
+.sf-modal-content label.sf-radio-option {
+    display: flex !important;
+    align-items: center !important;
+    padding: 1rem 1.25rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* Ensure the custom ::before radio indicator is visible */
+.sf-modal-content .sf-radio-option::before {
+    content: '';
+    width: 22px;
+    height: 22px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.sf-modal-content .sf-radio-option:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-modal-content .sf-radio-option:has(input:checked)::before {
+    border-color: #3b82f6;
+    background: #3b82f6;
+    box-shadow: inset 0 0 0 4px white;
+}
+
+.sf-radio-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sf-radio-label strong {
+    font-size: 0.95rem;
+    color: #1e293b;
+}
+
+.sf-radio-label small {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* Icon in radio option - hide inline icons since we use custom radio indicator */
+.sf-radio-label img {
+    display: none;
+}
+
+/* Worksite checkbox grid */
+.sf-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.sf-checkbox-card {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-checkbox-card:hover {
+    border-color: #94a3b8;
+}
+
+.sf-checkbox-card input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sf-checkbox-card-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.sf-checkbox-indicator {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.sf-checkbox-card:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-checkbox-card:has(input:checked) .sf-checkbox-indicator {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.sf-checkbox-card:has(input:checked) .sf-checkbox-indicator::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.sf-checkbox-text {
+    font-size: 0.875rem;
+    color: #334155;
+    font-weight: 500;
+}
+
+.sf-no-worksites {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #64748b;
+    padding: 1rem;
+    font-size: 0.875rem;
+}
+
+/* Worksites selection */
+.sf-worksites-selection {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.sf-worksites-selection.hidden {
+    display: none;
+}
+
+.sf-checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.sf-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.sf-checkbox-item input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.sf-checkbox-item span {
+    font-size: 0.875rem;
+    color: #1e293b;
+}
+
+/* Flag chips already defined in view.css, but add specific modal positioning */
+.sf-modal .sf-country-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 0.75rem;
+    justify-content: center;
+}
+
+/* Summary section (Step 4) */
+/* Step 4 Summary Grid - 3 columns */
+.sf-comms-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.sf-comms-summary h3 {
+    grid-column: 1 / -1;
+    /* Title spans all columns */
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sf-summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0;
+    border: none;
+}
+
+.sf-summary-item .sf-summary-icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 0.25rem;
+}
+
+.sf-summary-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.sf-summary-item strong {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.sf-summary-item span {
+    font-size: 0.95rem;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 600px) {
+    .sf-comms-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Field helpers */
+.sf-field {
+    margin-bottom: 1.5rem;
+}
+
+.sf-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.sf-help-text {
+    font-size: 0.8125rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+}
+
+.sf-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+}
+
+.sf-textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ===== FLAG CHIPS (Distribution countries) ===== */
+.sf-flag-chip {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: visible;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+    background: #f1f5f9;
+    padding: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sf-flag-chip:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sf-flag-chip input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.sf-flag-chip .sf-flag-img,
+.sf-flag-chip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Ei-valittu: harmahtava */
+.sf-flag-chip:not(:has(input:checked)) {
+    opacity: 0.5;
+    filter: grayscale(50%);
+}
+
+.sf-flag-chip:not(:has(input:checked)):hover {
+    opacity: 0.8;
+    filter: grayscale(20%);
+}
+
+/* Valittu tila: sininen reunus + glow */
+.sf-flag-chip:has(input:checked) {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    opacity: 1;
+    filter: none;
+}
+
+/* Checkmark badge */
+.sf-flag-chip:has(input:checked)::after {
+    content: '✓';
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Country flags container */
+.sf-country-flags {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+    .sf-step-indicator {
+        gap: 0.25rem;
+    }
+
+    .sf-step {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8125rem;
+    }
+
+    .sf-step-line {
+        width: 24px;
+    }
+
+    .sf-language-chips {
+        gap: 0.5rem;
+    }
+
+    .sf-chip-toggle {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    .lang-flag-img {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    .sf-country-flags {
+        gap: 0.5rem;
+    }
+}
+
+/* Wide modal for communications */
+@media (min-width: 1024px) {
+    .sf-modal-content.sf-modal-comms {
+        width: min(720px, 92vw);
+        max-width: 720px;
+    }
+}
+
+/* ===== TOGGLE SWITCH ===== */
+.sf-toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.sf-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.sf-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sf-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cbd5e1;
+    transition: 0.3s;
+    border-radius: 28px;
+}
+
+.sf-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sf-switch input:checked+.sf-slider {
+    background-color: #22c55e;
+}
+
+.sf-switch input:checked+.sf-slider:before {
+    transform: translateX(24px);
+}
+
+.sf-toggle-label {
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+/* Modern toggle card */
+.sf-toggle-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.sf-toggle-card:has(input:checked) {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-color: #3b82f6;
+}
+
+.sf-toggle-card-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sf-toggle-icon {
+    width: 100px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 12px;
+    color: #64748b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.sf-toggle-card:has(input:checked) .sf-toggle-icon {
+    background: #3b82f6;
+    color: white;
+}
+
+.sf-toggle-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sf-toggle-text strong {
+    font-size: 0.95rem;
+    color: #1e293b;
+}
+
+.sf-toggle-text small {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* Modern toggle switch */
+.sf-modern-toggle {
+    position: relative;
+    cursor: pointer;
+}
+
+.sf-modern-toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sf-modern-toggle-track {
+    display: block;
+    width: 56px;
+    height: 30px;
+    background: #cbd5e1;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sf-modern-toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sf-modern-toggle input:checked+.sf-modern-toggle-track {
+    background: #22c55e;
+}
+
+.sf-modern-toggle input:checked+.sf-modern-toggle-track .sf-modern-toggle-thumb {
+    transform: translateX(26px);
+}
+
+/* Worksite Chip Grid */
+.sf-worksites-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.sf-worksites-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sf-btn-text {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+
+.sf-btn-text:hover {
+    background: #eff6ff;
+}
+
+.sf-worksite-search {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+}
+
+.sf-worksite-search:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.sf-worksite-chips {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.sf-worksite-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #475569;
+}
+
+.sf-worksite-chip input[type="checkbox"] {
+    display: none;
+}
+
+.sf-worksite-chip:hover {
+    border-color: #94a3b8;
+    background: #f1f5f9;
+}
+
+.sf-worksite-chip:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    color: #1e40af;
+}
+
+.sf-worksite-chip:has(input:checked)::before {
+    content: '✓ ';
+}
+
+.sf-worksite-chip.hidden {
+    display: none;
+}
+
+.sf-worksite-counter {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    text-align: center;
+}
+
+.sf-worksite-counter span {
+    font-weight: 600;
+    color: #3b82f6;
+}
+
+.sf-no-worksites {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #94a3b8;
+    padding: 1rem;
+    font-style: italic;
+}
+
+/* Country-based Selection Styles */
+/* Updated worksite selection container */
+.sf-screens-selection {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.sf-screens-selection.hidden {
+    display: none;
+}
+
+.sf-country-selection {
+    margin-bottom: 1rem;
+}
+
+/* Country chips */
+.sf-country-chips {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+}
+
+.sf-country-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 120px;
+}
+
+.sf-country-chip:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+.sf-country-chip.selected {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-country-chip input[type="checkbox"] {
+    display: none;
+}
+
+.sf-country-flag {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.sf-country-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.sf-country-count {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* Divider */
+.sf-selection-divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.sf-selection-divider::before,
+.sf-selection-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.sf-selection-divider span {
+    padding: 0 1rem;
+}
+
+/* Search hint */
+.sf-search-hint {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-style: italic;
+    padding: 1rem;
+}
+
+/* Search results */
+.sf-worksite-results {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+
+.sf-worksite-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sf-worksite-result:hover {
+    background: #f8fafc;
+}
+
+.sf-worksite-result:has(input:checked) {
+    background: #eff6ff;
+}
+
+.sf-worksite-result input[type="checkbox"] {
+    display: none;
+}
+
+.sf-worksite-result:has(input:checked)::before {
+    content: '✓ ';
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+.sf-worksite-flag {
+    font-size: 1rem;
+}
+
+.sf-worksite-name {
+    flex: 1;
+    margin-left: 0.5rem;
+}
+
+/* Selection tags */
+.sf-current-selection {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.sf-selection-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.sf-selection-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #eff6ff;
+    border: 1px solid #3b82f6;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #1e40af;
+}
+
+.sf-tag-remove {
+    cursor: pointer;
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+.sf-tag-remove:hover {
+    opacity: 1;
+}
+
+/* ===== COMPACT STEP 2 LAYOUT ===== */
+
+/* Compact header with inline step indicator */
+.sf-comms-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.sf-comms-header-row h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.sf-step-indicator-inline {
+    margin: 0;
+    transform: scale(0.85);
+}
+
+/* Inline radio pills */
+.sf-radio-options-inline {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+}
+
+.sf-radio-pill {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.9rem;
+}
+
+.sf-radio-pill input {
+    display: none;
+}
+
+.sf-radio-pill:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    color: #1e40af;
+    font-weight: 600;
+}
+
+/* Compact selection panel */
+.sf-compact-selection {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.sf-compact-selection.hidden {
+    display: none !important;
+}
+
+/* Selection header with clear button */
+.sf-selection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.sf-selection-title {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.sf-btn-text-small {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+
+.sf-btn-text-small:hover {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+/* Country chips in row */
+.sf-country-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.sf-country-chip-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+}
+
+.sf-country-chip-compact input {
+    display: none;
+}
+
+.sf-country-chip-compact:hover {
+    border-color: #94a3b8;
+}
+
+/* Country chip selected state - explicit class */
+.sf-country-chip-compact.selected {
+    border-color: #3b82f6 !important;
+    background: #eff6ff !important;
+}
+
+.sf-country-chip-compact.selected .sf-cc-name {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+/* Fallback for browsers supporting :has() */
+.sf-country-chip-compact:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-cc-flag {
+    font-size: 1.1rem;
+}
+
+.sf-cc-name {
+    font-weight: 500;
+}
+
+.sf-cc-count {
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+/* Compact search */
+.sf-search-row {
+    margin-bottom: 0.5rem;
+}
+
+.sf-search-compact {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* Search results - hidden by default */
+.sf-search-results {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+}
+
+.sf-search-results.hidden {
+    display: none !important;
+}
+
+.sf-ws-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.85rem;
+}
+
+.sf-ws-result.hidden {
+    display: none !important;
+}
+
+.sf-ws-result:hover {
+    background: #f8fafc;
+}
+
+.sf-ws-result:has(input:checked) {
+    background: #eff6ff;
+}
+
+.sf-ws-result:has(input:checked)::before {
+    content: '✓ ';
+    color: #3b82f6;
+}
+
+.sf-ws-result input {
+    display: none;
+}
+
+.sf-ws-flag {
+    opacity: 0.7;
+}
+
+/* Selection display */
+.sf-selection-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.sf-sel-label {
+    font-size: 0.8rem;
+    color: #64748b;
+    white-space: nowrap;
+}
+
+.sf-sel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.sf-sel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    background: #eff6ff;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #1e40af;
+}
+
+.sf-sel-tag-remove {
+    cursor: pointer;
+    opacity: 0.7;
+    font-weight: bold;
+}
+
+.sf-sel-tag-remove:hover {
+    opacity: 1;
+}
+
+/* ===== TRANSLATION CONFIRM CARD ===== */
+.sf-confirm-question {
+    font-size: 1rem;
+    color: #374151;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.sf-confirm-card {
+    background: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.sf-confirm-lang-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sf-confirm-lang-row img {
+    width: 28px;
+    height: 21px;
+    border-radius: 3px;
+    object-fit: contain;
+}
+
+.sf-confirm-lang-code {
+    font-weight: 400;
+    color: #9ca3af;
+    font-size: 0.85rem;
+    margin-left: 2px;
+}
+
+.sf-confirm-source {
+    margin-bottom: 12px;
+}
+
+.sf-confirm-source-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.sf-confirm-source-title {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.4;
+}
+
+.sf-confirm-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.sf-confirm-site {
+    font-size: 0.85rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sf-confirm-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+.sf-confirm-type-badge.sf-type-red {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.sf-confirm-type-badge.sf-type-yellow {
+    background: #fffbeb;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+.sf-confirm-type-badge.sf-type-green {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+@media (max-width: 640px) {
+    .sf-confirm-card {
+        padding: 12px 14px;
+    }
+
+    .sf-confirm-lang-row {
+        font-size: 1rem;
+    }
+
+    .sf-confirm-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+/* ============================================================================
+   Publish Modal Stepper
+   ========================================================================= */
+
+.sf-modal-publish-stepper {
+    max-width: 800px;
+}
+
+.sf-publish-step-indicator {
+    margin: 1rem 1.5rem 0 1.5rem;
+}
+
+.sf-publish-step.hidden {
+    display: none;
+}
+
+.sf-publish-step h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.sf-publish-step-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--sf-text-secondary, #6c757d);
+    margin-top: 0.125rem;
+}
+
+/* Summary list in step 3 */
+.sf-publish-summary {
+    background: var(--sf-bg-secondary, #f8f9fa);
+    border: 1px solid var(--sf-border, #dee2e6);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0 1.5rem;
+}
+
+.sf-summary-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.375rem 1rem;
+    margin: 0;
+}
+
+.sf-summary-list dt {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--sf-text-secondary, #6c757d);
+    white-space: nowrap;
+}
+
+.sf-summary-list dd {
+    font-size: 0.875rem;
+    color: var(--sf-text-primary, #212529);
+    margin: 0;
+    word-break: break-word;
+}
+
+@media (max-width: 480px) {
+    .sf-summary-list {
+        grid-template-columns: 1fr;
+        gap: 0.125rem;
+    }
+
+    .sf-summary-list dt {
+        margin-top: 0.5rem;
+    }
+
+    .sf-summary-list dt:first-child {
+        margin-top: 0;
+    }
+}
+
+}
+
+/* ===== KEHOKARTTAMODAALI (body_map_modal) ===== */
+
+.sf-body-map-modal-content {
+    max-width: 720px;
+}
+
+.sf-body-map-instruction {
+    padding: 16px 24px 0;
+    margin: 0;
+}
+
+.sf-body-map-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Dropdown-rivi */
+.sf-body-map-select-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sf-body-part-select {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    background: #f8fafc;
+    color: #1e293b;
+    resize: vertical;
+    min-height: 390px;
+    transition: border-color 0.15s;
+}
+
+.sf-body-part-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.sf-body-part-select option:checked,
+.sf-body-part-select option[selected] {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* SVG-rivi */
+.sf-body-map-svg-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sf-body-map-svg-hint {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+    text-align: center;
+}
+
+.sf-body-map-figures {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sf-body-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+}
+
+.sf-body-figure figcaption {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* SVG kehokuva */
+.sf-body-svg {
+    width: 170px;
+    height: auto;
+    overflow: visible;
+}
+
+/* Decorative body silhouette background (non-interactive) */
+.sf-body-bg > * {
+    fill: #dde3eb;
+    stroke: #b0bcc8;
+    stroke-width: 0.8;
+    pointer-events: none;
+}
+
+/* Ruumiinosien perustyyli */
+.sf-bp {
+    fill: rgba(203, 213, 225, 0.72);
+    stroke: #94a3b8;
+    stroke-width: 1.2;
+    cursor: pointer;
+    transition: fill 0.15s, stroke 0.15s;
+    outline: none;
+}
+
+.sf-bp:hover {
+    fill: rgba(191, 219, 254, 0.88);
+    stroke: #3b82f6;
+}
+
+.sf-bp.selected {
+    fill: rgba(59, 130, 246, 0.82);
+    stroke: #1d4ed8;
+}
+
+.sf-bp-back-ref {
+    cursor: pointer;
+}
+
+/* Injury icon used as img inside headers/buttons */
+.sf-modal-icon-img {
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* Footer: valintamäärä */
+.sf-body-map-selection-summary {
+    display: flex;
+    align-items: center;
+}
+
+.sf-body-map-count {
+    font-size: 0.875rem;
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+/* ===== VAMMATAGIT Step 3:ssa ===== */
+
+#sf-injury-section {
+    margin-top: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 15px 20px 5px 20px;
+    background-color: #f6f6f6;
+    border-radius: 20px;
+    border: #e7e7e7 dotted 3px;
+}
+.sf-injury-btn-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.sf-injury-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+	margin-bottom: 0.75rem;
+    min-height: 0;
+}
+
+.sf-injury-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #dbeafe;
+    color: #1d4ed8;
+    border: 1px solid #93c5fd;
+    border-radius: 999px;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.sf-injury-tag-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #3b82f6;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0 0 0 0.1rem;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.1s;
+}
+
+.sf-injury-tag-remove:hover {
+    color: #dc2626;
+}
+
+/* =========================================
+   Kehonosakartan avauspainike
+   ========================================= */
+
+.sf-btn-body-map {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+
+    min-height: 44px;
+    padding: 0.7rem 1.15rem;
+
+    background: linear-gradient(180deg, #1e293b 0%, #172033 100%);
+    color: #ffffff;
+
+    border: 1px solid rgba(71, 85, 105, 0.85);
+    border-radius: 12px;
+
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+
+    cursor: pointer;
+    user-select: none;
+
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.sf-btn-body-map:hover {
+    background: linear-gradient(180deg, #334155 0%, #263244 100%);
+    border-color: rgba(148, 163, 184, 0.75);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.18),
+        0 0 0 4px rgba(59, 130, 246, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.sf-btn-body-map:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 8px rgba(15, 23, 42, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sf-btn-body-map:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 4px rgba(254, 224, 0, 0.32),
+        0 10px 22px rgba(15, 23, 42, 0.18);
+}
+
+@media (max-width: 768px) {
+    .sf-btn-body-map {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 600px) {
+    .sf-body-map-modal-body {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .sf-body-map-select-row {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .sf-body-map-svg-row {
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .sf-body-map-figures {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .sf-body-svg {
+        width: 260px;
+        max-width: 85vw;
+    }
+}
+
+/* Utility: piilotettu lomakekenttä (lähetetään lomakkeen mukana mutta ei näy käyttäjälle) */
+.sf-form-hidden {
+    display: none;
+}
+
+/* Toggle section heading inside sf-form-group */
+.sf-toggle-section-heading {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Vertical stack of sf-toggle-card items */
+.sf-toggle-card-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ===== PROFILE MODAL MOBILE POLISH ===== */
+#modalProfile .sf-modal-content {
+    max-width: 720px;
+}
+
+#modalProfile .sf-modal-header {
+    padding-top: 28px;
+}
+
+#modalProfile .sf-modal-header::before {
+    display: none;
+}
+
+#modalProfile .sf-modal-content form {
+    padding: 0 20px 20px;
+}
+
+#modalProfile .sf-profile-section {
+    padding: 0;
+    margin-bottom: 12px;
+}
+
+#modalProfile .sf-field,
+#modalProfile .sf-field-row {
+    margin-bottom: 10px;
+}
+
+#modalProfile .sf-profile-tabs-scroll {
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    #modalProfile .sf-modal-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100vh - 8px);
+        border-radius: 16px 16px 0 0;
+    }
+
+    #modalProfile .sf-modal-header {
+        padding: 24px 14px 10px;
+    }
+
+    #modalProfile .sf-modal-close-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+    }
+
+    #modalProfile .sf-profile-tabs {
+        --sf-profile-tabs-edge-mask: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 18px), transparent 100%);
+        gap: 6px;
+        padding: 0 12px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        mask-image: var(--sf-profile-tabs-edge-mask);
+        -webkit-mask-image: var(--sf-profile-tabs-edge-mask);
+    }
+
+    #modalProfile .sf-profile-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        min-height: 44px;
+        padding: 10px 14px;
+        scroll-snap-align: start;
+    }
+
+    #modalProfile .sf-modal-content form {
+        padding: 0 12px calc(12px + env(safe-area-inset-bottom, 0px));
+    }
+
+    #modalProfile .sf-modal-actions {
+        padding: 12px 0 0;
+        margin-top: 8px;
+    }
+}
+/* =========================================================
+   Communications modal: align display step with publish modal
+========================================================= */
+
+#modalToComms .sf-modal-content.sf-modal-comms {
+    width: min(980px, 94vw);
+    max-width: 980px;
+    border-radius: 22px;
+}
+
+#modalToComms .sf-comms-display-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.35rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#modalToComms .sf-comms-display-header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+#modalToComms .sf-comms-display-selection {
+    padding: 0.25rem 0.25rem 0.75rem;
+}
+
+#modalToComms .sf-comms-display-step .sf-field,
+#modalToComms .sf-comms-display-step .sf-label,
+#modalToComms .sf-comms-display-step .sf-help-text {
+    display: none;
+}
+
+#modalToComms .sf-comms-language-section {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.25rem 0 0.9rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid #d7dce4;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+#modalToComms .sf-comms-language-flag {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* =========================================================
+   Communications modal: compact summary values
+========================================================= */
+
+#modalToComms .sf-comms-summary {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+}
+
+#modalToComms .sf-summary-item span {
+    display: block;
+    max-width: 100%;
+    font-size: 0.95rem;
+    line-height: 1.25;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+#modalToComms #commsSummaryWorksiteNotification {
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    #modalToComms .sf-comms-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #modalToComms #commsSummaryWorksiteNotification {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 600px) {
+    #modalToComms .sf-comms-summary {
+        grid-template-columns: 1fr;
+    }
+}
+/* Profile modal: push notification status */
+.sf-push-notif-group {
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.sf-push-notification-field {
+    align-items: flex-start;
+}
+
+.sf-push-status-text {
+    display: block;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+.sf-push-status-text[data-state="success"] {
+    color: #059669;
+}
+
+.sf-push-status-text[data-state="warning"] {
+    color: #b45309;
+}
+
+.sf-push-status-text[data-state="error"] {
+    color: #dc2626;
+}
+
+.sf-push-unsupported-notice {
+    margin-bottom: 12px;
+}
+/* Profile modal: modern notification matrix */
+.sf-notification-device-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    margin: 14px 0 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 18px;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+}
+
+.sf-notification-device-card strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #0f172a;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.sf-notification-device-card span {
+    display: block;
+    color: #64748b;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.sf-notification-matrix {
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.32);
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.sf-notification-matrix-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 92px 92px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.sf-notification-matrix-head > div:nth-child(2),
+.sf-notification-matrix-head > div:nth-child(3) {
+    text-align: center;
+}
+
+.sf-notification-matrix-group {
+    padding: 14px 16px 8px;
+    background: #ffffff;
+    color: #475569;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-top: 1px solid #eef2f7;
+}
+
+.sf-notification-matrix-group:first-of-type {
+    border-top: 0;
+}
+
+.sf-notification-matrix-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 92px 92px;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    background: #ffffff;
+    border-top: 1px solid #f1f5f9;
+}
+
+.sf-notification-matrix-row:hover {
+    background: #f8fafc;
+}
+
+.sf-notification-matrix-label {
+    min-width: 0;
+}
+
+.sf-notification-matrix-label strong {
+    display: block;
+    color: #1e293b;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.sf-notification-matrix-label span {
+    display: block;
+    margin-top: 3px;
+    color: #64748b;
+    font-size: 0.78rem;
+    line-height: 1.42;
+}
+
+.sf-notification-matrix-toggle {
+    display: flex;
+    justify-content: center;
+}
+
+.sf-push-status-text[data-state="success"] {
+    color: #059669;
+}
+
+.sf-push-status-text[data-state="warning"] {
+    color: #b45309;
+}
+
+.sf-push-status-text[data-state="error"] {
+    color: #dc2626;
+}
+
+@media (max-width: 640px) {
+    .sf-notification-device-card {
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .sf-notification-matrix-head {
+        grid-template-columns: minmax(0, 1fr) 72px 72px;
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .sf-notification-matrix-row {
+        grid-template-columns: minmax(0, 1fr) 72px 72px;
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .sf-notification-matrix-label strong {
+        font-size: 0.84rem;
+    }
+
+    .sf-notification-matrix-label span {
+        font-size: 0.74rem;
+    }
+	    #modalProfile .sf-notification-device-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #modalProfile .sf-notification-device-card .sf-toggle {
+        align-self: flex-end;
+        margin-top: 8px;
+    }
+
+    #modalProfile .sf-push-install-prompt {
+        max-width: 100%;
+    }
+}
+/* Profile modal: push master toggle and disabled push preferences */
+#modalProfile .sf-notification-device-card .sf-toggle {
+    width: 48px;
+    height: 26px;
+    min-width: 48px;
+    flex: 0 0 48px;
+    margin: 0;
+}
+
+#modalProfile .sf-notification-device-card .sf-toggle-slider {
+    inset: 0;
+}
+
+#modalProfile .sf-notification-device-card .sf-toggle-slider::before {
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+}
+
+#modalProfile .sf-notification-device-card input:checked + .sf-toggle-slider::before {
+    transform: translateX(22px);
+}
+
+#modalProfile .sf-notification-matrix-row.sf-push-preference-disabled .sf-notification-matrix-toggle:last-child {
+    opacity: 0.45;
+}
+
+#modalProfile .sf-notification-matrix-row.sf-push-preference-disabled .sf-notification-matrix-toggle:last-child .sf-toggle-slider {
+    cursor: not-allowed;
+}
+
+#modalProfile .sf-notification-matrix.sf-push-master-disabled .sf-notification-matrix-head > div:nth-child(3) {
+    opacity: 0.55;
+}
+
+#modalProfile .sf-notification-device-card {
+    align-items: center;
+}
+
+#modalProfile .sf-notification-device-card > div {
+    min-width: 0;
+}
+/* Profile modal: push install prompt */
+#modalProfile .sf-push-install-prompt {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+}
+
+#modalProfile .sf-push-install-prompt strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #78350f;
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+#modalProfile .sf-push-install-prompt span {
+    display: block;
+    color: #92400e;
+    font-size: 0.78rem;
+    line-height: 1.35;
+}
+
+#modalProfile .sf-push-install-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    min-height: 36px;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
+}
+
+#modalProfile .sf-push-install-button:hover {
+    background: #1e293b;
+}
+
+#modalProfile .sf-push-install-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+#modalProfile .sf-push-install-hint {
+    display: block;
+    margin-top: 6px;
+    color: #92400e;
+    font-size: 0.74rem;
+    line-height: 1.35;
+}
+
+@media (max-width: 640px) {
+    #modalProfile .sf-notification-device-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: 8px 10px;
+        padding: 12px;
+        margin: 10px 0 12px;
+        border-radius: 14px;
+    }
+
+    #modalProfile .sf-notification-device-card > div {
+        grid-column: 1 / 2;
+        min-width: 0;
+    }
+
+    #modalProfile .sf-notification-device-card .sf-toggle {
+        grid-column: 2 / 3;
+        grid-row: 1;
+        align-self: start;
+        margin-top: 2px;
+    }
+
+    #modalProfile .sf-notification-device-card strong {
+        font-size: 0.9rem;
+        margin-bottom: 3px;
+        line-height: 1.2;
+    }
+
+    #modalProfile .sf-notification-device-card span {
+        font-size: 0.76rem;
+        line-height: 1.32;
+    }
+
+    #modalProfile .sf-push-status-text {
+        margin-top: 4px;
+        font-size: 0.76rem;
+        line-height: 1.3;
+    }
+
+    #modalProfile .sf-push-install-prompt {
+        margin-top: 8px;
+        padding: 8px 10px;
+        border-radius: 10px;
+    }
+
+    #modalProfile .sf-push-install-prompt strong {
+        font-size: 0.78rem;
+    }
+
+    #modalProfile .sf-push-install-prompt span {
+        font-size: 0.72rem;
+        line-height: 1.3;
+    }
+
+    #modalProfile .sf-push-install-button {
+        width: auto;
+        min-height: 34px;
+        margin-top: 8px;
+        padding: 7px 12px;
+        font-size: 0.76rem;
+    }
+
+    #modalProfile .sf-push-install-hint {
+        margin-top: 6px;
+        font-size: 0.7rem;
+        line-height: 1.3;
+    }
+}
+/* Profile modal: compact mobile notification layout */
+@media (max-width: 640px) {
+    #modalProfile.sf-modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    #modalProfile .sf-modal-content {
+        max-height: 94vh;
+        border-radius: 18px 18px 0 0;
+    }
+
+#modalProfile .sf-modal-header {
+    padding: 16px 12px 8px;
+}
+
+    #modalProfile .sf-modal-header h2 {
+        font-size: 1.65rem;
+        line-height: 1.15;
+    }
+
+    #modalProfile .sf-modal-close-btn {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+    }
+
+#modalProfile .sf-profile-tabs {
+    padding: 0 4px;
+}
+
+    #modalProfile .sf-profile-tab {
+        min-height: 38px;
+        padding: 8px 12px;
+        font-size: 0.86rem;
+    }
+
+#modalProfile .sf-modal-content form {
+    padding: 0 4px calc(8px + env(safe-area-inset-bottom, 0px));
+}
+
+#modalProfile .sf-profile-section h3 {
+        margin: 10px 0 10px;
+        font-size: 1rem;
+    }
+
+    #modalProfile .sf-notif-mandatory-info {
+        padding: 9px 10px;
+        margin-bottom: 10px;
+        font-size: 0.78rem;
+        line-height: 1.35;
+        border-radius: 12px;
+    }
+
+    #modalProfile .sf-notification-device-card {
+        grid-template-columns: minmax(0, 1fr) 54px;
+        gap: 6px 10px;
+        padding: 12px;
+        margin: 8px 0 10px;
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    #modalProfile .sf-notification-device-card strong {
+        font-size: 0.95rem;
+    }
+
+    #modalProfile .sf-notification-device-card span {
+        font-size: 0.78rem;
+        line-height: 1.28;
+    }
+
+    #modalProfile .sf-notification-device-card .sf-toggle {
+        width: 46px;
+        min-width: 46px;
+        height: 26px;
+    }
+
+    #modalProfile .sf-notification-matrix {
+        border-radius: 14px;
+        box-shadow: none;
+    }
+
+    #modalProfile .sf-notification-matrix-head {
+        grid-template-columns: minmax(0, 1fr) 58px 46px;
+        gap: 4px;
+    padding: 8px 6px;
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+    }
+
+    #modalProfile .sf-notification-matrix-row {
+        grid-template-columns: minmax(0, 1fr) 58px 46px;
+        gap: 4px;
+    padding: 8px 6px;
+    }
+
+    #modalProfile .sf-notification-matrix-group {
+    padding: 10px 6px 6px;
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+    }
+
+    #modalProfile .sf-notification-matrix-label strong {
+        font-size: 0.84rem;
+        line-height: 1.22;
+    }
+
+    #modalProfile .sf-notification-matrix-label span {
+        margin-top: 2px;
+        font-size: 0.72rem;
+        line-height: 1.28;
+    }
+
+    #modalProfile .sf-notification-matrix-toggle .sf-toggle {
+        width: 42px;
+        min-width: 42px;
+        height: 24px;
+    }
+
+    #modalProfile .sf-notification-matrix-toggle .sf-toggle-slider::before {
+        width: 18px;
+        height: 18px;
+        left: 3px;
+        bottom: 3px;
+    }
+
+    #modalProfile .sf-notification-matrix-toggle input:checked + .sf-toggle-slider::before {
+        transform: translateX(18px);
+    }
+}
+	/* Profile modal: use only the shared bottom sheet handle */
+@media (max-width: 768px) {
+    #modalProfile .sf-modal-content::before,
+    #modalProfile .sf-modal-header::before,
+    #modalProfile .sf-modal-drag-handle {
+        display: none !important;
+    }
+
+    #modalProfile .sf-bottom-sheet-handle {
+        margin-top: 8px;
+        margin-bottom: 2px;
+    }
+}
+/* Profile modal: compact notification bulk actions */
+#modalProfile .sf-notification-bulk-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin: 8px 0 10px;
+}
+
+#modalProfile .sf-notification-bulk-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+#modalProfile .sf-notification-bulk-group span {
+    color: #64748b;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+#modalProfile .sf-notification-bulk-btn {
+    min-height: 24px;
+    padding: 3px 8px;
+    border: 1px solid #dbe3ef;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+#modalProfile .sf-notification-bulk-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+#modalProfile .sf-notification-bulk-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: #f8fafc;
+}
+
+@media (max-width: 640px) {
+    #modalProfile .sf-notification-bulk-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin: 8px 0 10px;
+    }
+
+    #modalProfile .sf-notification-bulk-group {
+        min-width: 0;
+        justify-content: flex-start;
+        gap: 4px;
+    }
+
+    #modalProfile .sf-notification-bulk-group span {
+        font-size: 0.62rem;
+    }
+
+    #modalProfile .sf-notification-bulk-btn {
+        min-height: 24px;
+        padding: 3px 6px;
+        font-size: 0.62rem;
+    }
+}
+/* Profile modal: floating mobile save button for notification settings */
+#modalProfile .sf-notifications-floating-save {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #modalProfile .sf-notifications-floating-save.is-visible {
+        position: fixed;
+        left: 14px;
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        z-index: 2147483652;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 44px;
+        padding: 10px 15px;
+        border: 0;
+        border-radius: 999px;
+        background: #0f172a;
+        color: #ffffff;
+        font-size: 0.88rem;
+        font-weight: 800;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow:
+            0 16px 32px rgba(15, 23, 42, 0.28),
+            0 0 0 1px rgba(255, 255, 255, 0.08);
+        animation: sfNotificationsFloatingSaveIn 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    #modalProfile .sf-notifications-floating-save-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        font-size: 0.78rem;
+        line-height: 1;
+    }
+
+    #modalProfile .sf-notifications-floating-save:active {
+        transform: scale(0.97);
+    }
+
+    #modalProfile .sf-notifications-floating-save.is-saved {
+        background: #059669;
+        box-shadow:
+            0 16px 32px rgba(5, 150, 105, 0.24),
+            0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    #modalProfile .sf-notifications-floating-save:disabled {
+        cursor: default;
+    }
+
+    @keyframes sfNotificationsFloatingSaveIn {
+        from {
+            opacity: 0;
+            transform: translateY(12px) scale(0.96);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+}

@@ -1,0 +1,6531 @@
+/* list.css - korjattu korttilayout ja pienemmät lippuikonit */
+
+/* Base - Layout now handled by sf-page-container */
+.sf-list-page {
+    /* Layout now handled by sf-page-container */
+    font-family: "Open Sans", sans-serif;
+    color: #0f172a;
+}
+
+/* Filters and cards use the same container width */
+.sf-filters-section,
+.sf-cards-section {
+    max-width: var(--sf-container-xl);
+    margin: 0 auto;
+}
+
+.page-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* FILTERS - Unified chip-based filtering container */
+.filters {
+    background: #fff;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(2, 6, 23, 0.06);
+    margin-bottom: 22px;
+}
+
+/* Hide ONLY old filter grid + toggle + legacy form (keep .filters visible) */
+.filters-grid,
+.filters-toggle,
+form.filters {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    align-items: end;
+}
+
+.filter-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    align-items: center;
+    grid-column: span 2;
+}
+
+.filter-search {
+    grid-column: span 2;
+}
+
+.filter-item label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #475569;
+    font-weight: 600;
+}
+
+.filter-item input,
+.filter-item select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    font-size: 13px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.filter-item-checkbox {
+    display: flex;
+    align-items: flex-end;
+}
+
+.filter-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    padding: 10px 4px;
+    margin-bottom: 0;
+}
+
+.filter-checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    accent-color: #3b82f6;
+    cursor: pointer;
+}
+
+.search-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-row input {
+    flex: 1;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #0f172a;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+    background: #fee000;
+    color: #0f172a;
+    box-shadow: 0 4px 12px rgba(254, 224, 0, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    background: #e5c900;
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(254, 224, 0, 0.25);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #0f172a;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid #e6eef5;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+}
+
+.btn-secondary:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+    background: #e5e7eb;
+    transform: translateY(0);
+}
+
+/* Responsive adjustments for filters */
+@media (max-width: 1100px) {
+    .filters-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .filter-search {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 800px) {
+    .filters-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filter-search {
+        grid-column: span 2;
+    }
+
+    .filter-actions {
+        justify-self: start;
+    }
+}
+
+@media (max-width: 520px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-search {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    .filter-actions .btn-primary,
+    .filter-actions .btn-secondary {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+}
+
+/* CARD LIST (updated) */
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Card reorder animation - smooth transitions when sorting */
+.card-list.sorting .card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card: use predictable thumbnail column and flexible content column */
+/* Moderni kortti - selkeä ja yksinkertainen */
+.card {
+    display: flex;
+    gap: 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-left: 5px solid transparent;
+    transition: all 0.15s ease;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+    /* Kortti tarvitsee position: relative */
+}
+
+/* Thumbnail column: fixed width so content doesn't shift */
+.card-thumb {
+    flex: 0 0 160px;
+    width: 160px;
+    border-radius: 10px;
+    overflow: visible !important;
+    /* Allow badge to extend outside */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* Required for absolute positioned copy button */
+}
+
+.card-thumb img {
+    width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    /* Näyttää koko kuvan */
+    border-radius: 10px;
+    display: block;
+}
+
+/* Copy button inside thumbnail - positioned in bottom-left corner */
+.card-thumb .sf-copy-btn,
+.card-thumb .sf-copy-btn-compact {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 20 !important;
+    opacity: 0.9 !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.card-thumb:hover .sf-copy-btn,
+.card-thumb:hover .sf-copy-btn-compact {
+    opacity: 1 !important;
+}
+
+/* Ensure copy button doesn't appear in card-actions */
+.card-actions .sf-copy-btn,
+.card-actions .sf-copy-btn-compact {
+    display: none !important;
+}
+
+/* Main content flows and doesn't overflow */
+.card-mid {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-left: 10px;
+    /* allow long text to truncate via ellipsis if needed */
+}
+
+/* Top row: badge + status */
+.card-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.card-top .left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Badge and status */
+/* Type badge - selkeä */
+.badge {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.badge-red {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.badge-yellow {
+    background: #fefce8;
+    color: #a16207;
+    border: 1px solid #fde047;
+}
+
+.badge-green {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #86efac;
+}
+
+.badge-archived {
+    background: #6b7280;
+    color: #fff;
+    border: 1px solid #4b5563;
+}
+
+.badge-athena-inline {
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-athena-saved {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #bbf7d0;
+}
+
+.sf-meta-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* Language badge for fallback versions */
+.sf-lang-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.sf-lang-fallback {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+/* Status badge - pill-tyyli */
+.status {
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-weight: 900;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.status-draft,
+.sf-status--draft {
+    background: var(--status-draft-bg, #f3f4f6);
+    color: var(--status-draft-text, #111827);
+}
+
+.status-pending,
+.sf-status--pending {
+    background: var(--status-pending-bg, #fee000);
+    color: var(--status-pending-text, #111827);
+}
+
+.status-pending-supervisor,
+.sf-status--pending-supervisor {
+    background: var(--status-pending-supervisor-bg, #e0f2fe);
+    color: var(--status-pending-supervisor-text, #0369a1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-pending-supervisor::before,
+.sf-status--pending-supervisor::before {
+    content: '';
+    display: inline-block;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(3, 105, 161, 0.3);
+    border-top-color: var(--status-pending-supervisor-text, #0369a1);
+    animation: sf-badge-spin 0.8s linear infinite;
+    vertical-align: middle;
+}
+
+.status-request-info,
+.sf-status--request-info {
+    background: var(--status-request-bg, #fb923c);
+    color: var(--status-request-text, #111827);
+}
+
+.status-to-comms,
+.sf-status--comms {
+    background: var(--status-comms-bg, #3b82f6);
+    color: var(--status-comms-text, #ffffff);
+}
+
+.status-published,
+.sf-status--published {
+    background: var(--status-published-bg, #16a34a);
+    color: var(--status-published-text, #ffffff);
+}
+
+.status-reviewed,
+.sf-status--reviewed {
+    background: var(--status-reviewed-bg, #dbeafe);
+    color: var(--status-reviewed-text, #1e3a8a);
+}
+
+.status-other,
+.sf-status--other {
+    background: var(--status-other-bg, #e0f2fe);
+    color: var(--status-other-text, #0369a1);
+}
+
+/* Title and site */
+.card-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #0f172a !important;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    display: block;
+}
+
+.card-site {
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: #475569;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Card meta row */
+.card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #f1f5f9;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.card-date,
+.card-updated {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.meta-icon {
+    width: 14px;
+    height: 14px;
+    stroke: #94a3b8;
+}
+
+.card-date,
+.card-updated {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+/* Meta-ikoni (inline SVG) */
+.meta-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    stroke: #9ca3af;
+    /* Harmaa väri */
+}
+
+@media (max-width: 720px) {
+    .meta-icon {
+        width: 11px;
+        height: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .meta-icon {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Actions column: keep compact and align icons smaller */
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex: 0 0 auto;
+    min-width: 72px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Open button */
+.open-btn {
+    background: #0f172a;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+    border: none;
+}
+
+.open-btn:hover {
+    background: #eab308;
+    color: #0f172a;
+}
+
+.open-btn:active {
+    transform: scale(0.98);
+}
+
+/* Language flags row: make icons small and consistent */
+.card-lang-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    justify-content: flex-end;
+}
+
+/* Flag icon sizing - reduced so they don't dominate the card */
+.list-lang-flag {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: inline-block;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease;
+}
+
+/* If you also output variant 'exists' class, keep it */
+.list-lang-flag.exists {
+    opacity: 1;
+}
+
+/* Plus small add button for translations (if present) */
+.lang-add-small {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #0f172a;
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Left color stripe (keeps) */
+/* Värikoodaus */
+.card.type-red {
+    border-left-color: #dc2626;
+}
+
+.card.type-yellow {
+    border-left-color: #eab308;
+}
+
+.card.type-green {
+    border-left-color: #16a34a;
+}
+
+/* Hover and focus for whole card */
+.card {}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.card:active {
+    transform: translateY(0);
+}
+
+/* Mobile: Enhanced tap feedback - clear press animation */
+@media (max-width: 720px) {
+    .card {
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(15, 23, 42, 0.1);
+    }
+
+    .card:active {
+        transform: scale(0.98);
+        background: #e8f0f8 !important;
+        box-shadow: 0 4px 12px rgba(2, 6, 23, 0.12) !important;
+    }
+}
+
+/* MOBILE adjustments: stack, make thumb full-width and flags inline under content */
+/* COMMENTED OUT - REPLACED WITH VIEW-SPECIFIC MOBILE STYLES BELOW */
+/*
+@media (max-width: 720px) {
+    .card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .card-thumb {
+        display: none;
+    }
+
+    .card-mid {
+        width: 100%;
+    }
+
+    .card-actions {
+        width: 100%;
+        align-items: flex-start;
+        margin-top: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .card-lang-actions {
+        order: 2;
+        margin-top: 0;
+        flex-wrap: wrap;
+    }
+
+    .open-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .list-lang-flag {
+        width: 20px;
+        height: 20px;
+    }
+
+    .card-top {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 6px;
+        align-items: center;
+        justify-content: flex-start;
+        padding-right: 36px;
+    }
+
+    .badge {
+        padding: 4px 8px;
+        font-size: 10px;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .badge-archived {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    .status {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+
+    .card-title {
+        display: -webkit-box !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        white-space: normal !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-height: 1.35 !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        margin: 6px 0 4px 0 !important;
+        max-width: 100% !important;
+    }
+
+    .card-site {
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 13px !important;
+        color: #64748b !important;
+        margin: 0 0 4px 0 !important;
+    }
+
+    .card-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+    }
+
+    .comment-badge {
+        display: none;
+    }
+}
+*/
+
+/* Minor utility */
+.no-results {
+    padding: 20px;
+    font-size: 15px;
+    color: #475569;
+}
+
+/* ===== BULK DELETE (YLLÄPITÄJÄ) ===== */
+.sf-bulk-actions {
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 5;
+}
+
+.sf-bulk-actions[hidden] {
+    display: none !important;
+}
+
+/* Bulk Actions palkki - neutraali oletus */
+.sf-bulk-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    flex-wrap: wrap;
+}
+
+/* Kun valintoja - kevyt vihreä korostus */
+.sf-bulk-bar.has-selections {
+    background: #f0fdf4;
+    border-color: #86efac;
+}
+
+/* Bulk Actions bar - mobiili/tabletti (max 768px = yhdenmukaistettu muiden mobiilibreakpointien kanssa) */
+@media (max-width: 768px) {
+    .sf-bulk-bar {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 8px 14px;
+    }
+
+    .sf-bulk-select-all {
+        flex: 0 0 auto;
+    }
+
+    .sf-bulk-count {
+        flex: 1;
+        text-align: left;
+        min-width: 0;
+    }
+
+    #sfBulkDelete {
+        width: auto;
+        padding: 8px 16px;
+        font-size: 13px;
+        flex-shrink: 0;
+    }
+}
+
+/* Erittäin pieni näyttö - napit täysleveiksi */
+@media (max-width: 480px) {
+    .sf-bulk-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .sf-bulk-select-all {
+        width: 100%;
+    }
+
+    .sf-bulk-count {
+        width: 100%;
+        text-align: center;
+    }
+
+    .sf-bulk-bar .sf-btn-danger,
+    #sfBulkDelete {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+    }
+}
+
+.sf-bulk-select-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #475569;
+}
+
+.sf-bulk-select-all input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Valittu-laskuri */
+.sf-bulk-count {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 400;
+}
+
+.sf-bulk-bar.has-selections .sf-bulk-count {
+    color: #059669;
+    font-weight: 600;
+}
+
+/* ===== POISTA-NAPPI BULK ACTIONS -PALKISSA ===== */
+/* Spesifinen selektori estää modals.css:n yliajamisen */
+
+.sf-bulk-bar .sf-btn-danger,
+#sfBulkDelete {
+    background: #e5e7eb;
+    color: #9ca3af;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Aktiivinen tila - kun valintoja on */
+.sf-bulk-bar .sf-btn-danger:not(:disabled),
+.sf-bulk-bar .sf-btn-danger.active,
+#sfBulkDelete:not(:disabled),
+#sfBulkDelete.active {
+    background: #ef4444;
+    color: white;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.sf-bulk-bar .sf-btn-danger:not(:disabled):hover,
+.sf-bulk-bar .sf-btn-danger.active:hover,
+#sfBulkDelete:not(:disabled):hover,
+#sfBulkDelete.active:hover {
+    background: #dc2626;
+}
+
+/* Checkbox kortissa - Desktop default - RIGHT SIDE */
+.card-checkbox {
+    position: absolute;
+    top: auto;
+    bottom: 12px;
+    left: auto;
+    right: 12px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.card-checkbox input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+    pointer-events: auto;
+    position: relative;
+    z-index: 11;
+}
+
+/* Poistolista modaalissa - scrollattava */
+.sf-bulk-delete-list {
+    flex: 1 1 auto;
+    max-height: 300px;
+    min-height: 60px;
+    overflow-y: auto;
+    margin: 12px 0;
+    padding: 10px;
+    background: #f9fafb;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    border: 1px solid #e5e7eb;
+}
+
+.sf-bulk-delete-list ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.sf-bulk-delete-list li {
+    margin-bottom: 4px;
+}
+
+/* ===== MODALIT (list-sivulle) ===== */
+/*
+  HUOM!
+  Lista-sivu tarvitsee oman bulk-poisto -modaalin, mutta logout ym.globaalit
+  modaalit ovat header.php:ssa ja niillä on oma moderni tyyli modals.css:ssa.
+
+  Jos tällä sivulla määritellään .sf-modal yleisesti, se yliajaa logout-modaalin
+  tyylit ja voi aiheuttaa "modaali vasempaan laitaan" -ongelman.
+
+  Siksi list.css:ssä tyylitetään vain bulk-poisto -modaali ID:llä.
+*/
+
+#modalBulkDelete.sf-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200000;
+    padding: 20px;
+}
+
+#modalBulkDelete.sf-modal.hidden {
+    display: none;
+}
+
+#modalBulkDelete .sf-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Ei scroll koko modaaliin */
+}
+
+#modalBulkDelete .sf-modal-content h2 {
+    margin: 0 0 12px;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+#modalBulkDelete .sf-modal-content p {
+    margin: 0 0 12px;
+    flex-shrink: 0;
+}
+
+#modalBulkDelete .sf-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+    flex-shrink: 0;
+    /* Ei kutistu koskaan */
+}
+
+/* Prevent layout shift for lazy-loaded images */
+.sf-card-image {
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+}
+
+/* ===== KOMMENTTI-BADGE (kuvan yläkulma, osittain ulkona) ===== */
+.comment-badge {
+    position: absolute !important;
+    top: -8px !important;
+    right: -8px !important;
+    z-index: 25 !important;
+    /* Above copy button */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+}
+
+.comment-badge-icon {
+    width: 100%;
+    height: 100%;
+    fill: #ef4444;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.comment-badge-count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.comment-badge:hover .comment-badge-icon {
+    fill: #dc2626;
+}
+
+/* Pulse animation for unread comments 
+   Note: Badge only renders when new_comment_count > 0 (see list.php line 1008) */
+.comment-badge {
+    animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+@keyframes subtle-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.95;
+    }
+}
+
+@media (max-width: 720px) {
+
+    /* Thumbnail piilotettu mobiilissa */
+    .card-thumb {
+        display: none;
+    }
+
+    /* Kommentti-badge näytetään mobiilissa kortin vasemmassa yläkulmassa */
+    .card {
+        position: relative;
+    }
+
+    .comment-badge {
+        display: inline-flex !important;
+        position: absolute !important;
+        top: 8px !important;
+        left: 8px !important;
+        /* Vasemmassa yläkulmassa */
+        right: auto !important;
+        z-index: 15 !important;
+        width: 26px;
+        height: 26px;
+    }
+
+    .comment-badge-icon {
+        width: 100%;
+        height: 100%;
+    }
+
+    .comment-badge-count {
+        font-size: 10px;
+    }
+}
+
+/* ===== MOBIILISUODATTIMET ===== */
+
+/* Toggle-nappi - piilotettu desktopilla */
+.filters-toggle {
+    display: none;
+    width: 100%;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    transition: background 0.2s ease;
+}
+
+.filters-toggle:hover {
+    background: #f8fafc;
+}
+
+.filters-toggle svg:first-child {
+    flex-shrink: 0;
+}
+
+.filters-toggle span {
+    flex: 1;
+    text-align: left;
+}
+
+.toggle-arrow {
+    transition: transform 0.25s ease;
+}
+
+.filters-toggle.open .toggle-arrow {
+    transform: rotate(180deg);
+}
+
+/* Mobiili: näytä toggle, piilota grid oletuksena */
+@media (max-width: 720px) {
+    .filters-toggle {
+        display: flex;
+        margin-bottom: 12px;
+    }
+
+    .filters-grid {
+        display: none;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .filters-grid.open {
+        display: grid;
+    }
+
+    /* Päivämäärät vierekkäin */
+    .filter-date-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    /* Hakukenttä täysleveä */
+    .filter-search {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    /* Napit vierekkäin */
+    .filter-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        grid-column: auto;
+    }
+
+    .filter-actions .btn-primary,
+    .filter-actions .btn-secondary {
+        width: 100%;
+        text-align: center;
+        padding: 12px 16px;
+    }
+
+    /* Pienempi fontti labeleille */
+    .filter-item label {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    /* Pienempi padding inputeille */
+    .filter-item input,
+    .filter-item select {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    /* Filters-laatikko */
+    .filters {
+        padding: 12px;
+        border-radius: 12px;
+    }
+}
+
+/* Pieni näyttö - napit päällekkäin */
+@media (max-width: 400px) {
+    .filter-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-date-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== NAPPI-IKONIT ===== */
+.btn-icon-img {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+    /* Muuttaa valkoiseksi */
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.sf-bulk-bar .sf-btn-danger:hover .btn-icon-img,
+#sfBulkDelete:hover .btn-icon-img {
+    filter: brightness(0) invert(1);
+    /* Pysyy valkoisena hoverissa */
+}
+
+.sf-bulk-bar .sf-btn-danger:disabled .btn-icon-img,
+#sfBulkDelete:disabled .btn-icon-img {
+    opacity: 0.6;
+}
+
+/* ===== NAPPI SPINNER ===== */
+.btn-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btn-spin 0.8s linear infinite;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+@keyframes btn-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== TYHJÄ TILA - EI HAKUTULOKSIA ===== */
+.no-results-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 20px;
+    border: 2px dashed #e2e8f0;
+}
+
+.no-results-icon-wrap {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+.no-results-success-icon {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 10px 24px rgba(34, 197, 94, 0.20));
+}
+
+.no-results-icon {
+    width: 40px;
+    height: 40px;
+    stroke: #94a3b8;
+}
+
+.no-results-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #334155;
+    margin: 0 0 8px;
+}
+
+.no-results-hint {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin: 0 0 24px;
+    max-width: 320px;
+}
+
+/* CTA-nappi - sama tyyli kuin navissa */
+.no-results-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px 14px 18px;
+    background: #8fc640;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 999px;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 12px rgba(143, 198, 64, 0.35);
+}
+
+.no-results-cta:hover {
+    background: #7ab52f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(143, 198, 64, 0.45);
+}
+
+.no-results-cta:active {
+    transform: translateY(0);
+}
+
+.no-results-cta-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Mobiili */
+@media (max-width: 600px) {
+    .no-results-box {
+        padding: 40px 20px;
+        border-radius: 16px;
+    }
+
+    .no-results-icon-wrap {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 16px;
+    }
+
+    .no-results-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .no-results-text {
+        font-size: 1.1rem;
+    }
+
+    .no-results-hint {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+
+    .no-results-cta {
+        padding: 12px 20px 12px 16px;
+        font-size: 0.95rem;
+        width: 100%;
+        justify-content: center;
+        max-width: 280px;
+    }
+}
+
+/* ===== MOBIILI - KORTIT REUNASTA REUNAAN ===== */
+@media (max-width: 720px) {
+
+    /* Lista-sivu - minimaalinen padding */
+    .sf-list-page {
+        margin: 0;
+        padding: 6px 4px;
+    }
+
+    .page-title {
+        font-size: 1.4rem;
+        margin: 8px 6px 12px;
+    }
+
+    /* Suodattimet - pieni marginaali */
+    .filters {
+        margin: 0 2px 10px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .filters-toggle {
+        margin-bottom: 8px;
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+
+    /* Bulk-toiminnot */
+    .sf-bulk-actions {
+        margin: 0 2px 10px;
+    }
+
+    .sf-bulk-bar {
+        padding: 10px 12px;
+        border-radius: 10px;
+    }
+
+    /* Kortit - reunasta reunaan */
+    .card-list {
+        gap: 8px;
+    }
+
+    .card {
+        margin: 0 2px;
+        padding: 10px;
+        border-radius: 10px;
+        gap: 10px;
+        border-left-width: 5px;
+    }
+
+    /* Thumbnail */
+    .card-thumb {
+        border-radius: 8px;
+        max-height: 200px;
+    }
+
+    .card-thumb img {
+        max-height: 200px;
+        border-radius: 8px;
+    }
+
+    /* Tyhjä tila */
+    .no-results-box {
+        margin: 0 2px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    /* Erittäin pieni näyttö - täysin reunasta reunaan */
+    .sf-list-page {
+        padding: 4px 2px;
+    }
+
+    .page-title {
+        font-size: 1.25rem;
+        margin: 6px 4px 10px;
+    }
+
+    .filters {
+        margin: 0 0 8px;
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .sf-bulk-actions {
+        margin: 0 0 8px;
+    }
+
+    .sf-bulk-bar {
+        padding: 8px 10px;
+        border-radius: 8px;
+    }
+
+    .card {
+        margin: 0;
+        padding: 8px;
+        border-radius: 8px;
+        border-left-width: 4px;
+    }
+
+    .card-thumb {
+        border-radius: 6px;
+        max-height: 160px;
+    }
+
+    .card-thumb img {
+        max-height: 160px;
+        border-radius: 6px;
+    }
+
+    .no-results-box {
+        margin: 0;
+        border-radius: 10px;
+        padding: 30px 16px;
+    }
+}
+
+/* ===== MOBIILI - KOMPAKTI KORTTI ===== */
+@media (max-width: 720px) {
+    .sf-list-page {
+        margin: 0;
+        padding: 8px;
+    }
+
+    .page-title {
+        font-size: 1.3rem;
+        margin: 8px 4px 12px;
+    }
+
+    .card-list {
+        gap: 10px;
+    }
+
+    .card {
+        flex-direction: row;
+        gap: 12px;
+        /* Pienempi kuin desktop (20px) kompaktimpaan näkymään */
+        margin: 0;
+        padding: 12px;
+        border-radius: 12px;
+        border-left-width: 6px;
+    }
+
+    /* NÄYTÄ thumbnail mobiilissa - pienempi */
+    .card-thumb-wrapper {
+        display: block !important;
+        flex: 0 0 80px;
+        width: 80px;
+    }
+
+    .card-thumb {
+        display: block !important;
+        width: 80px;
+        height: 60px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .card-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .card-mid {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* Yläosa: badge + status */
+    .card-top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .badge {
+        padding: 4px 10px;
+        font-size: 10px;
+        border-radius: 6px;
+    }
+
+    .status {
+        padding: 4px 10px;
+        font-size: 10px;
+        border-radius: 6px;
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        color: #0f172a !important;
+        white-space: normal;
+        /* Salli useita rivejä */
+        word-break: normal;
+        /* EI break-word!*/
+        overflow-wrap: normal;
+        /* EI anywhere!*/
+        max-width: 100%;
+        min-width: 0;
+        /* Tämä on tärkeä flexboxissa */
+        line-height: 1.3;
+        display: block;
+    }
+
+    .card-site {
+        font-size: 13px;
+        margin-bottom: 6px;
+        color: #64748b;
+    }
+
+    .card-meta {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 11px;
+        color: #94a3b8;
+        margin-bottom: 10px;
+    }
+
+    /* ===== FOOTER: Avaa-nappi + Kieliliput ===== */
+    .card-actions {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    /* Mobiilissa isompi Avaa-nappi */
+    .open-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        border-radius: 10px;
+        flex-shrink: 0;
+    }
+
+    /* ===== KIELILIPUT PÄÄLLEKKÄIN ===== */
+    .card-lang-actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .list-lang-flag {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        margin-left: -10px;
+        position: relative;
+        transition: transform 0.15s ease;
+    }
+
+    .list-lang-flag:first-child {
+        margin-left: 0;
+    }
+
+    .list-lang-flag:hover {
+        transform: scale(1.2);
+        z-index: 10;
+    }
+
+    /* Checkbox - mobiilissa oikeaan yläkulmaan ja pienempi */
+    .card-checkbox {
+        top: 8px;
+        right: 8px;
+        left: auto;
+        padding: 2px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 4px;
+    }
+
+    .card-checkbox input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Badge-tekstit - marginaali ettei checkbox peitä */
+    .card-top .badge {
+        margin-right: 32px;
+        /* Tee tilaa checkboxille */
+    }
+}
+
+/* ===== PIENI NÄYTTÖ ===== */
+@media (max-width: 400px) {
+    .sf-list-page {
+        padding: 6px;
+    }
+
+    .card {
+        padding: 10px;
+        border-radius: 10px;
+        border-left-width: 5px;
+    }
+
+    .badge,
+    .status {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+
+    .card-title {
+        font-size: 16px;
+        color: #0f172a !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    .card-site {
+        font-size: 12px;
+    }
+
+    .card-meta {
+        font-size: 10px;
+        gap: 8px;
+    }
+
+    .open-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .list-lang-flag {
+        width: 24px;
+        height: 24px;
+        margin-left: -8px;
+    }
+}
+
+/* ===== KORTTI ILMESTYY ANIMAATIOLLA ===== */
+/* Käytetään vain kun polling paljastaa kortin (ei sivun latauksessa) */
+.sf-card-appear {
+    animation: sf-card-appear 0.6s ease-out;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4), 0 8px 20px rgba(2, 6, 23, 0.08);
+    display: flex !important;
+    /* Override display: none from sf-card-hidden-processing */
+}
+
+@keyframes sf-card-appear {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===== PROSESSOINNISSA OLEVAT KORTIT ===== */
+/* Piilota prosessoinnissa olevat kortit */
+.sf-card-hidden-processing {
+    display: none !important;
+}
+
+/* ===== BULK DELETE CHECKBOX FIX ===== */
+/* Checkbox base styles are defined earlier in the file */
+
+/* Estä kortin linkin klikkaus checkboxin kohdalla */
+.card {
+    position: relative;
+}
+
+.card .card-thumb {
+    /* Varmista ettei peitä checkboxia */
+    z-index: 1;
+}
+
+/* Hover-efekti checkboxille */
+.card-checkbox:hover input[type="checkbox"] {
+    transform: scale(1.1);
+}
+
+/* Valittu kortti korostus */
+.card:has(.sf-flash-checkbox:checked) {
+    outline: 3px solid #3b82f6;
+    outline-offset: -3px;
+}
+
+/* Valittu kortti korostus (JS fallback) */
+.card.sf-card-selected {
+    outline: 3px solid #3b82f6;
+    outline-offset: -3px;
+    background: #eff6ff;
+}
+
+/* ===== PROSESSOINNISSA OLEVA KORTTI - POISTETTU ===== */
+/* Nämä tyylit eivät ole enää käytössä, koska prosessointi-kortit poistettu */
+/*
+.sf-card-processing { ...}
+.sf-processing-overlay { ...}
+.sf-processing-spinner { ...}
+jne.
+*/
+
+/* ===== SEGMENTED CONTROL (ARCHIVED TOGGLE) ===== */
+.sf-archived-toggle {
+    display: flex;
+    gap: 0;
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 16px;
+}
+
+.sf-toggle-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-toggle-btn:hover {
+    color: #334155;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.sf-toggle-btn.active {
+    background: #16a34a !important;
+    color: #fff !important;
+    border-color: #16a34a !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 720px) {
+    .sf-archived-toggle {
+        margin-bottom: 12px;
+    }
+
+    .sf-toggle-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+/* ===== FILTER CHIPS ===== */
+.sf-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+/* Filter chips - moderni tyyli */
+.sf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    white-space: nowrap;
+}
+
+.sf-chip:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+.sf-chip.open {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+/* Sort chip separator */
+.sf-chip-separator {
+    color: #9ca3af;
+    margin: 0 8px;
+    font-weight: 300;
+}
+
+/* Sort chip - different styling from filter chips */
+.sf-chip-sort {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.sf-chip-sort .chip-icon {
+    font-size: 1rem;
+    margin-right: 4px;
+}
+
+.sf-chip-sort:hover {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+}
+
+.sf-chip-sort.open {
+    background: #e5e7eb;
+    border-color: #9ca3af;
+}
+
+/* Chip arrow animaatio */
+.chip-arrow {
+    transition: transform 0.2s ease;
+}
+
+.sf-chip.open .chip-arrow {
+    transform: rotate(180deg);
+}
+
+/* ===== CHIP DROPDOWN - Desktop dropdown moderni ===== */
+.sf-chip-dropdown,
+.sf-filter-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    max-height: 300px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e8f0;
+    z-index: 100;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.sf-chip.open .sf-chip-dropdown,
+.sf-filter-dropdown.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    display: block;
+}
+
+/* Webkit scrollbar styling for dropdowns */
+.sf-chip-dropdown::-webkit-scrollbar,
+.sf-filter-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sf-chip-dropdown::-webkit-scrollbar-track,
+.sf-filter-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sf-chip-dropdown::-webkit-scrollbar-thumb,
+.sf-filter-dropdown::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.sf-chip-dropdown::-webkit-scrollbar-thumb:hover,
+.sf-filter-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Fade effect at bottom to indicate more content */
+.sf-chip-dropdown.has-scroll::after,
+.sf-filter-dropdown.has-scroll::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95));
+    pointer-events: none;
+    display: block;
+    margin-top: -40px;
+    /* Negative margin equals height to overlay content */
+}
+
+/* Hide fade when scrolled to bottom */
+.sf-chip-dropdown.scrolled-to-bottom::after,
+.sf-filter-dropdown.scrolled-to-bottom::after {
+    opacity: 0;
+}
+
+.sf-chip-dropdown-option,
+.sf-filter-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    text-align: left;
+}
+
+.sf-chip-dropdown-option:first-child,
+.sf-filter-dropdown-item:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.sf-chip-dropdown-option:last-child,
+.sf-filter-dropdown-item:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+.sf-chip-dropdown-option:hover,
+.sf-filter-dropdown-item:hover {
+    background: #f8fafc;
+}
+
+.sf-chip-dropdown-option.selected,
+.sf-filter-dropdown-item.selected {
+    background: #f0fdf4;
+}
+
+.sf-chip-dropdown-option.selected .sf-chip-dropdown-label,
+.sf-filter-dropdown-item.selected .sf-filter-dropdown-label {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.sf-chip-dropdown-radio {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.sf-chip-dropdown-option.selected .sf-chip-dropdown-radio {
+    border-color: #22c55e;
+    background: #22c55e;
+    box-shadow: inset 0 0 0 3px #fff;
+}
+
+.sf-chip-dropdown-label,
+.sf-filter-dropdown-label {
+    flex: 1;
+    font-size: 14px;
+    color: #1e293b;
+    text-align: left;
+}
+
+.sf-chip-dropdown-count,
+.sf-filter-dropdown-count {
+    margin-left: auto;
+    min-width: 28px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #eef2f7;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.sf-chip-dropdown-option.selected .sf-chip-dropdown-count,
+.sf-filter-dropdown-item.selected .sf-filter-dropdown-count {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+/* ===== DATE DROPDOWN ===== */
+
+/* ===== SEARCH AND CLEAR BUTTON ON TOGGLE ROW ===== */
+.sf-filter-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.sf-filter-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.sf-mobile-filter-actions,
+.sf-mobile-status-toggle-wrapper,
+.sf-mobile-worksite-chip,
+.sf-mobile-active-filters {
+    display: none;
+}
+
+.sf-filter-search input {
+    padding: 8px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 13px;
+    width: 200px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sf-filter-search input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.sf-filter-clear-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    cursor: pointer;
+    color: #64748b;
+    transition: all 0.15s ease;
+}
+
+.sf-filter-clear-btn:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #dc2626;
+}
+
+.sf-filter-clear-btn.hidden {
+    display: none;
+}
+
+/* Mobile adjustments for search */
+@media (max-width: 768px) {
+    .sf-filter-header {
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .sf-filter-search {
+        flex: 1 1 auto;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .sf-filter-search input {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+    }
+}
+
+/* ===== DATE RANGE PICKER IN DROPDOWN/BOTTOM SHEET ===== */
+.sf-date-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 16px;
+}
+
+.sf-date-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sf-date-input-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.sf-date-input-group input[type="date"] {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sf-date-input-group input[type="date"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ===== DATE PRESET DROPDOWN ===== */
+.sf-date-dropdown {
+    min-width: 280px;
+}
+
+.sf-dropdown-header {
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.sf-date-custom-fields {
+    padding: 16px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+
+.sf-date-custom-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.sf-date-field {
+    flex: 1;
+}
+
+.sf-date-field label {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.sf-date-field input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.sf-date-field input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.sf-date-arrow {
+    color: #94a3b8;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.sf-dropdown-footer {
+    padding: 12px 16px;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.sf-date-clear {
+    color: #64748b;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sf-date-clear:hover {
+    color: #dc2626;
+    text-decoration: underline;
+}
+
+/* Mobile date custom section */
+.sf-date-custom-section {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.sf-date-custom-header {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 12px;
+    padding: 0 16px;
+}
+
+/* ===== LIST LOAD STATE ===== */
+.sf-list-container.sf-list-loading .cards-container {
+    display: none !important;
+}
+.sf-list-container.sf-list-loading .sf-pagination {
+    display: none !important;
+}
+
+.sf-list-container.sf-list-ready #skeletonContainer,
+.sf-list-container #skeletonContainer[hidden] {
+    display: none !important;
+}
+
+.sf-list-container.sf-list-ready .cards-container {
+    display: block;
+}
+
+/* ===== SKELETON LOADING ===== */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    border-radius: 6px;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.sf-list-container #skeletonContainer {
+    padding: 0;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.sf-list-container #skeletonContainer .skeleton-card {
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.96);
+}
+
+/* Grid skeleton: matches final card layout */
+.sf-list-container.view-grid #skeletonContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    background: transparent !important;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+    padding: 0;
+	overflow: hidden;
+    margin-bottom: 0;
+    overflow: hidden;
+    border-left: 5px solid #e5e7eb;
+    border-radius: 12px;
+    border-top: 1px solid #e5e7eb;
+    border-right: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-thumb-wrapper {
+    padding: 12px 12px 0;
+    box-sizing: border-box;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-thumb {
+    width: 100%;
+    height: 170px;
+    border-radius: 10px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .card-mid {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    margin-left: 0;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-row-badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-badge {
+    width: 112px;
+    height: 24px;
+    border-radius: 8px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-status {
+    width: 82px;
+    height: 24px;
+    border-radius: 999px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-title {
+    width: 86%;
+    height: 22px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-text {
+    width: 72%;
+    height: 16px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-meta {
+    width: 62%;
+    height: 14px;
+    margin-top: 8px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-small-badge {
+    width: 120px;
+    height: 22px;
+    border-radius: 6px;
+    margin-top: 6px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-top: 1px solid #f1f5f9;
+    background: #f8fafc;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-button {
+    width: 48px;
+    height: 30px;
+    border-radius: 8px;
+}
+
+.sf-list-container.view-grid #skeletonContainer .skeleton-plus {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+}
+
+/* List skeleton */
+.sf-list-container.view-list #skeletonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 0;
+    border-left: 5px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-thumb-wrapper {
+    flex: 0 0 180px;
+    width: 180px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-thumb {
+    width: 180px;
+    height: 120px;
+    border-radius: 8px;
+}
+
+.sf-list-container.view-list #skeletonContainer .card-mid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-left: 0;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-row-badges {
+    display: flex;
+    gap: 8px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-badge {
+    width: 110px;
+    height: 22px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-status {
+    width: 80px;
+    height: 22px;
+    border-radius: 999px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-title {
+    width: 60%;
+    height: 20px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-text {
+    width: 42%;
+    height: 15px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-meta {
+    width: 34%;
+    height: 14px;
+}
+
+.sf-list-container.view-list #skeletonContainer .skeleton-small-badge,
+.sf-list-container.view-list #skeletonContainer .skeleton-actions {
+    display: none;
+}
+
+/* Compact skeleton */
+.sf-list-container.view-compact #skeletonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    min-height: 92px;
+    padding: 10px 14px;
+    margin-bottom: 0;
+    border-left: 4px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-thumb-wrapper,
+.sf-list-container.view-compact #skeletonContainer .skeleton-thumb,
+.sf-list-container.view-compact #skeletonContainer .skeleton-small-badge,
+.sf-list-container.view-compact #skeletonContainer .skeleton-status {
+    display: none;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-card::before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    flex: 0 0 auto;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-card::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #e5e7eb;
+    flex: 0 0 auto;
+}
+
+.sf-list-container.view-compact #skeletonContainer .card-mid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-left: 0;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-row-badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-badge {
+    width: 92px;
+    height: 18px;
+    border-radius: 6px;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-title {
+    width: 34%;
+    height: 16px;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-text {
+    display: block;
+    width: 24%;
+    height: 12px;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-meta {
+    width: 38%;
+    height: 12px;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 0 0 auto;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-button {
+    width: 52px;
+    height: 30px;
+    border-radius: 8px;
+}
+
+.sf-list-container.view-compact #skeletonContainer .skeleton-plus {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+    .sf-list-container.view-grid #skeletonContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .sf-list-container.view-list #skeletonContainer .skeleton-thumb-wrapper,
+    .sf-list-container.view-list #skeletonContainer .skeleton-thumb {
+        display: none;
+    }
+
+    .sf-list-container.view-list #skeletonContainer .skeleton-card {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .sf-list-container.view-list #skeletonContainer .skeleton-title {
+        width: 86%;
+    }
+
+    .sf-list-container.view-list #skeletonContainer .skeleton-text {
+        width: 70%;
+    }
+
+    .sf-list-container.view-compact #skeletonContainer .card-mid {
+        grid-template-columns: 56px minmax(0, 1fr);
+    }
+
+    .sf-list-container.view-compact #skeletonContainer .skeleton-meta {
+        display: none;
+    }
+}
+
+/* ===== TOAST NOTIFICATIONS ===== */
+.sf-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0f172a;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.sf-toast.show {
+    display: flex;
+    animation: toast-slide-up 0.3s ease;
+}
+
+.sf-toast.success {
+    background: #16a34a;
+}
+
+.sf-toast.error {
+    background: #ef4444;
+}
+
+@keyframes toast-slide-up {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* ===== NO RESULTS MESSAGE (FILTER) ===== */
+.sf-no-results-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: #64748b;
+    width: 100%;
+}
+
+.sf-no-results-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.sf-no-results-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.sf-no-results-hint {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+@media (max-width: 720px) {
+    .sf-toast {
+        bottom: 16px;
+        padding: 10px 20px;
+        font-size: 13px;
+        max-width: calc(100% - 32px);
+    }
+
+    .sf-no-results-filter {
+        padding: 40px 20px;
+    }
+
+    .sf-no-results-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    .sf-no-results-text {
+        font-size: 16px;
+    }
+
+    .sf-no-results-hint {
+        font-size: 13px;
+    }
+}
+
+/* ===== MOBILE UX IMPROVEMENTS ===== */
+
+/* Mobile: whole card clickable */
+@media (max-width: 768px) {
+    .card {
+        cursor: pointer;
+    }
+
+    /* Card expand button hidden on mobile (if exists) */
+    .card-expand {
+        display: none;
+    }
+
+    /* Prevent thumbnail link from covering entire card */
+    .card .card-thumb {
+        pointer-events: none;
+    }
+
+    /* But allow clicks on copy button */
+    .card .card-thumb .sf-copy-btn {
+        pointer-events: auto;
+    }
+}
+
+/* ==========================================================================
+   VIEW TOGGLE - Grid / List / Compact views
+   NOTE: Selectors use .sf-list-container.view-X structure to match HTML
+   ========================================================================== */
+
+/* ----- DESKTOP VIEW TOGGLE (inline, top of page) ----- */
+.sf-view-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 4px;
+    margin-left: auto;
+}
+
+.sf-view-toggle button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sf-view-toggle button:hover {
+    color: #334155;
+    background: #e2e8f0;
+}
+
+.sf-view-toggle button.active {
+    background: #0f172a;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.sf-view-toggle button svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ----- RESPONSIVE: Desktop shows toggle, hides FAB. Mobile shows FAB, hides toggle ----- */
+@media (min-width: 769px) {
+    .sf-view-toggle {
+        display: flex !important;
+    }
+
+    .sf-view-fab-container {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .sf-view-toggle {
+        display: none !important;
+    }
+
+    .sf-view-fab-container {
+        display: flex !important;
+    }
+}
+
+/* ----- VIEW FAB (FLOATING ACTION BUTTON WITH SPEED DIAL) ----- */
+
+/* Touch optimization for FAB */
+.sf-view-fab,
+.sf-view-fab-option,
+.sf-view-fab-backdrop {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.sf-view-fab-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1001;
+    /* Above bottom-nav (1000) and below modals (1050+) */
+}
+
+.sf-view-fab {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border: none;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #fff;
+    position: relative;
+}
+
+.sf-view-fab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+}
+
+.sf-view-fab:active {
+    transform: scale(0.95);
+}
+
+/* Rotate icon when speed dial is open */
+.sf-view-fab-container.open .sf-view-fab {
+    transform: rotate(180deg);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.sf-view-fab-icon {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Speed dial options container */
+.sf-view-fab-options {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1002;
+    /* Above backdrop (1000) and bottom-nav (1000) */
+}
+
+.sf-view-fab-container.open .sf-view-fab-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Individual option button */
+.sf-view-fab-option {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    transition: all 0.2s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+/* Staggered animation for options */
+.sf-view-fab-container.open .sf-view-fab-option:nth-child(1) {
+    animation: fabOptionIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards;
+}
+
+.sf-view-fab-container.open .sf-view-fab-option:nth-child(2) {
+    animation: fabOptionIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+}
+
+.sf-view-fab-container.open .sf-view-fab-option:nth-child(3) {
+    animation: fabOptionIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+}
+
+@keyframes fabOptionIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.sf-view-fab-option:hover {
+    background: #f8fafc;
+    color: #0f172a;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sf-view-fab-option:active {
+    transform: scale(0.95);
+}
+
+/* Hide option that matches current view */
+.sf-view-fab-option.current-view {
+    display: none;
+}
+
+/* Backdrop for closing speed dial */
+.sf-view-fab-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    /* Same as bottom-nav to cover it when speed dial is open */
+}
+
+.sf-view-fab-container.open .sf-view-fab-backdrop {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sf-view-fab-container {
+        position: fixed !important;
+        bottom: calc(80px + env(safe-area-inset-bottom, 0)) !important;
+        /* Above bottom nav with safe area support */
+        right: 16px !important;
+        z-index: 1001 !important;
+        /* Above bottom-nav (1000) */
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .sf-view-fab {
+        width: 52px;
+        height: 52px;
+    }
+
+    .sf-view-fab-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-view-fab-container {
+        bottom: calc(76px + env(safe-area-inset-bottom, 0)) !important;
+        right: 12px !important;
+    }
+
+    .sf-view-fab-option {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sf-view-fab-option svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .sf-view-fab-options {
+        bottom: 66px;
+    }
+}
+
+/* ==========================================================================
+   LIST VIEW (default) - Horizontal cards
+   ========================================================================== */
+
+/* Ensure list container and cards use full width */
+.sf-list-container.view-list {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.sf-list-container.view-list .card-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.sf-list-container.view-list .card {
+    display: flex !important;
+    flex-direction: row !important;
+    background: #fff !important;
+    padding: 16px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    align-items: flex-start !important;
+    gap: 24px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+    border-radius: 12px !important;
+    transition: box-shadow 0.2s ease !important;
+}
+
+.sf-list-container.view-list .card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.sf-list-container.view-list .card-thumb {
+    display: flex !important;
+    flex: 0 0 180px !important;
+    width: 180px !important;
+    height: 120px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+.sf-list-container.view-list .card-thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+.sf-list-container.view-list .card-mid {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.sf-list-container.view-list .card-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    min-width: 80px !important;
+    gap: 8px !important;
+}
+
+/* Type indicator hidden in list view */
+.sf-list-container.view-list .type-indicator {
+    display: none !important;
+}
+
+/* ==========================================================================
+   GRID VIEW - Cards in grid layout
+   ========================================================================== */
+
+.sf-list-container.view-grid .card-list {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    gap: 20px !important;
+}
+
+.sf-list-container.view-grid .card {
+    display: flex !important;
+    flex-direction: column !important;
+    background: #fff !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.sf-list-container.view-grid .card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Checkbox in grid view - BOTTOM RIGHT, above actions bar */
+.sf-list-container.view-grid .card-checkbox {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 60px !important;
+    /* Above the actions bar */
+    left: auto !important;
+    right: 12px !important;
+    z-index: 20 !important;
+}
+
+/* Thumbnail first (at top) */
+.sf-list-container.view-grid .card-thumb {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    flex: none !important;
+    height: 220px !important;
+    min-height: 180px !important;
+    border-radius: 12px 12px 0 0 !important;
+    overflow: visible !important;
+    /* badges & copy button can overflow */
+    order: -1 !important;
+    background: #f1f5f9 !important;
+    position: relative !important;
+    padding: 12px !important;
+}
+
+/* Centered image - fully visible with contain */
+.sf-list-container.view-grid .card-thumb img {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    border-radius: 8px !important;
+    display: block !important;
+}
+
+/* Comment badge in grid view - INSIDE thumbnail, top-right corner */
+.sf-list-container.view-grid .comment-badge {
+    position: absolute !important;
+    top: -8px !important;
+    right: 8px !important;
+    z-index: 30 !important;
+}
+
+/* Grid view overlays: badge top-right, copy bottom-left, checkbox bottom-right */
+.sf-list-container.view-grid .comment-badge {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    z-index: 30 !important;
+}
+
+.sf-list-container.view-grid .card-thumb .sf-copy-btn,
+.sf-list-container.view-grid .card-thumb .sf-copy-btn-compact {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 25 !important;
+}
+
+.sf-list-container.view-grid .card-checkbox {
+    position: absolute !important;
+    bottom: 8px !important;
+    right: 8px !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 25 !important;
+}
+
+/* Type indicator hidden in grid view */
+.sf-list-container.view-grid .type-indicator {
+    display: none !important;
+}
+
+/* Content area */
+.sf-list-container.view-grid .card-mid {
+    padding: 12px 14px !important;
+    flex: 1 !important;
+    order: 0 !important;
+}
+
+.sf-list-container.view-grid .card-top {
+    margin-bottom: 8px !important;
+}
+
+.sf-list-container.view-grid .card-title {
+    font-size: 15px !important;
+    white-space: normal !important;
+    line-height: 1.3 !important;
+}
+
+.sf-list-container.view-grid .card-site {
+    font-size: 13px !important;
+}
+
+/* Actions bar at bottom */
+.sf-list-container.view-grid .card-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 14px !important;
+    border-top: 1px solid #f1f5f9 !important;
+    background: #fafbfc !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    z-index: 1 !important;
+    order: 1 !important;
+    border-radius: 0 0 12px 12px !important;
+}
+
+.sf-list-container.view-grid .open-btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+}
+
+.sf-list-container.view-grid .card-lang-actions {
+    margin-top: 0 !important;
+}
+
+/* Copy button positioning in grid view - ALWAYS bottom-left of thumbnail */
+.sf-list-container.view-grid .card-thumb .sf-copy-btn,
+.sf-list-container.view-grid .card-thumb .sf-copy-btn-compact {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    z-index: 20 !important;
+}
+
+/* ==========================================================================
+   COMPACT VIEW - Light rows with good contrast
+   ========================================================================== */
+
+.sf-list-container.view-compact .card-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.sf-list-container.view-compact .card {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 10px 14px !important;
+    background: #ffffff !important;
+    border-radius: 10px !important;
+    align-items: center !important;
+    gap: 10px !important;
+    border-left-width: 4px !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.sf-list-container.view-compact .card:hover {
+    background: #f8fafc !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Checkbox in compact view - static, not absolute, at the start */
+.sf-list-container.view-compact .card-checkbox {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+    order: -1 !important;
+    /* Keep at start */
+}
+
+.sf-list-container.view-compact .card-checkbox input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* Thumbnail hidden */
+.sf-list-container.view-compact .card-thumb {
+    display: none !important;
+}
+
+/* Type indicator visible */
+.sf-list-container.view-compact .type-indicator {
+    display: block !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+    order: 0 !important;
+    /* After checkbox (order: -1), before content */
+}
+
+.sf-list-container.view-compact .type-indicator.red {
+    background: #ef4444 !important;
+}
+
+.sf-list-container.view-compact .type-indicator.yellow {
+    background: #eab308 !important;
+}
+
+.sf-list-container.view-compact .type-indicator.green {
+    background: #22c55e !important;
+}
+
+/* Content area in compact view - keep vertical layout for proper flow */
+.sf-list-container.view-compact .card-mid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    justify-content: center !important;
+    order: 1 !important;
+    /* After type-indicator (order: 0) */
+}
+
+.sf-list-container.view-compact .card-top {
+    display: flex !important;
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+}
+
+.sf-list-container.view-compact .card-title {
+    margin-bottom: 0 !important;
+    color: #0f172a !important;
+    /* Dark text on light background */
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* SHOW worksite in compact view */
+.sf-list-container.view-compact .card-site {
+    display: block !important;
+    font-size: 11px !important;
+    color: #64748b !important;
+    margin-bottom: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 200px !important;
+}
+
+/* SHOW date/meta in compact view */
+.sf-list-container.view-compact .card-meta {
+    display: flex !important;
+    font-size: 11px !important;
+    color: #94a3b8 !important;
+    gap: 6px !important;
+    margin-top: 0 !important;
+    white-space: nowrap !important;
+}
+
+/* Hide language actions in compact view */
+.sf-list-container.view-compact .card-lang-actions {
+    display: none !important;
+}
+
+/* Actions in compact view */
+.sf-list-container.view-compact .card-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    min-width: auto !important;
+    flex-shrink: 0 !important;
+    order: 2 !important;
+}
+
+.sf-list-container.view-compact .open-btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+}
+
+/* Smaller badges in compact view */
+.sf-list-container.view-compact .badge {
+    padding: 2px 6px !important;
+    font-size: 10px !important;
+}
+
+.sf-list-container.view-compact .status {
+    padding: 2px 6px !important;
+    font-size: 10px !important;
+}
+
+/* ==========================================================================
+   DESKTOP COMPACT VIEW TIGHTENING (Desktop only - min-width: 769px)
+   ========================================================================== */
+
+@media (min-width: 769px) {
+    .sf-list-container.view-compact .card {
+        padding: 6px 10px !important;
+        gap: 8px !important;
+    }
+
+    .sf-list-container.view-compact .card-title {
+        font-size: 13px !important;
+    }
+
+    .sf-list-container.view-compact .badge,
+    .sf-list-container.view-compact .status {
+        padding: 2px 6px !important;
+        font-size: 9px !important;
+    }
+
+    .sf-list-container.view-compact .card-site {
+        font-size: 10px !important;
+    }
+
+    .sf-list-container.view-compact .card-meta {
+        font-size: 10px !important;
+    }
+}
+
+/* ==========================================================================
+   MOBILE - View-specific card layouts
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    .card-list {
+        padding-bottom: calc(140px + env(safe-area-inset-bottom));
+    }
+
+    .sf-list-container.view-grid .card,
+    .sf-list-container.view-list .card,
+    .sf-list-container.view-compact .card {
+        border-radius: 14px !important;
+        background: #fff !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    /* Grid view: vertical card, full-width image on top */
+    .sf-list-container.view-grid .card-list {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .sf-list-container.view-grid .card {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+
+    .sf-list-container.view-grid .card-thumb-wrapper,
+    .sf-list-container.view-grid .card-thumb {
+        width: 100% !important;
+    }
+
+    .sf-list-container.view-grid .card-thumb {
+        display: flex !important;
+        min-height: 180px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 12px !important;
+        background: #f8fafc !important;
+    }
+
+    .sf-list-container.view-grid .card-mid,
+    .sf-list-container.view-grid .card-actions {
+        padding: 16px !important;
+    }
+
+    /* List view: horizontal row with thumbnail on the left */
+    .sf-list-container.view-list .card {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 12px !important;
+        overflow: hidden !important;
+    }
+
+    .sf-list-container.view-list .card-thumb-wrapper,
+    .sf-list-container.view-list .card-thumb {
+        flex: 0 0 96px !important;
+        width: 96px !important;
+        height: 96px !important;
+    }
+
+    .sf-list-container.view-list .card-thumb {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 10px !important;
+        background: #f8fafc !important;
+        padding: 6px !important;
+    }
+
+    .sf-list-container.view-list .card-mid {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+    }
+
+    .sf-list-container.view-list .card-title {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+
+    /* Compact view: dense horizontal row with minimal actions */
+    .sf-list-container.view-compact .card {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        min-height: 48px !important;
+        padding: 10px 12px !important;
+        gap: 10px !important;
+    }
+
+    .sf-list-container.view-compact .card-thumb-wrapper,
+    .sf-list-container.view-compact .card-thumb,
+    .sf-list-container.view-compact .card-actions {
+        display: none !important;
+    }
+
+    .sf-list-container.view-compact .card-mid {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Images must always be fully visible in views that show thumbnails */
+    .sf-list-container.view-grid .card-thumb img,
+    .sf-list-container.view-list .card-thumb img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+    }
+
+    /* Thumb-friendly targets */
+    .sf-list-container.view-grid .card-actions .open-btn,
+    .sf-list-container.view-list .card-actions .open-btn {
+        min-height: 40px !important;
+    }
+}
+
+/* ===== COMPACT STATUS ICONS ===== */
+/* Hide compact-specific elements by default; mobile compact view overrides with display: flex !important */
+.sf-compact-status,
+.sf-compact-chevron,
+.card-compact-meta {
+    display: none !important;
+}
+
+/* When shown, use flex layout */
+.sf-compact-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.sf-compact-status-check {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Status colors */
+.sf-compact-status.sf-status--pending .sf-compact-status-spinner,
+.sf-compact-status.sf-status--comms .sf-compact-status-spinner {
+    color: #3b82f6;
+    /* Blue */
+}
+
+.sf-compact-status.sf-status--request-info .sf-compact-status-spinner,
+.sf-compact-status.sf-status--reviewed .sf-compact-status-spinner {
+    color: #eab308;
+    /* Yellow */
+}
+
+.sf-compact-status.sf-status--published .sf-compact-status-check {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.sf-compact-status.sf-status--draft .sf-compact-status-spinner {
+    color: #9ca3af;
+    /* Gray */
+}
+
+@keyframes sf-compact-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Chevron arrow for open */
+.sf-compact-chevron {
+    width: 20px;
+    height: 20px;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+/* Grid view - wrapper takes full width */
+.sf-list-container.view-grid .card-thumb-wrapper {
+    flex: none !important;
+    width: 100% !important;
+    order: -1 !important;
+}
+
+/* Grid view - thumbnail inside wrapper */
+.sf-list-container.view-grid .card-thumb-wrapper .card-thumb {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 200px !important;
+    min-height: 160px !important;
+    border-radius: 12px 12px 0 0 !important;
+    overflow: hidden !important;
+    background: #f1f5f9 !important;
+    padding: 10px !important;
+}
+
+/* Checkbox in wrapper - bottom-left */
+.sf-list-container.view-grid .card-thumb-wrapper .card-checkbox {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 25 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 6px !important;
+    padding: 4px !important;
+}
+
+/* Comment badge in wrapper - top-right */
+.sf-list-container.view-grid .card-thumb-wrapper .comment-badge {
+    position: absolute !important;
+    top: -8px !important;
+    right: 8px !important;
+    z-index: 30 !important;
+}
+
+/* Copy button in wrapper - bottom-right (added by JS) */
+.sf-list-container.view-grid .card-thumb-wrapper .sf-copy-btn,
+.sf-list-container.view-grid .card-thumb-wrapper .sf-copy-btn-compact {
+    position: absolute !important;
+    bottom: 8px !important;
+    right: 8px !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 25 !important;
+}
+
+/* List view - wrapper styling */
+.sf-list-container.view-list .card-thumb-wrapper {
+    flex: 0 0 160px !important;
+    width: 160px !important;
+}
+
+/* Compact view - hide wrapper */
+.sf-list-container.view-compact .card-thumb-wrapper {
+    display: none !important;
+}
+
+/* COMMENTED OUT - REPLACED WITH VIEW-SPECIFIC MOBILE STYLES BELOW */
+/*
+@media (max-width: 720px) {
+    .card-thumb-wrapper {
+        display: none !important;
+    }
+}
+*/
+
+/* ==========================================================================
+   CHECKBOX POSITIONING PER VIEW
+   ========================================================================== */
+
+/* ==========================================================================
+   CHECKBOX POSITIONING - DUAL STRUCTURE FIX
+   Two checkboxes:  card-checkbox-thumb (in wrapper) and card-checkbox-main (at card level)
+   ========================================================================== */
+
+/* Hide both checkboxes by default */
+.card-checkbox-thumb,
+.card-checkbox-main {
+    display: none !important;
+}
+
+/* --- GRID VIEW:  Show thumbnail checkbox (bottom-left of image) --- */
+.sf-list-container.view-grid .card-checkbox-thumb {
+    display: flex !important;
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    z-index: 25 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 6px !important;
+    padding: 4px !important;
+}
+
+.sf-list-container.view-grid .card-checkbox-main {
+    display: none !important;
+}
+
+/* --- LIST VIEW: Show main checkbox (right side of card) --- */
+.sf-list-container.view-list .card-checkbox-main {
+    display: flex !important;
+    position: absolute !important;
+    top: auto !important;
+    bottom: 12px !important;
+    right: 12px !important;
+    left: auto !important;
+    z-index: 10 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 6px !important;
+    padding: 4px !important;
+}
+
+.sf-list-container.view-list .card-checkbox-thumb {
+    display: none !important;
+}
+
+/* --- COMPACT VIEW: Show main checkbox (inline start of row) --- */
+.sf-list-container.view-compact .card-checkbox-main {
+    display: flex !important;
+    position: static !important;
+    order: -2 !important;
+    flex-shrink: 0 !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.sf-list-container.view-compact .card-checkbox-thumb {
+    display: none !important;
+}
+
+/* --- Checkbox input styling (all views) --- */
+.card-checkbox input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: #3b82f6;
+}
+
+.sf-list-container.view-compact .card-checkbox input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* COMPACT VIEW - Hide thumb wrapper but show checkbox */
+.sf-list-container.view-compact .card-thumb-wrapper {
+    display: contents !important;
+    /* Allows children to be placed in parent's flow */
+}
+
+.sf-list-container.view-compact .card-thumb-wrapper .card-thumb {
+    display: none !important;
+}
+
+.sf-list-container.view-compact .card-thumb-wrapper .comment-badge {
+    display: none !important;
+}
+
+.sf-list-container.view-compact .card-thumb-wrapper .sf-copy-btn,
+.sf-list-container.view-compact .card-thumb-wrapper .sf-copy-btn-compact {
+    display: none !important;
+}
+
+/* ===== FILTER CHIPS ===== */
+.sf-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+/* Filter chips - moderni tyyli */
+.sf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    white-space: nowrap;
+}
+
+.sf-chip:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+}
+
+/* Aktiivinen chip - keltainen gradientti */
+.sf-chip.active {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #1e293b;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.35);
+    font-weight: 600;
+}
+
+.sf-chip.active:hover {
+    background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+    transform: translateY(-1px);
+}
+
+.sf-chip.active .chip-arrow {
+    stroke: #1e293b;
+}
+
+.sf-chip.open {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+/* Chip arrow animaatio */
+.chip-arrow {
+    transition: transform 0.2s ease;
+}
+
+.sf-chip.open .chip-arrow {
+    transform: rotate(180deg);
+}
+
+/* ===== CHIP DROPDOWN ===== */
+.sf-chip-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    max-height: 300px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.sf-chip:not(.open) .sf-chip-dropdown {
+    display: none;
+}
+
+/* Webkit scrollbar styling */
+.sf-chip-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sf-chip-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sf-chip-dropdown::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.sf-chip-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Fade effect at bottom to indicate more content */
+.sf-chip-dropdown.has-scroll::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95));
+    pointer-events: none;
+    display: block;
+    margin-top: -40px;
+    /* Negative margin equals height to overlay content */
+}
+
+/* Hide fade when scrolled to bottom */
+.sf-chip-dropdown.scrolled-to-bottom::after {
+    opacity: 0;
+}
+
+.sf-chip-dropdown-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    text-align: left;
+}
+
+.sf-chip-dropdown-option:hover {
+    background: #f8fafc;
+}
+
+.sf-chip-dropdown-option.selected {
+    background: #f0fdf4;
+}
+
+.sf-chip-dropdown-radio {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.sf-chip-dropdown-option.selected .sf-chip-dropdown-radio {
+    border-color: #22c55e;
+    background: #22c55e;
+    box-shadow: inset 0 0 0 3px #fff;
+}
+
+.sf-chip-dropdown-label {
+    flex: 1;
+    font-size: 13px;
+    color: #1f2937;
+    text-align: left;
+}
+
+.sf-chip-dropdown-count {
+    font-size: 12px;
+    color: #9ca3af;
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* ===== DATE DROPDOWN ===== */
+.sf-date-dropdown {
+    min-width: 280px;
+}
+
+.sf-dropdown-header {
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sf-dropdown-footer {
+    padding: 12px 16px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.sf-date-clear {
+    color: #ef4444;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.sf-date-clear:hover {
+    text-decoration: underline;
+}
+
+.sf-date-custom-fields {
+    padding: 12px 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.sf-date-custom-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sf-date-field {
+    flex: 1;
+}
+
+.sf-date-field label {
+    display: block;
+    font-size: 11px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.sf-date-field input[type="date"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.sf-date-arrow {
+    color: #9ca3af;
+    font-size: 16px;
+    margin-top: 16px;
+}
+
+/* ===== BOTTOM SHEET (Mobile) - moderni tyyli ===== */
+.sf-bottom-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+
+.sf-bottom-sheet.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.sf-bottom-sheet-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.sf-bottom-sheet-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-radius: 20px 20px 0 0;
+    max-height: 85vh;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sf-bottom-sheet.open .sf-bottom-sheet-content {
+    transform: translateY(0);
+}
+
+/* Swipe handle - selkeämpi */
+.sf-bottom-sheet-handle {
+    width: 40px;
+    height: 5px;
+    background: #cbd5e1;
+    border-radius: 3px;
+    margin: 12px auto 4px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    /* Expand vertical touch target without adding excessive horizontal area */
+    padding: 8px 0;
+    box-sizing: content-box;
+    position: relative;
+}
+
+/* Header */
+.sf-bottom-sheet-header {
+    padding: 8px 20px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.sf-bottom-sheet-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0;
+}
+
+/* Options list */
+.sf-bottom-sheet-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+.sf-bottom-sheet.sf-bottom-sheet-has-scroll-fade .sf-bottom-sheet-body::after {
+    content: none;
+}
+
+.sf-bottom-sheet.sf-bottom-sheet-has-scroll-fade .sf-bottom-sheet-body {
+    padding-bottom: calc(8px + var(--sf-bottom-sheet-scroll-fade-height, 48px));
+}
+
+.sf-bottom-sheet.sf-bottom-sheet-has-scroll-fade {
+    --sf-bottom-sheet-bg-color: #ffffff;
+    --sf-bottom-sheet-bg-color-transparent: rgba(255, 255, 255, 0);
+    --sf-bottom-sheet-scroll-fade-height: 48px;
+}
+
+.sf-bottom-sheet-option,
+.sf-filter-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.sf-bottom-sheet-option:hover,
+.sf-filter-option:hover {
+    background: #f8fafc;
+}
+
+.sf-bottom-sheet-option.selected,
+.sf-filter-option.selected {
+    background: #f0fdf4;
+}
+
+.sf-bottom-sheet.sf-mobile-site-sheet .sf-bottom-sheet-option.selected {
+    background: #fef3c7;
+}
+
+.sf-bottom-sheet-option-label,
+.sf-filter-option-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: #1e293b;
+}
+
+.sf-bottom-sheet-option-count,
+.sf-filter-option-count {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.sf-bottom-sheet-option.selected .sf-bottom-sheet-option-label,
+.sf-filter-option.selected .sf-filter-option-label {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.sf-bottom-sheet.sf-mobile-site-sheet .sf-bottom-sheet-option.selected .sf-bottom-sheet-option-label {
+    color: #1e293b;
+}
+
+/* Radio button - moderni */
+.sf-bottom-sheet-option-radio,
+.sf-filter-option input[type="radio"] {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.sf-bottom-sheet-option.selected .sf-bottom-sheet-option-radio,
+.sf-filter-option input[type="radio"]:checked {
+    border-color: #16a34a;
+    background: #16a34a;
+}
+
+.sf-bottom-sheet.sf-mobile-site-sheet .sf-bottom-sheet-option.selected .sf-bottom-sheet-option-radio {
+    border-color: #f59e0b;
+    background: #f59e0b;
+}
+
+.sf-bottom-sheet-option.selected .sf-bottom-sheet-option-radio::after,
+.sf-filter-option input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+/* Footer buttons - moderni */
+.sf-bottom-sheet-footer {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    border-top: 1px solid #f1f5f9;
+    background: var(--sf-bottom-sheet-bg-color, #ffffff);
+    position: relative;
+    z-index: 2;
+}
+
+.sf-bottom-sheet.sf-bottom-sheet-has-scroll-fade .sf-bottom-sheet-footer::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--sf-bottom-sheet-scroll-fade-height) * -1);
+    height: var(--sf-bottom-sheet-scroll-fade-height);
+    background: linear-gradient(
+        to bottom,
+        var(--sf-bottom-sheet-bg-color-transparent, rgba(255, 255, 255, 0)),
+        var(--sf-bottom-sheet-bg-color, #ffffff) 85%
+    );
+    pointer-events: none;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.sf-bottom-sheet.sf-bottom-sheet-has-scroll-fade .sf-bottom-sheet-body.is-bottom ~ .sf-bottom-sheet-footer::before {
+    opacity: 0;
+}
+
+.sf-bottom-sheet-footer button {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: none;
+}
+
+#sfBottomSheetClear {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+#sfBottomSheetClear:hover {
+    background: #e2e8f0;
+}
+
+#sfBottomSheetDone {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+#sfBottomSheetDone:hover {
+    background: #1e293b;
+}
+
+/* ===== MODERN RESET BUTTON ===== */
+.sf-filter-reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-filter-reset-btn:hover {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: #cbd5e1;
+}
+
+.sf-filter-reset-btn:active {
+    background: #e2e8f0;
+    transform: scale(0.98);
+}
+
+.sf-filter-reset-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2;
+}
+
+/* Hide text on mobile, show only icon */
+@media (max-width: 768px) {
+    .sf-filter-reset-btn span {
+        display: none;
+    }
+
+    .sf-filter-reset-btn {
+        padding: 8px;
+    }
+}
+
+/* ===== IMPROVED CLEAR BUTTON (X) ===== */
+.sf-filter-clear-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    color: #94a3b8;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-filter-clear-btn:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.sf-filter-clear-btn:active {
+    background: #fecaca;
+    transform: scale(0.95);
+}
+
+/* ===== SEARCH BUTTON (SUURENNUSLASI) ===== */
+.sf-search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: #fbbf24;
+    color: #1e293b;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.sf-search-btn:hover {
+    background: #f59e0b;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+}
+
+.sf-search-btn:active {
+    transform: scale(0.95);
+}
+
+.sf-search-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+}
+
+/* ===== RESET BUTTON - HIDDEN BY DEFAULT ===== */
+.sf-filter-reset-btn {
+    display: none;
+    /* Piilotettu oletuksena */
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+/* Näytetään vain kun on aktiivisia suodattimia */
+.sf-filter-reset-btn.visible {
+    display: inline-flex;
+}
+
+.sf-filter-reset-btn:hover {
+    background: #f1f5f9;
+    color: #475569;
+    border-color: #cbd5e1;
+}
+
+.sf-filter-reset-btn:active {
+    background: #e2e8f0;
+    transform: scale(0.98);
+}
+
+.sf-filter-reset-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ===== CLEAR BUTTON (X) - ALSO HIDDEN BY DEFAULT ===== */
+.sf-filter-clear-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    color: #94a3b8;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-filter-clear-btn.visible {
+    display: flex;
+}
+
+.sf-filter-clear-btn:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+/* ===== FILTER SEARCH CONTAINER ===== */
+.sf-filter-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sf-filter-search input {
+    height: 40px;
+    padding: 0 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    min-width: 200px;
+    transition: all 0.15s ease;
+}
+
+.sf-filter-search input:focus {
+    outline: none;
+    border-color: #fbbf24;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+}
+
+.sf-filter-search input::placeholder {
+    color: #94a3b8;
+}
+
+/* ===== FIX: Chip dropdown z-index ===== */
+.sf-filter-chips {
+    position: relative;
+    z-index: 100;
+}
+
+.sf-chip {
+    position: relative;
+}
+
+.sf-chip.open {
+    z-index: 101;
+}
+
+.sf-chip-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    margin-top: 4px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.sf-date-dropdown {
+    min-width: 280px;
+}
+
+/* Varmista että lista-kontaineri ei ole dropdownin päällä */
+.sf-list-container {
+    position: relative;
+    z-index: 1;
+}
+
+.sf-bulk-actions {
+    position: relative;
+    z-index: 50;
+}
+
+
+@media (max-width: 768px) {
+    /* Mobile-specific styles for card wrapper and thumbnail */
+    /* These styles complement the main mobile styles above */
+
+    /* Show card-thumb-wrapper on mobile */
+    .card-thumb-wrapper {
+        display: flex !important;
+        width: 100% !important;
+        order: -1 !important;
+    }
+
+    /* Otsikko ja työmaa: pakota näkyviin (riippumatta view-luokista) */
+    .card-title {
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #0f172a !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 16px !important;
+        font-weight: 800 !important;
+        line-height: 1.25 !important;
+        margin: 6px 8px 2px 0 !important;
+    }
+
+    .card-site {
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #64748b !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 13px !important;
+        line-height: 1.2 !important;
+        margin: 0 0 6px 0 !important;
+    }
+
+    /* Meta: nätisti rivittyvä */
+    .card-meta {
+        width: 100% !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        font-size: 11px !important;
+        color: #94a3b8 !important;
+        margin-top: 2px !important;
+    }
+
+    /* Open button styling */
+    .open-btn {
+        padding: 8px 14px !important;
+        font-size: 13px !important;
+        border-radius: 10px !important;
+        white-space: nowrap !important;
+    }
+
+    .card-lang-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        margin-top: 0 !important;
+    }
+}
+
+/* ===== PREVIEW GENERATION INDICATORS ===== */
+.sf-preview-generating {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    z-index: 10;
+    gap: 8px;
+    padding: 12px;
+}
+
+.sf-preview-generating span {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+    text-align: center;
+}
+
+.sf-spinner {
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.sf-card-image.sf-preview-pending {
+    opacity: 0.3;
+}
+
+
+/* Preview Generation Progress Indicator */
+.sf-generating-overlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: rgba(15, 23, 42, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+    z-index: 5;
+    transition: opacity 0.5s ease;
+}
+
+.sf-generating-content {
+    text-align: center;
+    color: #fff;
+    padding: 8px;
+    max-width: 100%;
+}
+
+.sf-generating-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fee000;
+    border-radius: 50%;
+    animation: sf-spin 1s linear infinite;
+    margin: 0 auto 12px;
+}
+
+.sf-generating-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.sf-preview-progress-wrap {
+    width: 120px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 auto 6px;
+}
+
+.sf-preview-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #fee000, #8fc640);
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.sf-preview-progress-text {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sf-generating-failed .sf-generating-text {
+    color: #ef4444;
+}
+
+.sf-generating-failed .sf-generating-spinner {
+    display: none;
+}
+
+/* Mobile responsive styles for generating overlay */
+@media (max-width: 768px) {
+    .sf-generating-text {
+        font-size: 0.6rem;
+    }
+
+    .sf-preview-progress-wrap {
+        width: 80px;
+    }
+}
+
+/* ===== YKSINKERTAISTETTU SPINNER (list-sivu) ===== */
+/* Pelkkä spinneri ilman tekstejä - selkeämpi pienessä thumbnailissa */
+
+.sf-generating-overlay.sf-generating-spinner-only {
+    /* Kevyempi tausta - näkee placeholder-kuvan alla */
+    background: rgba(255, 255, 255, 0.85);
+
+    /* Flexbox keskittää spinnerin */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sf-generating-overlay.sf-generating-spinner-only .sf-generating-spinner {
+    /* Isompi spinneri kun se on ainoa elementti */
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(15, 23, 42, 0.15);
+    border-top-color: #fee000;
+    border-radius: 50%;
+    animation: sf-spin 1s linear infinite;
+    margin: 0;
+}
+
+/* Mobiilissa pienempi spinneri */
+@media (max-width: 768px) {
+    .sf-generating-overlay.sf-generating-spinner-only .sf-generating-spinner {
+        width: 28px;
+        height: 28px;
+        border-width: 2px;
+    }
+}
+
+/* COMMENTED OUT - REPLACED WITH VIEW-SPECIFIC MOBILE STYLES BELOW */
+/*
+@media (max-width: 768px) {
+    .card {
+        position: relative;
+        padding-right: 80px;
+    }
+
+    .card-title {
+        white-space: normal !important;
+        overflow: hidden !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        text-overflow: ellipsis !important;
+        word-break: break-word !important;
+        line-height: 1.35 !important;
+        font-size: 15px !important;
+        max-width: calc(100% - 10px) !important;
+        padding-right: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .card-actions {
+        position: absolute !important;
+        top: 12px !important;
+        right: 12px !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .card-mid {
+        max-width: calc(100% - 70px) !important;
+    }
+}
+*/
+
+/* ============================================
+   MOBIILI NÄKYMÄTYYLIT (max-width: 768px)
+   ============================================ */
+
+@media (max-width: 768px) {
+
+    /* ===== OVERFLOW FIXES - Prevent cards from breaking out of screen ===== */
+    .sf-list-container {
+        overflow-x: hidden !important;
+    }
+
+    .sf-list-container .card-list {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .sf-list-container .card {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ===== MOBIILI: LISTA-NÄKYMÄ (oletus) ===== */
+    .sf-list-container.view-list .card {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        padding: 12px !important;
+        gap: 12px !important;
+        position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .sf-list-container.view-list .card-thumb-wrapper {
+        display: block !important;
+        flex: 0 0 96px !important;
+        width: 96px !important;
+        order: 0 !important;
+    }
+
+    .sf-list-container.view-list .card-thumb {
+        display: flex !important;
+        flex: 0 0 96px !important;
+        width: 96px !important;
+        height: 96px !important;
+        min-height: 96px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: #f8fafc !important;
+        border-radius: 10px !important;
+        padding: 6px !important;
+    }
+
+    .sf-list-container.view-list .card-thumb img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+    }
+
+    .sf-list-container.view-list .card-mid {
+        width: auto !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* Ensure card-top has enough space and wraps properly */
+    .sf-list-container.view-list .card-top {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .sf-list-container.view-list .card-top .left {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    .sf-list-container.view-list .card-title {
+        font-size: 15px;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        display: -webkit-box !important;
+        -webkit-box-orient: vertical;
+        white-space: normal !important;
+        overflow: hidden !important;
+        padding-right: 0 !important;
+        margin-bottom: 4px;
+    }
+
+    /* Actions - move to bottom as a separate row to prevent overlap */
+    .sf-list-container.view-list .card-actions {
+        position: static !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        width: auto !important;
+        padding: 0 !important;
+        margin-top: 0 !important;
+        border-top: none !important;
+        background: transparent !important;
+        gap: 8px !important;
+    }
+
+    .sf-list-container.view-list .card-meta {
+        font-size: 11px;
+    }
+
+    /* Ensure badges and status are properly sized on mobile */
+    .sf-list-container.view-list .badge,
+    .sf-list-container.view-list .status {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Language flag actions - ensure they have spacing */
+    .sf-list-container.view-list .card-lang-actions {
+        display: flex !important;
+        gap: 6px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .sf-list-container.view-list .list-lang-flag {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Kommentti-badge lista-näkymässä - näytä kortin vasemmassa yläkulmassa */
+    .sf-list-container.view-list .comment-badge {
+        display: inline-flex !important;
+        position: absolute !important;
+        top: 8px !important;
+        left: 8px !important;
+        right: auto !important;
+        z-index: 15 !important;
+        width: 26px;
+        height: 26px;
+    }
+
+    /* ===== MOBILE GRID VIEW - SAME AS DESKTOP ===== */
+    .sf-list-container.view-grid .card-list {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    /* Grid view cards - vertical stack */
+    .sf-list-container.view-grid .card {
+        display: flex !important;
+        flex-direction: column !important;
+        position: relative !important;
+        padding: 0 !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        background: #fff !important;
+        border: 1px solid #e5e7eb !important;
+        border-left: 5px solid transparent !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    /* Type color on left border */
+    .sf-list-container.view-grid .card.type-red {
+        border-left-color: #dc2626 !important;
+    }
+
+    .sf-list-container.view-grid .card.type-yellow {
+        border-left-color: #eab308 !important;
+    }
+
+    .sf-list-container.view-grid .card.type-green {
+        border-left-color: #16a34a !important;
+    }
+
+    /* Thumbnail wrapper - ORDER 1 (top) */
+    .sf-list-container.view-grid .card-thumb-wrapper {
+        display: block !important;
+        width: 100% !important;
+        position: relative !important;
+        order: 1 !important;
+    }
+
+    /* Thumbnail link - NO min-height, allow natural sizing */
+    .sf-list-container.view-grid .card-thumb {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        /* REMOVE min-height constraint */
+        max-height: none !important;
+        /* REMOVE max-height constraint */
+        background: #f8fafc !important;
+        padding: 12px !important;
+        position: relative !important;
+    }
+
+    /* Image - CONTAIN with natural dimensions */
+    .sf-list-container.view-grid .card-thumb img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 90% !important;
+        max-height: 400px !important;
+        /* Only max, no min */
+        min-height: 0 !important;
+        /* REMOVE min-height */
+        object-fit: contain !important;
+        /* Shows FULL image, no cropping */
+        display: block !important;
+        margin: 0 auto !important;
+        border-radius: 8px !important;
+    }
+
+    /* HIDE any overlays on the image area */
+    .sf-list-container.view-grid .card-thumb-wrapper::before,
+    .sf-list-container.view-grid .card-thumb-wrapper::after,
+    .sf-list-container.view-grid .card-thumb::before,
+    .sf-list-container.view-grid .card-thumb::after {
+        display: none !important;
+    }
+
+    /* GRID Checkbox - top right of image */
+    .sf-list-container.view-grid .card-checkbox-thumb {
+        display: flex !important;
+        position: absolute !important;
+        top: 12px !important;
+        right: 12px !important;
+        left: auto !important;
+        z-index: 30 !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        border-radius: 8px !important;
+        padding: 6px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* LIST/COMPACT Checkbox - HIDE in grid view */
+    .sf-list-container.view-grid .card-checkbox-main {
+        display: none !important;
+    }
+
+    /* Comment badge - top left */
+    .sf-list-container.view-grid .comment-badge {
+        position: absolute !important;
+        top: 12px !important;
+        left: 12px !important;
+        z-index: 25 !important;
+    }
+
+    /* Copy button - bottom right of image ONLY */
+    .sf-list-container.view-grid .card-thumb .sf-copy-btn,
+    .sf-list-container.view-grid .card-thumb .sf-copy-btn-compact,
+    .sf-list-container.view-grid .card-thumb-wrapper .sf-copy-btn,
+    .sf-list-container.view-grid .card-thumb-wrapper .sf-copy-btn-compact {
+        position: absolute !important;
+        bottom: 12px !important;
+        right: 12px !important;
+        left: auto !important;
+        top: auto !important;
+        z-index: 20 !important;
+    }
+
+    /* Content area - ORDER 2 (middle) */
+    .sf-list-container.view-grid .card-mid {
+        order: 2 !important;
+        padding: 16px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        position: static !important;
+    }
+
+    /* Badges row - STATIC position, NOT absolute */
+    .sf-list-container.view-grid .card-top {
+        position: static !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        margin-bottom: 10px !important;
+        background: transparent !important;
+        padding: 0 !important;
+    }
+
+    /* HIDE the open button from card-top (it's in card-actions) */
+    .sf-list-container.view-grid .card-top .open-btn,
+    .sf-list-container.view-grid .card-top .sf-add-btn,
+    .sf-list-container.view-grid .card-top button:not(.badge):not(.status) {
+        display: none !important;
+    }
+
+    /* Show badges and status normally */
+    .sf-list-container.view-grid .card-top .badge,
+    .sf-list-container.view-grid .card-top .status {
+        display: inline-flex !important;
+    }
+
+    /* Card title */
+    .sf-list-container.view-grid .card-title {
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        margin-bottom: 6px !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+
+    /* Card site */
+    .sf-list-container.view-grid .card-site {
+        font-size: 13px !important;
+        color: #64748b !important;
+        margin-bottom: 8px !important;
+    }
+
+    /* Card meta */
+    .sf-list-container.view-grid .card-meta {
+        font-size: 11px !important;
+        color: #94a3b8 !important;
+    }
+
+    /* Actions bar - ORDER 3 (bottom) */
+    .sf-list-container.view-grid .card-actions {
+        order: 3 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 12px 16px !important;
+        background: #f8fafc !important;
+        border-top: 1px solid #e5e7eb !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        position: static !important;
+        /* NOT absolute! */
+    }
+
+    /* Open button - visible in actions bar */
+    .sf-list-container.view-grid .card-actions .open-btn {
+        display: inline-flex !important;
+        background: #0f172a !important;
+        color: #fff !important;
+        padding: 8px 16px !important;
+        border-radius: 8px !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+    }
+
+    /* Language flags */
+    .sf-list-container.view-grid .card-lang-actions {
+        display: flex !important;
+        gap: 6px !important;
+        align-items: center !important;
+    }
+
+    /* HIDE compact-only elements */
+    .sf-list-container.view-grid .sf-compact-status,
+    .sf-list-container.view-grid .sf-compact-chevron,
+    .sf-list-container.view-grid .card-compact-meta {
+        display: none !important;
+    }
+
+    /* Type indicator hidden in grid */
+    .sf-list-container.view-grid .type-indicator {
+        display: none !important;
+    }
+
+    /* ===== MOBIILI: COMPACT-NÄKYMÄ - Fix layout issues ===== */
+    .sf-list-container.view-compact .card {
+        position: relative;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+        padding: 10px !important;
+    }
+
+    /* Fix Avaa button position - don't overlap */
+    .sf-list-container.view-compact .card-open-btn,
+    .sf-list-container.view-compact .btn-open,
+    .sf-list-container.view-compact .open-btn {
+        position: absolute !important;
+        top: 8px !important;
+        left: 8px !important;
+        z-index: 10 !important;
+    }
+
+    /* Remove any borders/lines that overlap pills */
+    .sf-list-container.view-compact .card-actions {
+        display: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Ensure status pill has no overlapping elements */
+    .sf-list-container.view-compact .status-pill,
+    .sf-list-container.view-compact .sf-status-pill {
+        position: relative !important;
+        z-index: 5 !important;
+    }
+
+}
+
+/* ========================================
+   EDITING INDICATOR
+   ======================================== */
+
+/* Editing indicator */
+.sf-editing-indicator {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    background: linear-gradient(90deg, #fef3c7, #fde68a, #fef3c7);
+    background-size: 200% 100%;
+    animation: sf-shimmer 2s infinite linear;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #92400e;
+}
+
+@keyframes sf-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.sf-editing-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(146, 64, 14, 0.3);
+    border-top-color: #92400e;
+    border-radius: 50%;
+    animation: sf-spin 0.8s linear infinite;
+}
+
+.sf-editing-text {
+    font-weight: 500;
+}
+
+/* ========================================
+   MOBILE FILTER IMPROVEMENTS (max-width: 768px)
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    /* Hide old filters and filters-grid on mobile */
+    .filters,
+    .filters-grid,
+    .filters-toggle {
+        display: none !important;
+    }
+
+    /* Make filter header compact on mobile */
+    .sf-filter-header {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    /* Archived toggle - full width row on mobile */
+    .sf-archived-toggle {
+        width: 100%;
+        display: flex;
+        justify-content: stretch;
+    }
+
+    .sf-archived-toggle .sf-toggle-btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    /* Search container - full width on mobile */
+    .sf-filter-search {
+        width: 100%;
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
+
+    .sf-filter-search input {
+        flex: 1;
+        min-width: 150px;
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    /* Fix filter chips container to support visible dropdowns */
+    .sf-filter-chips {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: visible;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        padding-right: 20px;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        z-index: 100;
+    }
+
+    /* Add fade gradient to indicate more content on right - reduced for mobile */
+    /* Note: rgba(241, 245, 249, ...) must match page background color (#f1f5f9) */
+    .sf-filter-chips::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 8px;
+        width: 20px;
+        background: linear-gradient(to right, rgba(241, 245, 249, 0), rgba(241, 245, 249, 0.7));
+        pointer-events: none;
+    }
+
+    /* Chip elements - compact and mobile-friendly */
+    .sf-chip {
+        flex-shrink: 0;
+        padding: 8px 14px;
+        font-size: 14px;
+        border-radius: 20px;
+        white-space: nowrap;
+        border-width: 1.5px;
+    }
+
+    /* Active chip - solid color for consistent WCAG AAA contrast (black on yellow = 17.22:1) */
+    .sf-chip.active {
+        background: #fbbf24;
+        /* Solid yellow instead of gradient for consistent contrast */
+        color: #000000;
+        /* Black text: 17.22:1 contrast ratio (WCAG AAA compliant) */
+        border-color: transparent;
+        box-shadow: 0 2px 6px rgba(251, 191, 36, 0.3);
+        font-weight: 600;
+    }
+
+    /* Chip arrow - smaller on mobile */
+    .sf-chip .chip-arrow {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Sort chip separator */
+    .sf-chip-separator {
+        display: inline-flex;
+        align-items: center;
+        color: #cbd5e1;
+        font-size: 16px;
+        margin: 0 4px;
+    }
+
+    /* Sort chip styling */
+    .sf-chip-sort {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+    }
+
+    .sf-chip-sort .chip-icon {
+        font-size: 14px;
+    }
+
+    /* Chip label text */
+    .sf-chip .chip-label {
+        display: inline-block;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Mobile dropdown styles - fixed position for better visibility */
+    .sf-chip-dropdown {
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100vw;
+        z-index: 9999;
+        max-height: 50vh;
+        overflow-y: auto;
+        bottom: auto !important;
+        /* Footer height (60px) + iOS safe area for proper clearance */
+        margin-bottom: calc(60px + env(safe-area-inset-bottom));
+    }
+
+    /* Ensure active dropdown is always visible */
+    .sf-chip.open .sf-chip-dropdown {
+        display: block;
+        z-index: 10000;
+    }
+
+    /* ===== LIST VIEW MOBILE OPTIMIZATIONS ===== */
+    /* Hide open button in card-actions - whole card is clickable */
+    .card-actions .open-btn {
+        display: none !important;
+    }
+
+    /* Reduce badge size for mobile */
+    .badge {
+        font-size: 10px !important;
+        padding: 2px 6px !important;
+    }
+
+    /* Checkbox absolute positioning to top-right corner */
+    .card-checkbox {
+        position: absolute !important;
+        top: 8px !important;
+        right: 8px !important;
+        bottom: auto !important;
+        left: auto !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+        z-index: 20 !important;
+    }
+
+    /* Prevent text from overlapping with repositioned checkbox */
+    .card-mid {
+        padding-right: 24px !important;
+    }
+
+    /* ===== COMPACT VIEW MOBILE OPTIMIZATIONS ===== */
+    /* Hide main checkbox to save horizontal space */
+    .sf-list-container.view-compact .card-checkbox-main {
+        display: none !important;
+    }
+
+    /* Move status to left */
+    .sf-list-container.view-compact .card-actions {
+        order: -1 !important;
+        padding-right: 10px !important;
+        gap: 0 !important;
+        min-width: auto !important;
+    }
+
+
+
+    /* Dot style status indicator */
+    .sf-list-container.view-compact .sf-compact-status {
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+    }
+
+    /* Hide SVG inside status dot */
+    .sf-list-container.view-compact .sf-compact-status svg {
+        display: none !important;
+    }
+
+    /* Prevent text from overlapping with chevron */
+    .sf-list-container.view-compact .card-mid {
+        padding-right: 24px !important;
+    }
+
+    /* Adjust card padding and alignment */
+    .sf-list-container.view-compact .card {
+        padding: 12px 10px !important;
+        align-items: center !important;
+        min-height: 50px !important;
+        position: relative !important;
+    }
+}
+/* ===== MOBILE COMMENT BADGE FIX ===== */
+.comment-badge-mobile {
+    display: none;
+}
+
+@media (max-width: 720px) {
+    /* Piilota vanha kulmabubble mobiilissa kokonaan */
+    .comment-badge {
+        display: none !important;
+    }
+
+    /* Anna badgeille tilaa rivittyä siististi */
+    .card-top .left,
+    .sf-list-container.view-list .card-top .left,
+    .sf-list-container.view-grid .card-top .left,
+    .sf-list-container.view-compact .card-top .left {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    /* Uusi mobiilibadge kortin sisältöön */
+    .comment-badge-mobile {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: #fff1f2;
+        border: 1px solid #fecdd3;
+        color: #b91c1c;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .comment-badge-mobile-icon {
+        width: 14px;
+        height: 14px;
+        display: block;
+        fill: currentColor;
+    }
+
+    .comment-badge-mobile-count {
+        display: inline-block;
+        line-height: 1;
+    }
+}
+/* ===== PAGINATION ===== */
+.sf-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 16px 8px;
+    flex-wrap: wrap;
+}
+
+.sf-page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sf-page-btn:hover:not(.disabled) {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.sf-page-btn.disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
+.sf-page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sf-page-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 6px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.sf-page-num:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.sf-page-num.active {
+    background: #fee000;
+    border-color: #fee000;
+    color: #111827;
+    font-weight: 700;
+    cursor: default;
+    pointer-events: none;
+}
+
+.sf-page-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    font-size: 14px;
+    color: #9ca3af;
+    user-select: none;
+}
+
+.sf-page-info {
+    font-size: 13px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+@media (max-width: 540px) {
+    .sf-pagination {
+        gap: 6px;
+        padding: 20px 8px 8px;
+    }
+
+    .sf-page-btn span {
+        display: none;
+    }
+
+    .sf-page-btn {
+        padding: 8px 10px;
+    }
+
+    .sf-page-info {
+        order: -1;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ── Original type badge on cards ────────────────────────────── */
+.card-original-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+
+.card-original-type-label {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.badge-original-type {
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-original-red {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.badge-original-yellow {
+    background: #fefce8;
+    color: #a16207;
+    border: 1px solid #fde047;
+}
+
+.badge-original-green {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #86efac;
+}
+
+/* ── Injured body parts row on cards ─────────────────────────── */
+.card-body-parts {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.card-body-parts-icon {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+    stroke: #f87171;
+    margin-right: 2px;
+}
+
+.card-body-part-tag {
+    display: inline-block;
+    background: #fff1f2;
+    color: #be123c;
+    border: 1px solid #fecdd3;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Compact view – hide body parts row to keep cards slim */
+.sf-list-container.view-compact .card-body-parts {
+    display: none;
+}
+
+/* ========================================
+   FINAL MOBILE CARD REFINEMENTS
+   ======================================== */
+@media (max-width: 768px) {
+
+    /* Compact view: use tiny color status indicators instead of long status text */
+    .sf-list-container.view-compact .card-top .status {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+    }
+
+    .sf-list-container.view-compact .card-actions {
+        display: flex !important;
+        order: -1 !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 14px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+    }
+
+    .sf-list-container.view-compact .card-actions .open-btn,
+    .sf-list-container.view-compact .card-actions .card-lang-actions,
+    .sf-list-container.view-compact .sf-compact-chevron {
+        display: none !important;
+    }
+
+    .sf-list-container.view-compact {
+        --sf-compact-status-color-default: #94a3b8;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        background: var(--sf-compact-status-color, var(--sf-compact-status-color-default)) !important;
+        box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.5) !important;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status .sf-compact-status-check,
+    .sf-list-container.view-compact .sf-compact-status .sf-compact-status-spinner {
+        display: none !important;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status.sf-status--pending {
+        --sf-compact-status-color: #3b82f6;
+        animation: sf-compact-pulse 2s ease-in-out infinite;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status.sf-status--request-info,
+    .sf-list-container.view-compact .sf-compact-status.sf-status--reviewed {
+        --sf-compact-status-color: #f59e0b;
+        animation: sf-compact-pulse 2s ease-in-out infinite;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status.sf-status--comms {
+        --sf-compact-status-color: #d946ef;
+        animation: sf-compact-pulse 2s ease-in-out infinite;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status.sf-status--published {
+        --sf-compact-status-color: #16a34a;
+        animation: none;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status.sf-status--draft {
+        --sf-compact-status-color: var(--sf-compact-status-color-default);
+        animation: none;
+    }
+
+    .sf-list-container.view-compact .sf-compact-status.sf-status--other {
+        --sf-compact-status-color: #64748b;
+        animation: none;
+    }
+
+    /* List view: airy compact-like rows with full details but no thumbnail */
+    .sf-list-container.view-list .card {
+        align-items: flex-start !important;
+        gap: 0 !important;
+        padding: 16px !important;
+    }
+
+    .sf-list-container.view-list .card-thumb-wrapper,
+    .sf-list-container.view-list .card-thumb {
+        display: none !important;
+    }
+
+    .sf-list-container.view-list .card-mid {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .sf-list-container.view-list .card-title {
+        line-height: 1.45 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .sf-list-container.view-list .card-site {
+        display: block !important;
+        margin-bottom: 6px !important;
+        line-height: 1.4 !important;
+    }
+
+    .sf-list-container.view-list .card-meta {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        line-height: 1.45 !important;
+    }
+
+    .sf-list-container.view-list .status {
+        display: inline-flex !important;
+        font-size: 11px !important;
+        padding: 4px 9px !important;
+    }
+
+    .sf-list-container.view-list .card-compact-meta,
+    .sf-list-container.view-list .sf-compact-status,
+    .sf-list-container.view-list .sf-compact-chevron {
+        display: none !important;
+    }
+
+    /* Grid view: make thumbnail float inside the card */
+    .sf-list-container.view-grid .card-thumb-wrapper {
+        padding: 12px 12px 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    .sf-list-container.view-grid .card-thumb-wrapper .card-thumb {
+        border-radius: 10px !important;
+        overflow: hidden !important;
+    }
+
+    .sf-list-container.view-grid .card-thumb img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important;
+    }
+}
+
+@keyframes sf-compact-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.85);
+        opacity: 0.75;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sf-list-container.view-compact .sf-compact-status {
+        animation: none !important;
+    }
+}
+
+/* ==========================================================
+   COMPACT VIEW STATUS INDICATORS (MOBILE + DESKTOP)
+   ========================================================== */
+.sf-list-container.view-compact {
+    --sf-compact-status-color-default: var(--status-draft-bg, #e5e7eb);
+}
+
+.sf-list-container.view-compact .card-top .status {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.sf-list-container.view-compact .sf-compact-status {
+    --sf-compact-status-bg: var(--sf-compact-status-color-default);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+    --sf-compact-status-outline: rgba(15, 23, 42, 0.18);
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+    background: var(--sf-compact-status-bg) !important;
+    box-shadow: 0 0 0 1px var(--sf-compact-status-outline) !important;
+}
+
+.sf-list-container.view-compact .sf-compact-status::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 2px solid var(--sf-compact-status-ring);
+    border-radius: 50%;
+    opacity: 0.75;
+    animation: sf-compact-status-pulse-ring 1.7s ease-out infinite;
+}
+
+.sf-list-container.view-compact .sf-compact-status .sf-compact-status-check,
+.sf-list-container.view-compact .sf-compact-status .sf-compact-status-spinner,
+.sf-list-container.view-compact .sf-compact-status svg {
+    display: none !important;
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--draft {
+    --sf-compact-status-bg: var(--status-draft-bg, #e5e7eb);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--pending {
+    --sf-compact-status-bg: var(--status-pending-bg, #fee000);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+    --sf-compact-status-outline: rgba(146, 64, 14, 0.5);
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--pending-supervisor {
+    --sf-compact-status-bg: var(--status-pending-supervisor-bg, #e0f2fe);
+    --sf-compact-status-ring: var(--status-pending-supervisor-text, #0369a1);
+    --sf-compact-status-outline: rgba(3, 105, 161, 0.45);
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--request-info {
+    --sf-compact-status-bg: var(--status-request-bg, #fb923c);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--reviewed {
+    --sf-compact-status-bg: var(--status-reviewed-bg, #dbeafe);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--comms {
+    --sf-compact-status-bg: var(--status-comms-bg, #3b82f6);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--published {
+    --sf-compact-status-bg: var(--status-published-bg, #16a34a);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+}
+
+.sf-list-container.view-compact .sf-compact-status.sf-status--other {
+    --sf-compact-status-bg: var(--status-other-bg, #64748b);
+    --sf-compact-status-ring: var(--sf-compact-status-bg);
+}
+
+@keyframes sf-compact-status-pulse-ring {
+    0% {
+        transform: scale(0.7);
+        opacity: 0.6;
+    }
+
+    70% {
+        transform: scale(1.35);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.35);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sf-list-container.view-compact .sf-compact-status::after {
+        animation: none !important;
+        opacity: 0 !important;
+    }
+}
+
+/* ===== FINAL MOBILE LIST LAYOUT TUNING ===== */
+@media (max-width: 768px) {
+    .sf-page-container {
+        padding: 0.45rem 0.75rem 0.7rem;
+    }
+
+    .sf-page-header {
+        margin-bottom: clamp(15px, 2vw, 12px);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: clamp(6px, 1.6vw, 10px);
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sf-page-title {
+        flex: 0 0 auto;
+        max-width: calc(100% - 90px);
+        text-align: left;
+    }
+
+    .sf-mobile-filter-actions {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 8px;
+        margin-left: auto;
+        min-width: 0;
+        justify-content: flex-end;
+        flex-shrink: 0;
+    }
+
+    .sf-mobile-status-toggle-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(8px, 2vw, 12px);
+        margin-bottom: clamp(12px, 2.6vw, 16px);
+        min-width: 0;
+    }
+
+    .sf-mobile-archived-switch {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        min-height: 32px;
+        padding: clamp(6px, 1.7vw, 8px) clamp(10px, 3vw, 14px);
+        font-size: clamp(0.7rem, 2.6vw, 0.78rem);
+        font-weight: 700;
+        line-height: 1.1;
+        white-space: nowrap;
+        cursor: pointer;
+        flex: 0 0 auto;
+        max-width: 44%;
+    }
+
+    .sf-mobile-archived-switch.is-active {
+        background: #16a34a;
+        border-color: #16a34a;
+        color: #fff;
+    }
+
+    .sf-mobile-archived-switch.is-archived {
+        background: #334155;
+        border-color: #334155;
+        color: #fff;
+    }
+
+    .sf-mobile-mine-pending-switch {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #334155;
+        border-radius: 999px;
+        min-height: 32px;
+        padding: clamp(6px, 1.7vw, 8px) clamp(10px, 3vw, 14px);
+        background: #334155;
+        color: #fff;
+        text-decoration: none;
+        font-size: clamp(0.7rem, 2.6vw, 0.78rem);
+        font-weight: 700;
+        line-height: 1.1;
+        white-space: nowrap;
+        cursor: pointer;
+        flex: 0 0 auto;
+    }
+
+    .sf-mobile-mine-pending-switch.is-active {
+        background: #16a34a;
+        border-color: #16a34a;
+        color: #fff;
+    }
+
+    .sf-mobile-worksite-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 32px;
+        border-radius: 999px;
+        border: 1px solid #dbe3ee;
+        background: #fff;
+        color: #0f172a;
+        padding: clamp(6px, 1.7vw, 8px) clamp(10px, 3vw, 12px);
+        font-size: clamp(0.7rem, 2.6vw, 0.78rem);
+        line-height: 1.1;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 62%;
+        margin-left: auto;
+        flex-shrink: 1;
+    }
+
+    .sf-mobile-worksite-chip-value {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+    }
+
+    .sf-mobile-worksite-chip-icon {
+        width: 1em;
+        height: 1em;
+        flex: 0 0 auto;
+        opacity: 0.45;
+    }
+
+    .sf-mobile-icon-btn {
+        width: clamp(34px, 9vw, 38px);
+        height: clamp(34px, 9vw, 38px);
+        border-radius: 999px;
+        border: 1px solid #dbe3ee;
+        background: #fff;
+        color: #0f172a;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex: 0 0 auto;
+    }
+
+    .sf-mobile-icon-btn svg {
+        width: clamp(14px, 4vw, 16px);
+        height: clamp(14px, 4vw, 16px);
+    }
+
+    .sf-mobile-filter-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: #ef4444;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sf-mobile-filter-badge.hidden {
+        display: none;
+    }
+
+    .sf-mobile-active-filter-chip {
+        min-height: 36px;
+        border-radius: 999px;
+        border: 1px solid #dbe3ee;
+        background: #fff;
+        padding: 6px 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #0f172a;
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+
+    .sf-mobile-active-filter-label {
+        white-space: nowrap;
+    }
+
+    .sf-mobile-active-filter-close {
+        font-weight: 700;
+        color: #ef4444;
+        line-height: 1;
+    }
+
+    .sf-filter-search,
+    .sf-filter-chips {
+        display: none !important;
+    }
+
+    .sf-filter-header {
+        display: none;
+    }
+
+    .sf-search-btn,
+    .sf-filter-clear-btn,
+    .sf-filter-reset-btn {
+        min-height: 44px;
+    }
+
+    .sf-list-page {
+        padding-top: clamp(6px, 1.8vw, 10px);
+    }
+
+    .sf-list-container.view-list .card {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .sf-list-container.view-list .card-title {
+        font-size: 0.95rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 4px !important;
+    }
+
+    .sf-list-container.view-list .card-site {
+        font-size: 0.78rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .sf-list-container.view-list .card-updated,
+    .sf-list-container.view-list .card-body-parts {
+        display: none !important;
+    }
+
+    .sf-list-container.view-list .badge,
+    .sf-list-container.view-list .status {
+        font-size: 10px !important;
+        padding: 3px 8px !important;
+    }
+
+    .sf-list-container {
+        padding-bottom: calc(var(--sf-mobile-bottom-nav-height) + 84px);
+    }
+
+    .sf-view-fab-container {
+        bottom: calc(var(--sf-mobile-bottom-nav-height) + env(safe-area-inset-bottom, 0px) + 16px) !important;
+    }
+
+    body.sf-mobile-bottom-sheet-open .sf-view-fab-container {
+        display: none !important;
+    }
+
+    .sf-bottom-sheet {
+        z-index: 1050;
+    }
+
+    .sf-bottom-sheet-content {
+        bottom: 0;
+    }
+
+    .sf-bottom-sheet-footer {
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .sf-bottom-sheet.sf-mobile-search-sheet .sf-bottom-sheet-content {
+        min-height: 55vh;
+        max-height: 70vh;
+    }
+
+    .sf-mobile-sheet-section {
+        padding: 4px 16px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .sf-mobile-sheet-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .sf-mobile-sheet-field label {
+        font-size: 13px;
+        color: #475569;
+        font-weight: 600;
+    }
+
+    .sf-mobile-sheet-field input,
+    .sf-mobile-sheet-field select {
+        min-height: 44px;
+        border-radius: 10px;
+        border: 1px solid #dbe3ee;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .sf-mobile-sheet-search-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .sf-mobile-sheet-search-row input {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .sf-mobile-sheet-search-submit {
+        flex: 0 0 auto;
+        width: 44px;
+        height: 44px;
+    }
+
+    .sf-mobile-sheet-date-grid {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .sf-mobile-sheet-date-grid .sf-mobile-sheet-field {
+        flex: 1 1 0%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .sf-mobile-sheet-date-grid .sf-mobile-sheet-field input {
+        width: 100%;
+        box-sizing: border-box;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 360px) {
+    .sf-mobile-sheet-date-grid {
+        flex-direction: column;
+    }
+
+    .sf-mobile-sheet-date-grid .sf-mobile-sheet-field {
+        flex: 1 1 100%;
+    }
+}
+/* Mine pending toggle: "Odottaa minua" */
+.sf-mine-pending-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-left: auto;
+    min-height: 44px;
+    padding: 7px 10px 7px 16px;
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.18);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.16);
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.sf-mine-pending-toggle:hover {
+    transform: translateY(-1px);
+    border-color: rgba(148, 163, 184, 0.42);
+    background: rgba(15, 23, 42, 0.28);
+}
+
+.sf-mine-pending-label {
+    line-height: 1;
+}
+
+.sf-mine-pending-switch {
+    width: 48px;
+    height: 28px;
+    padding: 3px;
+    border-radius: 999px;
+    background: #64748b;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.sf-mine-pending-knob {
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.28);
+    transition: transform 0.18s ease;
+}
+
+.sf-mine-pending-toggle.active .sf-mine-pending-switch {
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+}
+
+.sf-mine-pending-toggle.active .sf-mine-pending-knob {
+    transform: translateX(20px);
+}
+
+@media (max-width: 768px) {
+    .sf-mine-pending-toggle {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+/* ===== THUMBNAIL IMAGE LOAD FADE ===== */
+
+.card-thumb.sf-thumb-loading {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.card-thumb.sf-thumb-loading .sf-thumb-image {
+    opacity: 0;
+    transform: scale(0.985);
+}
+
+.card-thumb.sf-thumb-loaded {
+    animation: none;
+}
+
+.card-thumb .sf-thumb-image {
+    transition:
+        opacity 0.22s ease,
+        transform 0.22s ease;
+    will-change: opacity, transform;
+}
+
+.card-thumb.sf-thumb-loaded .sf-thumb-image {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card-thumb.sf-thumb-loading {
+        animation: none;
+    }
+
+    .card-thumb .sf-thumb-image {
+        transition: none;
+        transform: none;
+    }
+}
+/* ===== SCROLL REVEAL FOR LIST CARDS ===== */
+/* Grid ja normaali lista: kevyt reveal. Compact-lista: kaikki rivit heti näkyviin. */
+.sf-list-container.sf-list-ready:not(.view-compact) .sf-card-reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    will-change: opacity, transform;
+}
+
+.sf-list-container.sf-list-ready:not(.view-compact) .sf-card-reveal.sf-card-visible {
+    animation: sf-card-scroll-reveal 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--sf-card-reveal-delay, 0ms);
+}
+
+/* Compact-listassa ei piiloteta skrollin ulkopuolella olevia rivejä */
+.sf-list-container.sf-list-ready.view-compact .sf-card-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    will-change: auto !important;
+}
+
+@keyframes sf-card-scroll-reveal {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sf-list-container.sf-list-ready .sf-card-reveal,
+    .sf-list-container.sf-list-ready .sf-card-reveal.sf-card-visible {
+        opacity: 1;
+        transform: none;
+        animation: none;
+        will-change: auto;
+    }
+}

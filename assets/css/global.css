@@ -1,0 +1,1807 @@
+/* ==========================================================================
+   Local Fonts - Open Sans
+   ========================================================================== */
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==========================================================================
+   Base / Reset (mobile + desktop)
+   ========================================================================== */
+
+:root {
+    --sf-yellow: #FEE000;
+    --sf-black: #000000;
+
+    --sf-bg: #efefef;
+    --sf-surface: #ffffff;
+    --sf-surface-2: #f3f4f6;
+
+    --sf-text: #111827;
+    --sf-muted: #6b7280;
+
+    --sf-border: rgba(17, 24, 39, 0.12);
+    --sf-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+    --sf-radius: 14px;
+    --sf-radius-lg: 18px;
+
+    --sf-space-1: 6px;
+    --sf-space-2: 10px;
+    --sf-space-3: 14px;
+    --sf-space-4: 18px;
+    --sf-space-5: 24px;
+
+    --sf-focus: 0 0 0 3px rgba(254, 224, 0, 0.55);
+
+    /* Button state colors */
+    --btn-neutral-bg: #4b5563;
+    --btn-primary-bg: #2563eb;
+    --btn-warning-bg: #f97316;
+    --btn-success-bg: #16a34a;
+    --btn-danger-bg: #dc2626;
+
+    /* Processing state colors */
+    --sf-processing-purple: #6366f1;
+    --sf-processing-indigo: #8b5cf6;
+    --sf-processing-blue: #3b82f6;
+
+    /* Container widths */
+    --sf-container-sm: 640px;
+    /* Modals, small forms */
+    --sf-container-md: 960px;
+    /* Form wizard */
+    --sf-container-lg: 1200px;
+    /* List, View, Settings */
+    --sf-container-xl: 1400px;
+    /* Maximum width */
+
+    /* Layout dimensions */
+    --sf-sidebar-width: 380px;
+    /* Sidebar in view layout */
+    --sf-table-min-width: 900px;
+    /* Minimum table width for scroll */
+    --sf-footer-clearance: 120px;
+    /* Space for fixed footer */
+
+    /* Mobile layout dimensions */
+    --sf-mobile-top-offset: 0px;
+    --sf-mobile-bottom-offset: 0px;
+    --sf-mobile-header-height: 64px;
+    --sf-mobile-bottom-nav-height: 88px;
+    --sf-mobile-safe-top: env(safe-area-inset-top, 0px);
+    --sf-mobile-safe-bottom: env(safe-area-inset-bottom, 0px);
+
+    /* Consistent spacing */
+    --sf-spacing-page: 24px;
+    /* Page margins */
+    --sf-spacing-section: 32px;
+    /* Section spacing */
+    --sf-spacing-large: 40px;
+    /* Large spacing */
+    --sf-gap: 16px;
+    /* Gap between flex/grid items */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--sf-bg);
+    color: var(--sf-text);
+    font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve tap targets and avoid iOS zoom on input focus */
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    font-size: 16px;
+}
+
+button {
+    touch-action: manipulation;
+}
+
+a {
+    color: inherit;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+img,
+svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Accessible focus ring */
+:focus-visible {
+    outline: none;
+    box-shadow: var(--sf-focus);
+    border-radius: 10px;
+}
+
+/* Reduce motion if user prefers */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* ===== KOKO LEVEYDEN NOTICE BAR ===== */
+
+.sf-notice-bar {
+    width: 100%;
+    background: #f3f4f6;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    z-index: 9999;
+}
+
+.sf-notice-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.sf-notice-text {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Väriteemat (mappautuu noticeTypeen: info/success/warning/danger) */
+
+.sf-notice-info {
+    background: #0ea5e9;
+    color: #ffffff;
+}
+
+.sf-notice-success {
+    background: #16a34a;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.sf-notice-warning {
+    background: #f59e0b;
+    color: #111827;
+}
+
+.sf-notice-danger {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* Sulje (X) -painike */
+
+.sf-notice-close {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.sf-notice-close:hover {
+    opacity: 0.75;
+}
+
+/* Mobiili – hieman tiiviimpi */
+
+@media (max-width: 600px) {
+    .sf-notice-inner {
+        padding: 10px 14px;
+        gap: 8px;
+    }
+
+    .sf-notice-text {
+        font-size: 0.95rem;
+        line-height: 1.3;
+    }
+}
+
+/* ===== YHTEINEN MODAL-KOMPONENTTI ===== */
+
+.sf-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background: rgba(15, 23, 42, 0.45);
+    z-index: 10000;
+}
+
+@media (max-width: 768px) {
+    .sf-modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .sf-modal-content {
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        padding: 20px 16px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+.sf-modal.hidden {
+    display: none;
+}
+
+.sf-modal-content {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px 24px 20px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.28);
+    position: relative;
+}
+@media (max-width: 640px) {
+    .sf-modal-content {
+        max-width: calc(100vw - 16px);
+        padding: 14px 10px 10px;
+        border-radius: 18px;
+    }
+}
+
+.sf-modal-content h2 {
+    margin: 0 0 16px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.sf-modal-content label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 4px;
+}
+
+.sf-modal-content input,
+.sf-modal-content select,
+.sf-modal-content textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.sf-modal-content input:focus,
+.sf-modal-content select:focus,
+.sf-modal-content textarea:focus {
+    border-color: #fee000;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(254, 224, 0, 0.35);
+}
+
+.sf-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+/* Yleiset napit */
+
+.sf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: 999px;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease,
+        box-shadow 160ms ease,
+        transform 120ms ease,
+        opacity 160ms ease;
+}
+
+.sf-btn:hover {
+    text-decoration: none;
+}
+
+.sf-btn:active {
+    transform: translateY(1px);
+}
+
+.sf-btn-primary {
+    background: var(--sf-brand-yellow);
+    color: var(--sf-black);
+    border-color: var(--sf-brand-yellow);
+}
+
+.sf-btn-primary:hover {
+    background: #f1d400;
+    border-color: #f1d400;
+}
+
+.sf-btn-secondary {
+    background: #e5e7eb;
+    color: #111827;
+    border-color: #d1d5db;
+}
+
+.sf-btn-secondary:hover {
+    background: #d1d5db;
+    border-color: #cbd5e1;
+}
+
+.sf-btn-danger {
+    background: var(--btn-danger-bg);
+    color: #ffffff;
+    border-color: var(--btn-danger-bg);
+}
+
+.sf-btn-danger:hover {
+    opacity: 0.92;
+}
+
+/* ==========================================================================
+   Container System - Unified widths
+   ========================================================================== */
+
+/* Base container */
+.sf-container,
+.sf-page-container {
+    width: 100%;
+    max-width: var(--sf-container-lg);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--sf-spacing-page);
+    padding-right: var(--sf-spacing-page);
+}
+
+/* Container variants */
+.sf-container-sm {
+    max-width: var(--sf-container-sm);
+}
+
+.sf-container-md {
+    max-width: var(--sf-container-md);
+}
+
+.sf-container-lg {
+    max-width: var(--sf-container-lg);
+}
+
+.sf-container-xl {
+    max-width: var(--sf-container-xl);
+}
+
+.sf-container-full {
+    max-width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    :root {
+        --sf-spacing-page: 16px;
+        --sf-spacing-section: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --sf-spacing-page: 12px;
+        --sf-spacing-section: 16px;
+    }
+}
+
+/* ==========================================================================
+   Unified Page Width - All pages same max-width
+   ========================================================================== */
+
+/* Desktop - same width for all pages */
+.sf-page-content,
+.sf-form,
+.sf-settings-container,
+.sf-profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* List container - full width, no restrictions */
+.sf-list-container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Mobile - full width utilization */
+@media (max-width: 768px) {
+
+    .sf-page-content,
+    .sf-form,
+    .sf-settings-container,
+    .sf-profile-container {
+        max-width: 100%;
+        padding: 12px;
+        margin: 0;
+    }
+}
+
+
+/* =========================================
+   YHTEINEN VÄRIKARTASTO TILOILLE
+   (luonnos, tarkistuksessa, lisätietoja pyydetty,
+    toimitettu viestintään, julkaistu)
+   ========================================= */
+:root {
+    --status-draft-bg: #e5e7eb;
+    --status-draft-text: #111827;
+
+    /* Tapojärvi-keltainen – tarkistuksessa */
+    --status-pending-bg: #fee000;
+    --status-pending-text: #111827;
+
+    /* Työmaavastaavan tarkistus – vaaleansininen */
+    --status-pending-supervisor-bg: #e0f2fe;
+    --status-pending-supervisor-text: #0369a1;
+
+    /* Lisätietopyyntö – oranssi */
+    --status-request-bg: #fb923c;
+    --status-request-text: #111827;
+
+    /* Tarkastettu */
+    --status-reviewed-bg: #dbeafe;
+    --status-reviewed-text: #1e3a8a;
+
+    /* Toimitettu viestintään – sininen */
+    --status-comms-bg: #3b82f6;
+    --status-comms-text: #ffffff;
+
+    /* Odottaa julkaisua – teal (erottuu sinisestä ja vihreästä) */
+    --status-awaiting-publish-bg: #0d9488;
+    --status-awaiting-publish-text: #ffffff;
+
+    /* Julkaistu – vihreä */
+    --status-published-bg: #16a34a;
+    --status-published-text: #ffffff;
+
+    --status-investigation-bg: var(--status-comms-bg);
+    --status-investigation-text: var(--status-comms-text);
+    --status-final-approver-bg: var(--status-comms-bg);
+    --status-final-approver-text: var(--status-comms-text);
+    --status-rejected-bg: #fee2e2;
+    --status-rejected-text: #991b1b;
+    --status-archived-bg: #6b7280;
+    --status-archived-text: #ffffff;
+    --status-closed-bg: #6b7280;
+    --status-closed-text: #ffffff;
+    --status-other-bg: #e0f2fe;
+    --status-other-text: #0369a1;
+}
+
+/* Yhteinen pillipohja */
+.status-pill,
+.log-status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border: none;
+    white-space: nowrap;
+}
+
+/* Metaboxin pillit */
+.status-pill-draft,
+.sf-status--draft {
+    background: var(--status-draft-bg);
+    color: var(--status-draft-text);
+}
+
+.status-pill-pending,
+.sf-status--pending {
+    background: var(--status-pending-bg);
+    color: var(--status-pending-text);
+}
+
+.status-pill-request,
+.sf-status--request-info {
+    background: var(--status-request-bg);
+    color: var(--status-request-text);
+}
+
+.status-pill-comms,
+.sf-status--comms {
+    background: var(--status-comms-bg);
+    color: var(--status-comms-text);
+}
+
+.sf-status--awaiting-publish {
+    background: var(--status-awaiting-publish-bg);
+    color: var(--status-awaiting-publish-text);
+}
+
+.status-pill-published,
+.sf-status--published {
+    background: var(--status-published-bg);
+    color: var(--status-published-text);
+}
+
+.status-pill-archived {
+    background: #6b7280;
+    color: #ffffff;
+}
+
+/* Lokin pillit – samat värit, kevyt rajaus */
+.log-status-draft {
+    background: var(--status-draft-bg);
+    color: var(--status-draft-text);
+    border: 1px solid #d1d5db;
+}
+
+.log-status-pending {
+    background: var(--status-pending-bg);
+    color: var(--status-pending-text);
+    border: 1px solid #eab308;
+}
+
+.log-status-request {
+    background: var(--status-request-bg);
+    color: var(--status-request-text);
+    border: 1px solid #ea580c;
+}
+
+.log-status-comms {
+    background: var(--status-comms-bg);
+    color: var(--status-comms-text);
+    border: 1px solid #1d4ed8;
+}
+
+.log-status-published {
+    background: var(--status-published-bg);
+    color: var(--status-published-text);
+    border: 1px solid #15803d;
+}
+
+/* Konsolidoi log-status-pill-tyyli (yksittäinen määrittely) */
+.log-status-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    color: #fff;
+    line-height: 1;
+}
+
+/* --- Lisätty: luokkien mappaus ja fallbackit --- */
+/* Näin kaikki variaatiot, esim.log-status-pending-review, saavat perus-pending-tyylin */
+.log-status-pill[class*="log-status-pending"],
+.log-status-pending-review,
+.log-status-pill.log-status-pending-review {
+    background: var(--status-pending-bg);
+    color: var(--status-pending-text);
+    border: 1px solid #eab308;
+}
+
+/* Jos luokka sisältää 'log-status-request' tai 'request-info'-variantin, käytä request-tyyliä */
+.log-status-pill[class*="log-status-request"],
+.log-status-request-info,
+.log-status-pill.log-status-request-info {
+    background: var(--status-request-bg);
+    color: var(--status-request-text);
+    border: 1px solid #ea580c;
+}
+
+/* Yleinen fallback: jos luokan nimi sisältää 'log-status-comms', käytä comms-tyyliä */
+.log-status-pill[class*="log-status-comms"] {
+    background: var(--status-comms-bg);
+    color: var(--status-comms-text);
+    border: 1px solid #1d4ed8;
+}
+
+/* reviewed-variantti (erikseen) */
+.log-status-reviewed {
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+/* Varmistetaan, että span-pillien sisältö ei riko layoutia */
+.sf-log-message {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* Kun pilli on sisällä logiviestissä, pidetään pieni marginaali */
+.sf-log-message .log-status-pill {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+/* Lokilistauksen perusasettelu */
+.sf-log-panel {
+    margin-top: 20px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+}
+
+.sf-log-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sf-log-item {
+    padding: 12px;
+    border-bottom: 1px solid #f3f4f6;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+}
+
+.sf-log-item:last-child {
+    border-bottom: none;
+}
+
+.sf-log-header-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Pienemmille näytöille: logi rivitettynä */
+@media (max-width: 700px) {
+    .sf-log-item {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* reviewed */
+.log-status-reviewed {
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+/* Status-luokat listasivulle */
+.status-draft,
+.sf-status--draft {
+    background: var(--status-draft-bg, #e5e7eb);
+    color: var(--status-draft-text, #111827);
+}
+
+.status-pending,
+.sf-status--pending {
+    background: var(--status-pending-bg, #fee000);
+    color: var(--status-pending-text, #111827);
+}
+
+.status-pending-supervisor,
+.sf-status--pending-supervisor {
+    background: var(--status-pending-supervisor-bg, #e0f2fe);
+    color: var(--status-pending-supervisor-text, #0369a1);
+}
+
+.status-request-info,
+.sf-status--request-info {
+    background: var(--status-request-bg, #fb923c);
+    color: var(--status-request-text, #111827);
+}
+
+.status-reviewed,
+.sf-status--reviewed {
+    background: var(--status-reviewed-bg, #dbeafe);
+    color: var(--status-reviewed-text, #1e3a8a);
+}
+
+.status-to-comms,
+.sf-status--comms {
+    background: var(--status-comms-bg, #3b82f6);
+    color: var(--status-comms-text, #ffffff);
+}
+
+.status-published,
+.sf-status--published {
+    background: var(--status-published-bg, #16a34a);
+    color: var(--status-published-text, #ffffff);
+}
+
+.sf-status--awaiting-publish {
+    background: var(--status-awaiting-publish-bg, #0d9488);
+    color: var(--status-awaiting-publish-text, #ffffff);
+}
+
+.sf-status--investigation {
+    background: var(--status-investigation-bg, #3b82f6);
+    color: var(--status-investigation-text, #ffffff);
+}
+
+.sf-status--final-approver {
+    background: var(--status-final-approver-bg, #3b82f6);
+    color: var(--status-final-approver-text, #ffffff);
+}
+
+.sf-status--rejected {
+    background: var(--status-rejected-bg, #fee2e2);
+    color: var(--status-rejected-text, #991b1b);
+}
+
+.sf-status--archived {
+    background: var(--status-archived-bg, #6b7280);
+    color: var(--status-archived-text, #ffffff);
+}
+
+.sf-status--closed {
+    background: var(--status-closed-bg, var(--status-archived-bg, #6b7280));
+    color: var(--status-closed-text, var(--status-archived-text, #ffffff));
+}
+
+.status-other,
+.sf-status--other {
+    background: var(--status-other-bg, #e0f2fe);
+    color: var(--status-other-text, #0369a1);
+}
+
+/* ===== VAAKAKÄYTÖN ESTO (MOBIILI) ===== */
+.sf-rotate-warning {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #0f172a;
+    color: #fff;
+    z-index: 999999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.sf-rotate-warning-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: sf-rotate-phone 2s ease-in-out infinite;
+}
+
+.sf-rotate-warning-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.sf-rotate-warning-subtext {
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+@keyframes sf-rotate-phone {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-15deg);
+    }
+
+    75% {
+        transform: rotate(15deg);
+    }
+}
+
+/* Näytä varoitus vain mobiilissa vaakatasossa */
+@media screen and (max-width: 900px) and (orientation: landscape) {
+    .sf-rotate-warning {
+        display: flex !important;
+    }
+
+    .sf-container,
+    .sf-nav,
+    .sf-form,
+    .view-container,
+    .sf-list-page,
+    .sf-settings-page,
+    .sf-profile-page {
+        display: none !important;
+    }
+}
+
+/* ===== iOS-KORJAUKSET ===== */
+
+/* Estä iOS zoom inputeissa */
+@media screen and (max-width: 900px) {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="search"],
+    input[type="date"],
+    input[type="datetime-local"],
+    textarea,
+    select {
+        font-size: 16px !important;
+        /* iOS ei zoomaa jos fontti >= 16px */
+    }
+}
+
+/* iOS safe area (notch) tuki */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .sf-nav {
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .view-footer-actions {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* iOS momentum scroll */
+.sf-container,
+.view-container,
+.sf-list-page,
+.sf-settings-page,
+.sf-form {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Estä iOS tekstin valinta kuvissa */
+.sf-preview-card,
+.sf-preview-image-frame,
+.card-thumb img {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+/* ===== YHTENÄINEN MOBIILIN YLÄ- JA ALATILA ===== */
+:root {
+    --sf-mobile-top-offset: 0px;
+    --sf-mobile-bottom-offset: 0px;
+    --sf-mobile-header-height: 64px;
+    --sf-mobile-bottom-nav-height: 88px;
+    --sf-mobile-safe-top: env(safe-area-inset-top, 0px);
+    --sf-mobile-safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (max-width: 1100px) {
+    :root {
+        --sf-mobile-top-offset: calc(var(--sf-mobile-header-height) + var(--sf-mobile-safe-top));
+        --sf-mobile-bottom-offset: calc(var(--sf-mobile-bottom-nav-height) + var(--sf-mobile-safe-bottom) + 20px);
+    }
+
+    body {
+        padding-top: var(--sf-mobile-top-offset);
+        padding-bottom: var(--sf-mobile-bottom-offset);
+    }
+
+    .sf-page-container {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+/* Form-sivulla ei lisätä eri logiikkaa bodyyn, vain konttiin hallittu tila */
+@media (max-width: 768px) {
+    body.form-page {
+        overflow: auto;
+        height: auto;
+    }
+
+    body.form-page .sf-container {
+        margin: 0;
+        padding: 0;
+        min-height: calc(100vh - var(--sf-mobile-top-offset));
+    }
+}
+
+@media (max-width: 1100px) {
+    body.form-page .sf-container {
+        padding-top: 0;
+    }
+}
+
+/* ===== CONTAINER KOMPAKTI ===== */
+.sf-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .sf-container {
+        padding: 0 8px;
+        margin: 8px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-container {
+        padding: 0 4px;
+        margin: 4px auto;
+    }
+}
+
+/* ===== Top progress bar (AJAX navigation) ===== */
+.sf-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    z-index: 99999;
+    opacity: 0;
+    transform: translateZ(0);
+    background: linear-gradient(90deg, rgba(254, 224, 0, 1), rgba(0, 0, 0, 1));
+    transition: width 120ms ease, opacity 180ms ease;
+    pointer-events: none;
+}
+
+/* visible state */
+.sf-progress.is-active {
+    opacity: 1;
+}
+
+/* finish animation */
+.sf-progress.is-done {
+    width: 100% !important;
+    opacity: 0;
+    transition: width 120ms ease, opacity 220ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sf-progress {
+        transition: none !important;
+    }
+}
+
+/* Estä taustasivun scroll, kun modal auki */
+body.sf-modal-open {
+    overflow: hidden;
+    touch-action: none;
+}
+
+.sf-progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    height: 10px;
+    margin-top: 10px;
+}
+
+.sf-progress-bar span {
+    display: block;
+    height: 100%;
+    background-color: #007bff;
+    transition: width 0.4s ease;
+}
+
+.sf-progress-text {
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+/* ===== Toast / Ilmoitukset =====
+   HUOM: Toastin peruslayout (sijainti, padding, värit, animaatiot) on nav.css:ssä.
+   Tässä pidetään vain yhteiset apu-tyylit (progressbar + yhteensopivuus).*/
+
+.sf-toast-content {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Progress bar toastin sisällä */
+.sf-toast .sf-progress-bar {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    height: 8px;
+    margin-top: 10px;
+}
+
+.sf-toast .sf-progress-bar span {
+    display: block;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: width 0.25s ease;
+}
+
+/* % teksti progressbarin alla */
+.sf-toast .sf-progress-text,
+#sfProgressText {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 6px;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ==========================================================================
+   Tablet Responsiveness (768px - 1024px)
+   ========================================================================== */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sf-form {
+        max-width: 90%;
+        padding: 20px 24px;
+    }
+
+    .sf-image-upload-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filters-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .view-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   Improved Accessibility - Focus States
+   ========================================================================== */
+
+:focus-visible {
+    outline: 3px solid var(--sf-yellow);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.sf-btn:focus-visible,
+.sf-nav-link:focus-visible,
+.sf-nav-cta:focus-visible {
+    box-shadow: 0 0 0 3px rgba(254, 224, 0, 0.6);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --sf-yellow: #FFD700;
+        --sf-border: rgba(0, 0, 0, 0.3);
+    }
+
+    .sf-btn-primary {
+        border: 2px solid #000;
+    }
+
+    .badge-yellow {
+        background: #FFD700;
+        color: #000;
+        border: 1px solid #000;
+    }
+}
+
+/* ==========================================================================
+   Dark Mode - VAIN BODY TAUSTA TUMMA, SISÄLTÖ VALKOINEN
+   ========================================================================== */
+
+body {
+    background: #0f172a;
+}
+
+/* Kaikki sisältöelementit pysyvät valkoisina - ei muutoksia muuttujiin */
+/* ==========================================================================
+   Landscape Mobile Improvements
+   ========================================================================== */
+
+@media (max-width: 896px) and (orientation: landscape) {
+    .sf-nav {
+        padding: 6px 0;
+    }
+
+    .sf-nav-inner {
+        padding: 6px 16px;
+    }
+
+    .sf-form {
+        padding-top: 60px;
+        padding-bottom: 120px;
+    }
+
+    .sf-progress {
+        top: 44px;
+    }
+
+    .sf-step-actions-bottom {
+        padding: 8px 16px;
+        padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ==========================================================================
+   Improved Button Contrast for Yellow Backgrounds
+   ========================================================================== */
+
+.sf-nav-link,
+.sf-nav-cta {
+    text-shadow: none;
+}
+
+.badge-yellow {
+    background: #eab308;
+    color: #1c1917;
+    font-weight: 600;
+}
+
+/* Draft Recovery Overlay */
+.sf-draft-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sf-draft-modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.sf-draft-modal h2 {
+    margin: 0 0 0.5rem;
+    color: #1a1a2e;
+}
+
+.sf-draft-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.sf-draft-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sf-draft-type {
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.sf-draft-type.sf-type-red {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.sf-draft-type.sf-type-yellow {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.sf-draft-type.sf-type-green {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.sf-draft-date {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.sf-draft-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.sf-draft-new {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+.sf-btn-outline {
+    background: transparent;
+    border: 1px solid #6b7280;
+    color: #6b7280;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sf-btn-outline:hover {
+    background: #f3f4f6;
+    border-color: #374151;
+    color: #374151;
+}
+
+.sf-type-box[data-type="yellow"] .sf-type-title {
+    color: #1c1917;
+}
+
+/* ===== FLOATING ACTION BUTTON (FAB) ===== */
+/* FAB styles have been moved to nav.css to avoid conflicts */
+/* ===== DRAFT BUTTON SPINNER ===== */
+.sf-btn-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: sf-btn-spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.sf-btn-loading {
+    opacity: 0.8;
+    cursor: wait;
+}
+
+@keyframes sf-btn-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Disabled state for draft buttons */
+.sf-draft-overlay button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ===== AUTOSAVE NOTIFICATION ===== */
+.sf-autosave-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #1e293b;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+.sf-autosave-notification.sf-autosave-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sf-autosave-notification svg {
+    color: #22c55e;
+    flex-shrink: 0;
+}
+
+/* Mobiilissa keskitetty alareunaan */
+@media (max-width: 768px) {
+    .sf-autosave-notification {
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        bottom: 80px;
+        /* FAB-napin yläpuolelle */
+    }
+
+    .sf-autosave-notification.sf-autosave-visible {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ===== OFFLINE BANNER ===== */
+.sf-offline-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #000;
+    z-index: 10000;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sf-offline-banner.visible {
+    transform: translateY(0);
+}
+
+.sf-offline-banner-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sf-offline-banner-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.sf-offline-banner-text {
+    flex: 1;
+}
+
+.sf-offline-banner-text strong {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.sf-offline-banner-text p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+.sf-offline-banner-close {
+    background: transparent;
+    border: none;
+    color: #000;
+    font-size: 28px;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+}
+
+.sf-offline-banner-close:hover {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .sf-offline-banner-content {
+        padding: 12px 16px;
+    }
+
+    .sf-offline-banner-icon {
+        font-size: 20px;
+    }
+
+    .sf-offline-banner-text strong {
+        font-size: 0.9rem;
+    }
+
+    .sf-offline-banner-text p {
+        font-size: 0.8rem;
+    }
+}
+
+/* ===== PWA UPDATE BANNER ===== */
+
+.sf-update-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 10000;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sf-update-banner--visible {
+    transform: translateY(0);
+}
+
+.sf-update-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sf-update-icon {
+    font-size: 24px;
+    animation: sf-spin 2s linear infinite;
+}
+
+@keyframes sf-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.sf-update-text {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sf-update-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.sf-update-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.sf-update-btn--primary {
+    background: #fee000;
+    color: #0f172a;
+}
+
+.sf-update-btn--primary:hover {
+    background: #ffd000;
+    transform: translateY(-1px);
+}
+
+.sf-update-btn--secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.sf-update-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .sf-update-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 16px;
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+
+    .sf-update-actions {
+        width: 100%;
+    }
+
+    .sf-update-btn {
+        flex: 1;
+    }
+}
+
+/* Account for bottom navigation on mobile */
+@media (max-width: 768px) {
+    .sf-update-banner {
+        bottom: 60px;
+        /* Bottom nav height */
+    }
+}
+
+@media (min-width: 769px) {
+    .sf-update-banner {
+        bottom: 0;
+        /* Desktop: no bottom nav */
+    }
+}
+
+/* ===== NETWORK STATUS BANNER ===== */
+.sf-network-status-banner {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    z-index: 10001;
+    padding: 12px 24px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    min-width: 280px;
+    max-width: 400px;
+}
+
+.sf-network-status-banner.sf-network-status-visible {
+    transform: translateX(-50%) translateY(0);
+}
+
+.sf-network-offline {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #000;
+}
+
+.sf-network-online {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #fff;
+}
+
+.sf-network-status-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.sf-network-status-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.sf-network-status-text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .sf-network-status-banner {
+        min-width: 240px;
+        padding: 10px 20px;
+    }
+
+    .sf-network-status-text {
+        font-size: 13px;
+    }
+}
+
+/* ===== BOTTOM NAVIGATION BODY PADDING ===== */
+@media (max-width: 1100px) {
+    body {
+        padding-bottom: 70px;
+    }
+
+    /* Form-sivulla säädä padding */
+    body.form-page {
+        padding-bottom: 0;
+    }
+}
+
+/* Icon styling - only for actual icon elements inside buttons, not the buttons themselves */
+img.sf-btn-icon,
+svg.sf-btn-icon,
+span.sf-btn-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    filter: grayscale(1) brightness(0) invert(1);
+    /* Tekee ikonista valkoisen */
+}
+/* Kehonosakartan maski-ikonit */
+/* Estää global.css filterin rikkomasta SVG mask-ikoneita */
+span.sf-btn-icon-mask {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+    flex-shrink: 0;
+
+    filter: none !important;
+    opacity: 1 !important;
+    background-color: #ffffff;
+
+    -webkit-mask-image: var(--icon-url);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+
+    mask-image: var(--icon-url);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+}
+
+/* ============================================
+   PAGE HEADING (shared on all pages)
+   ============================================ */
+
+:root {
+    --sf-page-heading-bg: #ffffff;
+    --sf-page-heading-text: #1e293b;
+    --sf-page-heading-radius: 0.55em;
+    --sf-page-heading-font-size: clamp(1.35rem, 1.05rem + 1.2vw, 1.75rem);
+    --sf-page-heading-font-size-mobile: 1.2rem;
+    --sf-page-heading-padding-y: 0.33em;
+    --sf-page-heading-padding-x: 0.8em;
+    --sf-page-heading-tail-size: 0.45em;
+    --sf-page-heading-tail-left: 1.1em;
+}
+
+.sf-page-title {
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0;
+    padding: var(--sf-page-heading-padding-y) var(--sf-page-heading-padding-x);
+    border-radius: var(--sf-page-heading-radius);
+    background: var(--sf-page-heading-bg);
+    color: var(--sf-page-heading-text);
+    font-size: var(--sf-page-heading-font-size);
+    font-weight: 700;
+    line-height: 1.2;
+    position: relative;
+    overflow-wrap: break-word;
+}
+
+.sf-page-title::after {
+    content: '';
+    position: absolute;
+    left: var(--sf-page-heading-tail-left);
+    bottom: calc((var(--sf-page-heading-tail-size) * -1) + 1px);
+    width: 0;
+    height: 0;
+    border-left: var(--sf-page-heading-tail-size) solid transparent;
+    border-right: var(--sf-page-heading-tail-size) solid transparent;
+    border-top: var(--sf-page-heading-tail-size) solid var(--sf-page-heading-bg);
+}
+
+@media (max-width: 768px) {
+    .sf-page-title {
+        font-size: var(--sf-page-heading-font-size-mobile);
+    }
+}
+
+/* Spinner status badgeissa */
+.status-pill-supervisor,
+.status-pill-pending,
+.status-pending,
+.sf-status--pending-supervisor,
+.sf-status--pending,
+.status-other {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-pill-supervisor::before,
+.status-pill-pending::before,
+.status-pending::before,
+.sf-status--pending-supervisor::before,
+.sf-status--pending::before,
+.status-other::before {
+    content: '';
+    display: inline-block;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: sf-badge-spin 0.8s linear infinite;
+    vertical-align: middle;
+}
+
+/* View-sivu: hyväksyttävänä / supervisor */
+.status-pill-supervisor::before,
+.sf-status--pending-supervisor::before {
+    border: 2px solid rgba(3, 105, 161, 0.3);
+    border-top-color: #0369a1;
+}
+
+/* View-sivu + lista: hyväksyttävänä */
+.status-pill-pending::before,
+.status-pending::before,
+.sf-status--pending::before {
+    border: 2px solid rgba(17, 24, 39, 0.22);
+    border-top-color: #111827;
+}
+
+/* Fallback-tilat */
+.status-other::before,
+.sf-status--other::before {
+    border: 2px solid rgba(3, 105, 161, 0.3);
+    border-top-color: #0369a1;
+}
+
+@keyframes sf-badge-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

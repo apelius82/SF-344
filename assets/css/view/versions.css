@@ -1,0 +1,1090 @@
+/* ==========================================================
+   VIEW / VERSIONS
+
+   Versiot-välilehti ja version esikatselumodaali.
+   ========================================================== */
+
+/* ========== VERSION TAB & MODAL ========== */
+
+.sf-versions-container {
+    padding: 0;
+}
+
+.sf-version-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sf-version-card {
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+}
+
+.sf-version-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sf-version-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), 0 8px 32px rgba(15, 23, 42, 0.04);
+    transform: translateY(-2px);
+}
+
+.sf-version-card:hover::before {
+    opacity: 1;
+}
+
+/* Type colors */
+
+.sf-version-type-red.sf-version-latest {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 50%, #fef2f2 100%);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.sf-version-type-red.sf-version-latest::before {
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 50%, #ef4444 100%);
+    opacity: 1;
+}
+
+.sf-version-type-red .sf-version-badge {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35);
+}
+
+.sf-version-type-red.sf-version-latest .sf-version-lang-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #991b1b;
+}
+
+.sf-version-type-red.sf-version-latest .sf-version-view-btn {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.sf-version-type-red.sf-version-latest .sf-version-view-btn:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.sf-version-type-yellow.sf-version-latest {
+    background: linear-gradient(135deg, #fefce8 0%, #fef9c3 50%, #fefce8 100%);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.sf-version-type-yellow.sf-version-latest::before {
+    background: linear-gradient(90deg, #eab308 0%, #ca8a04 50%, #eab308 100%);
+    opacity: 1;
+}
+
+.sf-version-type-yellow .sf-version-badge {
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+    box-shadow: 0 2px 8px rgba(234, 179, 8, 0.35);
+}
+
+.sf-version-type-yellow.sf-version-latest .sf-version-lang-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #854d0e;
+}
+
+.sf-version-type-yellow.sf-version-latest .sf-version-view-btn {
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(234, 179, 8, 0.3);
+}
+
+.sf-version-type-yellow.sf-version-latest .sf-version-view-btn:hover {
+    background: linear-gradient(135deg, #ca8a04 0%, #a16207 100%);
+    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.4);
+}
+
+.sf-version-type-green.sf-version-latest {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdf4 100%);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.sf-version-type-green.sf-version-latest::before {
+    background: linear-gradient(90deg, #22c55e 0%, #16a34a 50%, #22c55e 100%);
+    opacity: 1;
+}
+
+.sf-version-type-green .sf-version-badge {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.35);
+}
+
+.sf-version-type-green.sf-version-latest .sf-version-lang-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #166534;
+}
+
+.sf-version-type-green.sf-version-latest .sf-version-view-btn {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.sf-version-type-green.sf-version-latest .sf-version-view-btn:hover {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+/* Legacy fallback */
+
+.sf-version-latest:not([class*="sf-version-type-"]) {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdf4 100%);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.sf-version-latest:not([class*="sf-version-type-"])::before {
+    background: linear-gradient(90deg, #22c55e 0%, #16a34a 50%, #22c55e 100%);
+    opacity: 1;
+}
+
+.sf-version-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.75px;
+}
+
+.sf-version-latest:not([class*="sf-version-type-"]) .sf-version-badge {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.35);
+}
+
+.sf-version-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.sf-version-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sf-version-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.sf-version-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sf-version-type-label {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1e293b;
+    margin: 0;
+}
+
+.sf-version-lang-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    padding: 2px 8px;
+    background: #e2e8f0;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    vertical-align: middle;
+}
+
+.sf-version-latest:not([class*="sf-version-type-"]) .sf-version-lang-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #166534;
+}
+
+.sf-version-number {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.sf-version-meta-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sf-version-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sf-version-meta-icon {
+    width: 16px;
+    height: 16px;
+    color: #64748b;
+}
+
+.sf-version-date,
+.sf-version-time,
+.sf-version-publisher {
+    font-size: 14px;
+    color: #475569;
+}
+
+.sf-version-time {
+    color: #64748b;
+}
+
+.sf-version-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-left: auto;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.sf-version-view-btn:hover {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+.sf-version-view-btn .sf-btn-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.sf-version-view-btn:hover .sf-btn-icon {
+    transform: scale(1.1);
+}
+
+.sf-version-latest:not([class*="sf-version-type-"]) .sf-version-view-btn {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+.sf-version-latest:not([class*="sf-version-type-"]) .sf-version-view-btn:hover {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+/* Version modal */
+
+.sf-version-modal {
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+}
+
+.sf-version-modal .sf-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    flex-shrink: 0;
+}
+
+.sf-version-modal .sf-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1e293b;
+}
+
+.sf-version-modal-date {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.sf-modal-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #64748b;
+    padding: 4px 8px;
+    transition: color 0.2s ease;
+}
+
+.sf-modal-close:hover {
+    color: #1e293b;
+}
+
+.sf-version-modal .sf-modal-body {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background: #f8fafc;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.sf-version-image {
+    max-width: 100%;
+    max-height: 70vh;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sf-version-modal .sf-modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-top: 1px solid #e2e8f0;
+    flex-shrink: 0;
+}
+
+/* Backdrop and display */
+
+.sf-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#versionModal:not(.hidden),
+#previewImageModal:not(.hidden) {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.sf-btn-sm {
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+@media (max-width: 768px) {
+    .sf-version-modal {
+        max-width: 95%;
+        width: 95%;
+    }
+
+    .sf-version-card {
+        padding: 16px;
+    }
+
+    .sf-version-header {
+        gap: 12px;
+    }
+
+    .sf-version-icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+
+    .sf-version-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .sf-version-meta-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .sf-version-view-btn {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .sf-version-image {
+        max-height: 60vh;
+    }
+}
+/* =========================================================
+   VIEW VERSIONS FINAL MODERN OVERRIDES
+   Modernimpi versiohistoria / timeline-tyyli
+========================================================= */
+
+#tabVersions .sf-versions-container {
+    padding: 0.25rem 0.1rem 0;
+}
+
+#tabVersions .sf-version-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding-left: 2.35rem;
+}
+
+#tabVersions .sf-version-list::before {
+    content: "";
+    position: absolute;
+    top: 1.1rem;
+    bottom: 1.1rem;
+    left: 1.05rem;
+    width: 2px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #dbe3ef 0%, #edf2f7 100%);
+}
+
+#tabVersions .sf-version-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.8rem 1rem;
+    align-items: center;
+    margin: 0;
+    padding: 1rem 1.05rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.055);
+    overflow: visible;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+#tabVersions .sf-version-card:hover {
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.1);
+}
+
+#tabVersions .sf-version-card::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -1.72rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 3px solid #cbd5e1;
+    transform: translateY(-50%);
+    opacity: 1;
+    box-shadow: 0 0 0 4px #ffffff;
+}
+
+#tabVersions .sf-version-card::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 0;
+    width: 4px;
+    border-radius: 999px;
+    background: #cbd5e1;
+}
+
+#tabVersions .sf-version-latest {
+    background: #ffffff !important;
+    border-color: #bbf7d0 !important;
+    box-shadow: 0 10px 26px rgba(22, 163, 74, 0.1);
+}
+
+#tabVersions .sf-version-latest::before {
+    border-color: #22c55e;
+    background: #22c55e;
+    box-shadow: 0 0 0 4px #ffffff, 0 0 0 8px rgba(34, 197, 94, 0.14);
+}
+
+#tabVersions .sf-version-latest::after {
+    background: #22c55e;
+}
+
+#tabVersions .sf-version-header {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 0.85rem;
+    align-items: center;
+    margin: 0;
+    min-width: 0;
+}
+
+#tabVersions .sf-version-icon-wrapper {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    box-shadow: none;
+}
+
+#tabVersions .sf-version-latest .sf-version-icon-wrapper {
+    background: #ecfdf5;
+    border-color: #bbf7d0;
+}
+
+#tabVersions .sf-version-icon {
+    width: 25px;
+    height: 25px;
+}
+
+#tabVersions .sf-version-title-block {
+    min-width: 0;
+    gap: 0.22rem;
+}
+
+#tabVersions .sf-version-type-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    margin: 0;
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 850;
+    line-height: 1.2;
+}
+
+#tabVersions .sf-version-number {
+    color: #64748b;
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+#tabVersions .sf-version-lang-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+    min-height: 1.35rem;
+    margin-left: 0;
+    padding: 0.12rem 0.5rem;
+    border-radius: 999px;
+    background: #eef2f7 !important;
+    color: #475569 !important;
+    font-size: 0.7rem;
+    font-weight: 850;
+    line-height: 1;
+}
+
+#tabVersions .sf-version-meta-row {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem 1.15rem;
+    flex-wrap: wrap;
+    margin: 0.15rem 0 0 3.25rem;
+    color: #64748b;
+}
+
+#tabVersions .sf-version-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+#tabVersions .sf-version-meta-icon {
+    width: 15px;
+    height: 15px;
+    opacity: 0.8;
+}
+
+#tabVersions .sf-version-date,
+#tabVersions .sf-version-time,
+#tabVersions .sf-version-publisher {
+    color: #64748b;
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+#tabVersions .sf-version-badge {
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    min-height: 1.55rem;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    background: #dcfce7 !important;
+    color: #15803d !important;
+    box-shadow: none !important;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+}
+
+#tabVersions .sf-version-view-btn {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: end;
+    min-height: 38px;
+    margin-left: 0;
+    padding: 0.52rem 0.95rem;
+    border: 1px solid #dbe3ef !important;
+    border-radius: 12px;
+    background: #ffffff !important;
+    color: #334155 !important;
+    box-shadow: none !important;
+    font-size: 0.84rem;
+    font-weight: 800;
+}
+
+#tabVersions .sf-version-view-btn:hover {
+    background: #eff6ff !important;
+    border-color: #93c5fd !important;
+    color: #1d4ed8 !important;
+    transform: translateY(-1px);
+}
+
+#tabVersions .sf-version-view-btn .sf-btn-icon {
+    width: 15px;
+    height: 15px;
+}
+
+@media (max-width: 760px) {
+    #tabVersions .sf-version-list {
+        padding-left: 1.5rem;
+    }
+
+    #tabVersions .sf-version-list::before {
+        left: 0.55rem;
+    }
+
+    #tabVersions .sf-version-card {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0.9rem;
+        border-radius: 16px;
+    }
+
+    #tabVersions .sf-version-card::before {
+        left: -1.28rem;
+    }
+
+    #tabVersions .sf-version-header {
+        grid-template-columns: 38px minmax(0, 1fr);
+        gap: 0.7rem;
+    }
+
+    #tabVersions .sf-version-icon-wrapper {
+        width: 38px;
+        height: 38px;
+        border-radius: 13px;
+    }
+
+    #tabVersions .sf-version-type-label {
+        font-size: 0.93rem;
+    }
+
+    #tabVersions .sf-version-meta-row {
+        margin-left: 0;
+        gap: 0.55rem 0.85rem;
+    }
+
+    #tabVersions .sf-version-badge {
+        grid-column: 1;
+        grid-row: auto;
+        justify-self: start;
+    }
+
+    #tabVersions .sf-version-view-btn {
+        grid-column: 1;
+        grid-row: auto;
+        justify-self: stretch;
+        width: 100%;
+    }
+}
+/* =========================================================
+   VIEW VERSIONS TIMELINE CLEANUP
+   Poistaa ylimääräisen vasemman timeline-viivan
+========================================================= */
+
+#tabVersions .sf-version-list {
+    padding-left: 0 !important;
+}
+
+#tabVersions .sf-version-list::before,
+#tabVersions .sf-version-card::before {
+    display: none !important;
+}
+
+#tabVersions .sf-version-card::after {
+    width: 5px !important;
+    border-radius: 18px 0 0 18px !important;
+}
+
+@media (max-width: 760px) {
+    #tabVersions .sf-version-list {
+        padding-left: 0 !important;
+    }
+}
+/* =========================================================
+   VERSION PREVIEW MODAL FINAL POLISH
+   Estää modalia jäämästä footerin alle ja modernisoi näkymää
+========================================================= */
+
+#versionModal:not(.hidden),
+#previewImageModal:not(.hidden) {
+    align-items: flex-start !important;
+    padding: 4.5vh 1rem calc(var(--sf-footer-clearance, 96px) + 1.25rem) !important;
+    box-sizing: border-box !important;
+}
+
+#versionModal:not(.hidden) {
+    z-index: 2147483646 !important;
+}
+
+#versionModal:not(.hidden) .sf-version-modal {
+    width: min(94vw, 980px) !important;
+    max-width: 980px !important;
+    max-height: calc(100vh - var(--sf-footer-clearance, 96px) - 2.5rem) !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    box-shadow: 0 30px 90px rgba(15, 23, 42, 0.32) !important;
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-header {
+    padding: 1.15rem 1.35rem !important;
+    border-bottom: 1px solid #eef2f7 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-header h3 {
+    color: #111827 !important;
+    font-size: 1.05rem !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.01em !important;
+}
+
+#versionModal .sf-version-modal-date {
+    color: #64748b !important;
+    font-size: 0.86rem !important;
+    font-weight: 600 !important;
+}
+
+#versionModal .sf-modal-close {
+    width: 38px !important;
+    height: 38px !important;
+    margin-left: auto !important;
+    padding: 0 !important;
+    border-radius: 999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    font-size: 1.4rem !important;
+    line-height: 1 !important;
+    transition: background 0.16s ease, transform 0.16s ease, color 0.16s ease !important;
+}
+
+#versionModal .sf-modal-close:hover {
+    background: #e2e8f0 !important;
+    color: #111827 !important;
+    transform: scale(1.04) !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-body {
+    padding: 1.25rem 1.45rem !important;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%) !important;
+    overflow-y: auto !important;
+}
+
+#versionModal .sf-version-image {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: calc(100vh - var(--sf-footer-clearance, 96px) - 250px) !important;
+    object-fit: contain !important;
+    border-radius: 18px !important;
+    background: #ffffff !important;
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.14) !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-footer {
+    padding: 1rem 1.35rem !important;
+    border-top: 1px solid #eef2f7 !important;
+    background: #ffffff !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-footer .sf-btn {
+    width: 100% !important;
+    min-height: 46px !important;
+    border-radius: 14px !important;
+    background: #2563eb !important;
+    border: 1px solid #2563eb !important;
+    color: #ffffff !important;
+    font-size: 0.95rem !important;
+    font-weight: 850 !important;
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22) !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-footer .sf-btn:hover {
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+}
+
+@media (max-width: 768px) {
+    #versionModal:not(.hidden),
+    #previewImageModal:not(.hidden) {
+        padding: 0.75rem 0.75rem calc(var(--sf-footer-clearance, 96px) + 0.75rem) !important;
+    }
+
+    #versionModal:not(.hidden) .sf-version-modal {
+        width: 100% !important;
+        max-height: calc(100vh - var(--sf-footer-clearance, 96px) - 1.5rem) !important;
+        border-radius: 18px !important;
+    }
+
+    #versionModal .sf-version-modal .sf-modal-header {
+        padding: 0.95rem 1rem !important;
+        gap: 0.65rem !important;
+        flex-wrap: wrap !important;
+    }
+
+    #versionModal .sf-version-modal-date {
+        flex-basis: 100% !important;
+    }
+
+    #versionModal .sf-version-modal .sf-modal-body {
+        padding: 0.85rem !important;
+    }
+
+    #versionModal .sf-version-image {
+        max-height: calc(100vh - var(--sf-footer-clearance, 96px) - 240px) !important;
+        border-radius: 14px !important;
+    }
+
+    #versionModal .sf-version-modal .sf-modal-footer {
+        padding: 0.85rem !important;
+    }
+}
+/* =========================================================
+   VERSION PREVIEW MODAL FINAL ACTION POLISH
+   Kevyempi latauspainike, oma download-ikoni ja enemmän tilaa kuvalle
+========================================================= */
+
+#versionModal:not(.hidden) .sf-version-modal {
+    width: min(96vw, 1120px) !important;
+    max-width: 1120px !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-body {
+    padding: 1rem 1.25rem !important;
+}
+
+#versionModal .sf-version-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: calc(100vh - var(--sf-footer-clearance, 96px) - 220px) !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-footer {
+    justify-content: flex-end !important;
+    padding: 0.85rem 1.35rem 1rem !important;
+}
+
+#versionModal .sf-version-download-btn {
+    width: auto !important;
+    min-height: 40px !important;
+    padding: 0.52rem 0.95rem !important;
+    border-radius: 12px !important;
+    border: 1px solid #dbe3ef !important;
+    background: #ffffff !important;
+    color: #334155 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+    font-size: 0.86rem !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.055) !important;
+}
+
+#versionModal .sf-version-download-btn:hover,
+#versionModal .sf-version-download-btn:focus {
+    background: #eff6ff !important;
+    border-color: #93c5fd !important;
+    color: #1d4ed8 !important;
+    transform: translateY(-1px) !important;
+    outline: none !important;
+}
+
+#versionModal .sf-version-download-icon {
+    width: 17px !important;
+    height: 17px !important;
+    object-fit: contain !important;
+    flex: 0 0 17px !important;
+}
+
+@media (max-width: 768px) {
+    #versionModal:not(.hidden) .sf-version-modal {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    #versionModal .sf-version-modal .sf-modal-body {
+        padding: 0.75rem !important;
+    }
+
+    #versionModal .sf-version-image {
+        max-height: calc(100vh - var(--sf-footer-clearance, 96px) - 230px) !important;
+    }
+
+    #versionModal .sf-version-modal .sf-modal-footer {
+        justify-content: stretch !important;
+        padding: 0.75rem !important;
+    }
+
+    #versionModal .sf-version-download-btn {
+        width: 100% !important;
+    }
+}
+/* =========================================================
+   VERSION PREVIEW MODAL TIGHTER FINAL FIX
+   Tiiviimpi esikatselu ja valkoinen latausikoni
+========================================================= */
+
+#versionModal:not(.hidden) .sf-version-modal {
+    width: min(94vw, 1040px) !important;
+    max-width: 1040px !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-body {
+    padding: 0.75rem 0.9rem !important;
+}
+
+#versionModal .sf-version-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 14px !important;
+}
+
+#versionModal .sf-version-download-btn {
+    background: #2563eb !important;
+    border-color: #2563eb !important;
+    color: #ffffff !important;
+}
+
+#versionModal .sf-version-download-btn:hover,
+#versionModal .sf-version-download-btn:focus {
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+
+#versionModal .sf-version-download-icon {
+    filter: brightness(0) invert(1) !important;
+}
+
+@media (max-width: 768px) {
+    #versionModal .sf-version-modal .sf-modal-body {
+        padding: 0.6rem !important;
+    }
+}
+/* =========================================================
+   VERSION PREVIEW MODAL ABSOLUTE FINAL FIX
+   Yliajaa vanhan .sf-btn-säännön varmasti
+========================================================= */
+
+#versionModal .sf-version-modal .sf-modal-footer .sf-btn.sf-version-download-btn {
+    width: 100% !important;
+    min-height: 46px !important;
+    padding: 0.62rem 1rem !important;
+    border-radius: 14px !important;
+    background: #2563eb !important;
+    border: 1px solid #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22) !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-footer .sf-btn.sf-version-download-btn:hover,
+#versionModal .sf-version-modal .sf-modal-footer .sf-btn.sf-version-download-btn:focus {
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+
+#versionModal .sf-version-download-btn img,
+#versionModal .sf-version-download-icon {
+    display: none !important;
+}
+
+#versionModal .sf-version-download-btn::before {
+    content: "" !important;
+    width: 18px !important;
+    height: 18px !important;
+    flex: 0 0 18px !important;
+    display: inline-block !important;
+    background: #ffffff !important;
+    mask: url("../../img/icons/download.svg") center / contain no-repeat !important;
+-webkit-mask: url("../../img/icons/download.svg") center / contain no-repeat !important;
+}
+
+#versionModal .sf-version-modal .sf-modal-body {
+    padding: 0.55rem 0.65rem !important;
+    background: #f8fafc !important;
+}
+
+#versionModal .sf-version-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 12px !important;
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12) !important;
+}

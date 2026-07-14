@@ -1,0 +1,5671 @@
+/* ==========================================================
+   VIEW PAGE STYLES
+
+   Sections:
+
+   01. Layout
+   02. Header
+   03. Workflow
+   04. Meta panel
+   05. Attachments
+   06. Comments
+   07. Timeline
+   08. Modals
+   09. Actions
+   10. Responsive
+
+   ========================================================== */
+/* =========================
+   Layout & perusrakenne
+   ========================= */
+.view-container,
+.sf-view-page,
+.sf-page-view {
+    width: min(100%, 1760px);
+    max-width: none;
+    margin: 10px auto var(--sf-spacing-large);
+    padding: 0 12px;
+    padding-bottom: var(--sf-footer-clearance);
+    font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    color: #111827;
+}
+
+.view-back {
+    margin-bottom: 16px;
+}
+
+.sf-view-back-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    color: #334155;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover,
+.btn-back:focus {
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+    outline: none;
+}
+
+.btn-back-label-mobile {
+    display: none;
+}
+
+/* Report button in top-right corner */
+.btn-report-topright {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #1e40af;
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 900;
+    text-decoration: none;
+    transition: background 0.15s ease;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.btn-report-topright:hover {
+    background: #1e3a8a;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-report-topright:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-report-icon {
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) invert(1);
+}
+
+/* --- Moderni 2-sarakelayout - EXPLICIT --- */
+.view-layout,
+.sf-view-content {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 380px) !important;
+    gap: 14px;
+    align-items: start;
+}
+
+.view-left {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.view-right {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+    width: 100%;
+    position: static;
+    top: auto;
+    align-self: start;
+}
+
+/* Mobiilissa allekkain */
+@media (max-width: 900px) {
+
+    .view-layout,
+    .sf-view-content {
+        grid-template-columns: 1fr !important;
+    }
+
+    .view-left,
+    .view-right {
+        grid-column: 1;
+        width: 100%;
+    }
+
+    .view-right {
+        position: static;
+    }
+}
+
+/* =========================
+   Laatikot & sisällöt
+   ========================= */
+.view-box {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e6e9ee;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    padding: 16px 18px;
+    box-sizing: border-box;
+}
+
+.preview-box {
+    position: relative;
+}
+
+.meta-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Huom: jos actions-box ei enää ole gridissä, nämä grid-* eivät vaikuta.
+   Jätetty mukaan, koska alkuperäisessä oli.*/
+.actions-box {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.preview-image {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    border: 2px dashed #e6eef8;
+    background: #fbfdff;
+    border-radius: 8px;
+}
+
+.preview-image-clickable {
+    cursor: zoom-in;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.preview-image-clickable:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
+
+.preview-image-clickable:focus {
+    outline: 3px solid rgba(37, 99, 235, 0.28);
+    outline-offset: 4px;
+}
+.sf-preview-image-loader {
+    position: relative;
+    width: 100%;
+    min-height: 420px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f8fafc;
+}
+
+.sf-preview-image-loader .preview-image {
+    position: relative;
+    z-index: 2;
+    display: block;
+}
+
+.sf-preview-image-loading {
+    opacity: 0;
+}
+
+.sf-preview-image-loaded {
+    opacity: 1;
+    transition: opacity 180ms ease;
+}
+
+.sf-preview-image-skeleton {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 28px;
+    border: 2px dashed #e6eef8;
+    border-radius: 12px;
+    background:
+        linear-gradient(90deg, #f3f6fb 25%, #ffffff 37%, #f3f6fb 63%);
+    background-size: 400% 100%;
+    animation: sf-preview-skeleton-shimmer 1.35s ease-in-out infinite;
+}
+
+.sf-preview-skeleton-line {
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(203, 213, 225, 0.55);
+}
+
+.sf-preview-skeleton-line--top {
+    width: 46%;
+}
+
+.sf-preview-skeleton-line--bottom {
+    width: 68%;
+    margin-top: auto;
+}
+
+.sf-preview-skeleton-card {
+    flex: 1;
+    min-height: 260px;
+    border-radius: 14px;
+    background: rgba(226, 232, 240, 0.72);
+}
+
+.sf-preview-image-loader.is-loaded {
+    min-height: 0;
+    background: transparent;
+}
+
+.sf-preview-image-loader.is-loaded .sf-preview-image-skeleton {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 160ms ease, visibility 160ms ease;
+}
+
+@keyframes sf-preview-skeleton-shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .sf-preview-image-loader {
+        min-height: 300px;
+    }
+
+    .sf-preview-image-skeleton {
+        padding: 18px;
+        gap: 14px;
+    }
+
+    .sf-preview-skeleton-card {
+        min-height: 220px;
+    }
+}
+.meta-box h2,
+.log-box h2,
+.actions-box h2,
+.section-heading {
+    font-size: 1rem;
+    margin: 0 0 10px;
+    font-weight: 700;
+    color: #0f172a;
+    background-color: #f3f4f6;
+    padding: 10px 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sf-event-lang-list {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    color: #475569;
+}
+
+.sf-event-lang-list li {
+    margin: 2px 0;
+    line-height: 1.45;
+}
+
+.sf-event-lang-list strong {
+    color: #334155;
+    font-weight: 800;
+}
+.section-heading-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.section-heading-icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.section-heading-text {
+    flex: 1;
+}
+
+.section-heading-log .section-heading-icon {
+    color: #2563eb;
+}
+
+.section-heading-system .section-heading-icon {
+    color: #4b5563;
+}
+
+.meta-item {
+    font-size: 0.95rem;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.meta-item strong {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.meta-item+.meta-item {
+    border-top: 1px dashed #eef2f7;
+    padding-top: 10px;
+}
+
+.meta-status-top {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    margin-top: -35px;
+    /* desktopissa ok, mobiilissa yliajetaan */
+}
+
+.meta-status-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+    border: 1px solid #eef2f7;
+    padding: 8px 12px;
+    border-radius: 35px;
+    box-shadow: 0 2px 8px rgba(2, 6, 23, 0.04);
+}
+
+.meta-status-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #6b7280;
+}
+
+.status-pill {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* Pending supervisor review - light blue to match list page */
+.status-pill-supervisor,
+.status-pill.sf-status--pending-supervisor {
+    background: var(--status-pending-supervisor-bg, #e0f2fe);
+    color: var(--status-pending-supervisor-text, #0369a1);
+    border: 1px solid #7dd3fc;
+    padding: 4px 12px;
+    border-radius: 16px;
+}
+
+/* Pending review - keep yellow */
+.status-pill-pending,
+.status-pill.sf-status--pending {
+    background: var(--status-pending-bg, #fee000);
+    color: var(--status-pending-text, #111827);
+    border: 1px solid #fbbf24;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+/* =========================
+   Footer action bar (ikonit)
+   ========================= */
+.view-footer-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2147483647 !important;
+    /* “lopullinen korjaus” */
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.1);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.view-footer-buttons,
+.view-footer-buttons-4col {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    max-width: var(--sf-container-lg);
+    margin: 0 auto;
+}
+
+/* Lomake footerissa */
+.footer-form {
+    display: contents;
+}
+
+/* Ikoni-nappi */
+.footer-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+    max-width: 150px;
+    padding: 10px 8px 12px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #6b7280;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.footer-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.footer-btn .btn-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: inherit;
+    white-space: normal;
+    word-wrap: break-word;
+    hyphens: auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+.footer-btn:hover,
+.footer-btn:focus {
+    background: #f3f4f6;
+}
+
+.footer-btn:hover .footer-icon {
+    transform: none;
+}
+
+.footer-btn:active {
+    background: #e5e7eb;
+    transform: none;
+}
+
+/* Värikoodattu yläreuna hoverissa */
+.footer-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: transparent;
+    transition: background 0.2s ease;
+}
+
+/* Värit per nappi */
+.fb-edit {
+    color: #2563eb;
+}
+
+.fb-edit:hover::before {
+    background: #2563eb;
+}
+
+.fb-edit:hover {
+    background: #eff6ff;
+}
+
+.fb-comment {
+    color: #6b7280;
+}
+
+.fb-comment:hover::before {
+    background: #6b7280;
+}
+
+.fb-comment:hover {
+    background: #f9fafb;
+}
+
+.fb-request {
+    color: #ea580c;
+}
+
+.fb-request:hover::before {
+    background: #ea580c;
+}
+
+.fb-request:hover {
+    background: #fff7ed;
+}
+
+.fb-comms {
+    color: #2563eb;
+}
+
+.fb-comms:hover::before {
+    background: #2563eb;
+}
+
+.fb-comms:hover {
+    background: #eff6ff;
+}
+
+.fb-send-safety {
+    color: #111827;
+}
+
+.fb-send-safety:hover::before {
+    background: #b89f00;
+}
+
+.fb-send-safety:hover {
+    background: rgba(254, 224, 0, 0.08);
+}
+
+.fb-publish {
+    color: #16a34a;
+}
+
+.fb-publish .btn-label {
+    hyphens: none;
+}
+
+.fb-publish:hover::before {
+    background: #16a34a;
+}
+
+.fb-publish:hover {
+    background: #f0fdf4;
+}
+
+.fb-delete {
+    color: #dc2626;
+}
+
+.fb-delete:hover::before {
+    background: #dc2626;
+}
+
+.fb-delete:hover {
+    background: #fef2f2;
+}
+
+/* Disabled */
+.footer-btn[aria-disabled="true"],
+.footer-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Erotinviivat */
+.footer-btn+.footer-btn {
+    border-left: 1px solid #e5e7eb;
+}
+
+.fb-settings {
+    color: #374151;
+}
+
+.fb-settings:hover::before {
+    background: #374151;
+}
+
+.fb-settings:hover {
+    background: #f3f4f6;
+}
+
+/* =========================
+   Asetukset-modaali
+   ========================= */
+.sf-settings-modal-content {
+    max-width: 420px;
+    padding: 24px;
+}
+
+.sf-settings-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sf-settings-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.sf-settings-modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #6b7280;
+    padding: 4px 8px;
+    border-radius: 6px;
+    line-height: 1;
+    transition: background 0.15s, color 0.15s;
+}
+
+.sf-settings-modal-close:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.sf-settings-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sf-settings-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.sf-settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sf-settings-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+}
+
+.sf-settings-select {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 0.925rem;
+    color: #111827;
+    background: #ffffff;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.sf-settings-select:focus {
+    border-color: #fee000;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(254, 224, 0, 0.35);
+}
+
+.sf-settings-save-status {
+    font-size: 0.8rem;
+    min-height: 1.2em;
+    transition: color 0.2s;
+}
+
+.sf-settings-save-ok {
+    color: #16a34a;
+}
+
+.sf-settings-save-error {
+    color: #dc2626;
+}
+
+.sf-settings-bodymap-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* =========================
+   Kielivalitsin
+   ========================= */
+.lang-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    justify-content: flex-start;
+}
+
+.lang-chip {
+    position: relative;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+    border: 1px solid #e6eef5;
+    background: #fff;
+}
+
+.lang-chip.has-version {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+.lang-chip.no-version {
+    background: transparent;
+    border: 2px dashed #9ca3af;
+}
+
+.lang-chip.no-version .lang-add-button {
+    color: #6b7280;
+}
+
+.lang-chip.active {
+    background-color: #fee000;
+    border: 1px solid #fee000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.lang-chip:not(.active):hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+}
+
+.lang-chip.no-version:hover {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.lang-chip.no-version:hover .lang-add-button {
+    color: #3b82f6;
+}
+
+.lang-chip .lang-link,
+.lang-chip .lang-add-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    text-decoration: none;
+    color: #111827;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.lang-chip.active .lang-link,
+.lang-chip.active .lang-add-button {
+    color: #111827;
+}
+
+.lang-flag-img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 0.35rem;
+    object-fit: cover;
+    border: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.lang-label {
+    line-height: 1;
+}
+
+/* =========================
+   Preview download
+   ========================= */
+.preview-download-wrapper {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+}
+
+.btn-download-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #333;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.btn-download-preview:hover {
+    background: #fff;
+    border-color: #007bff;
+    color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-download-preview svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .btn-download-preview span {
+        display: none;
+    }
+
+    .btn-download-preview {
+        padding: 10px;
+    }
+}
+
+/* Latausnapit vierekkäin tutkintatiedotteelle */
+.preview-box .preview-download-wrapper {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.preview-box .preview-download-wrapper .btn-download-preview {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+}
+
+/* =========================
+   Tutkintatiedotteen kaksi latausnappia vierekkäin
+   ========================= */
+.sf-download-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.sf-btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: #1a1a2e;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.sf-btn-download:hover {
+    background: #2d2d44;
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+.sf-btn-download svg {
+    flex-shrink: 0;
+}
+
+/* Responsiivinen mobiililla */
+@media (max-width: 480px) {
+    .sf-download-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sf-btn-download {
+        justify-content: center;
+    }
+}
+
+/* =========================
+   View-sivun pääsisällön napit
+   ========================= */
+.sf-page-container .sf-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.sf-page-container .sf-btn-primary {
+    background: var(--btn-primary-bg);
+    color: #ffffff;
+}
+
+.sf-page-container .sf-btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.sf-page-container .sf-btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.sf-page-container .sf-btn-secondary:hover {
+    background: #d1d5db;
+}
+
+.sf-page-container .sf-btn-danger {
+    background: var(--btn-danger-bg);
+    color: #ffffff;
+}
+
+.sf-page-container .sf-btn-danger:hover {
+    background: #b91c1c;
+}
+
+/* =========================
+   Kieliversio-modaali (vaiheittainen)
+   ========================= */
+.sf-modal-translation {
+    max-width: 600px;
+    width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.sf-translation-step {
+    display: flex;
+    flex-direction: column;
+}
+
+.sf-translation-step.hidden {
+    display: none;
+}
+
+.sf-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.sf-step {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.sf-step.active {
+    background: #2563eb;
+    color: #fff;
+}
+
+.sf-step.done {
+    background: #16a34a;
+    color: #fff;
+}
+
+.sf-step-line {
+    width: 40px;
+    height: 3px;
+    background: #e5e7eb;
+    border-radius: 2px;
+}
+
+.sf-step-line.done {
+    background: #16a34a;
+}
+
+.sf-field {
+    margin-bottom: 16px;
+}
+
+.sf-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.sf-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    resize: vertical;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.sf-textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.sf-char-count {
+    text-align: right;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+.sf-translation-lang-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.sf-translation-lang-display img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.sf-translation-preview-wrapper {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+#sfTranslationPreviewContainer {
+    position: relative;
+    width: 100%;
+    background: #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+}
+
+#sfTranslationPreviewContainer .sf-preview-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    transform-origin: top left;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+@supports not (aspect-ratio: 16 / 9) {
+    #sfTranslationPreviewContainer {
+        padding-bottom: 56.25%;
+        height: 0;
+    }
+}
+
+.sf-translation-status {
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.sf-translation-status:empty {
+    display: none;
+}
+
+.sf-translation-status.loading {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.sf-translation-status.success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.sf-translation-status.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+@media (max-width: 600px) {
+    .sf-modal-translation {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 16px;
+    }
+}
+
+/* =========================
+   Tutkintatiedotteen preview-tabit
+   ========================= */
+.sf-view-preview-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.sf-view-tab-btn {
+    padding: 8px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px 8px 0 0;
+    background: #f9fafb;
+    color: #6b7280;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sf-view-tab-btn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.sf-view-tab-btn.active {
+    background: #ffffff;
+    border-bottom-color: #ffffff;
+    color: #111827;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sf-view-preview-cards {
+    position: relative;
+}
+
+.sf-view-preview-card {
+    display: none;
+}
+
+.sf-view-preview-card.active {
+    display: block;
+}
+
+.sf-preview-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    background: #f9fafb;
+    border: 2px dashed #e5e7eb;
+    border-radius: 8px;
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+/* =========================
+   Mobiili — kompaktit “oikeat” säännöt
+   ========================= */
+@media (max-width: 900px) {
+    .view-container {
+        margin: 0;
+        padding: 8px;
+        padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+        max-width: 100%;
+    }
+
+    .view-back {
+        margin-bottom: 8px;
+    }
+
+    .btn-back {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        border-radius: 20px;
+    }
+
+    /* Kielivalitsin */
+    .lang-switcher {
+        gap: 6px;
+        margin-bottom: 10px;
+        padding: 0;
+    }
+
+    .lang-chip {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+
+    .lang-flag-img {
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+    }
+
+    .lang-label {
+        font-size: 0.7rem;
+    }
+
+    /* Huom: tässä “oikeassa” loppupään versiossa käytetään .view-grid:ää flexinä */
+    .view-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .view-box {
+        padding: 10px 12px;
+        border-radius: 10px;
+        margin: 0;
+    }
+
+    .preview-box {
+        padding: 8px;
+    }
+
+    .preview-image {
+        max-height: none;
+        border-radius: 6px;
+        border-width: 1px;
+    }
+
+    .preview-download-wrapper {
+        bottom: 8px;
+        right: 8px;
+    }
+
+    .btn-download-preview {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        border-radius: 4px;
+    }
+
+    .btn-download-preview svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .meta-box {
+        gap: 6px;
+    }
+
+    .meta-status-top {
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+    .meta-status-left {
+        padding: 4px 10px;
+        gap: 6px;
+        border-radius: 20px;
+    }
+
+    .meta-status-label {
+        font-size: 0.65rem;
+    }
+
+    .status-pill {
+        padding: 3px 8px;
+        font-size: 0.7rem;
+    }
+
+    .section-heading {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+        margin-bottom: 6px;
+        border-radius: 6px;
+    }
+
+    .section-heading-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .section-heading-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .meta-item {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        padding-top: 6px;
+    }
+
+    .meta-item strong {
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    .meta-item+.meta-item {
+        padding-top: 6px;
+        border-top: 1px dashed #f0f0f0;
+    }
+
+    .meta-separator {
+        margin: 10px 0;
+    }
+
+    .sf-log-panel {
+        margin-top: 0;
+        padding: 10px;
+    }
+
+    .sf-log-item {
+        padding: 8px 0;
+        grid-template-columns: 28px 1fr;
+        gap: 8px;
+    }
+
+    .sf-log-avatar {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+
+    .sf-log-header-row {
+        gap: 6px;
+        margin-bottom: 2px;
+    }
+
+    .sf-log-type {
+        font-size: 0.8rem;
+    }
+
+    .sf-log-time {
+        font-size: 0.65rem;
+    }
+
+    .sf-log-message {
+        font-size: 0.8rem;
+        line-height: 1.35;
+        max-height: 3.5em;
+    }
+
+    .sf-log-more {
+        font-size: 0.7rem;
+    }
+
+    .sf-log-meta {
+        display: none;
+    }
+
+    /* Footer — kompakti (loppupään “oikea”) */
+    .view-footer-actions {
+        padding: 0;
+    }
+
+    .view-footer-buttons-4col {
+        padding: 6px 4px;
+        gap: 0;
+    }
+
+    .footer-btn {
+        padding: 8px 4px;
+        gap: 2px;
+        border-radius: 0;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .footer-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .footer-btn .btn-label {
+        font-size: 0.6rem;
+        line-height: 1.2;
+    }
+
+    .footer-btn::before {
+        height: 2px;
+    }
+}
+
+@media (max-width: 400px) {
+    .view-container {
+        padding: 6px;
+        padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .view-box {
+        padding: 8px 10px;
+        border-radius: 8px;
+    }
+
+    .lang-chip {
+        padding: 3px 6px;
+    }
+
+    .lang-flag-img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .section-heading {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+
+    .meta-item {
+        font-size: 0.8rem;
+    }
+
+    .footer-btn .btn-label {
+        display: none;
+    }
+
+    .footer-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* =========================
+   “Lopullinen korjaus” footerin näkyvyyteen
+   ========================= */
+#sfContainer {
+    transform: none !important;
+    overflow: visible !important;
+}
+
+body:has(.view-container) #sfContainer {
+    filter: none !important;
+    transform: none !important;
+}
+
+.sf-modal-translation {
+    max-width: 1100px;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: 0;
+    padding: 24px;
+}
+
+/* Kompaktimmat textarea-kentät jotta mahtuu näytölle */
+.sf-modal-translation .sf-textarea {
+    min-height: 80px;
+    max-height: 120px;
+}
+
+/* Modal-toiminnot (napit) - aina näkyvissä alhaalla */
+.sf-modal-translation .sf-modal-actions {
+    position: sticky;
+    bottom: -24px;
+    margin: 16px -24px -24px -24px;
+    padding: 16px 24px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    border-radius: 0 0 16px 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    z-index: 10;
+}
+
+.sf-translation-step {
+    padding: 0;
+}
+
+.sf-translation-step.hidden {
+    display: none;
+}
+
+.sf-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.sf-step-indicator .sf-step {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.sf-step-indicator .sf-step.active {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.sf-step-indicator .sf-step.done {
+    background: #10b981;
+    color: #fff;
+}
+
+.sf-step-indicator .sf-step-line {
+    width: 40px;
+    height: 3px;
+    background: #e5e7eb;
+    border-radius: 2px;
+}
+
+.sf-step-indicator .sf-step-line.done {
+    background: #10b981;
+}
+
+.sf-translation-lang-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #f3f4f6;
+    border-radius: 8px;
+}
+
+.sf-translation-lang-display img {
+    width: 28px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.sf-translation-lang-display span {
+    font-weight: 600;
+    color: #111827;
+}
+
+.sf-translation-preview-wrapper {
+    position: relative;
+    width: 100%;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+/* ===== MODAL PREVIEW CARD - KORJATUT TYYLIT ===== */
+
+.sf-modal-preview-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #e2e8f0;
+    border-radius: 8px;
+    aspect-ratio: 16 / 9;
+}
+
+/* Kortti skaalataan 1920x1080 -> containerin kokoon */
+.sf-modal-preview-wrapper .sf-preview-card,
+.sf-modal-preview-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    transform-origin: top left;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+/* Taustakuva */
+.sf-modal-preview-wrapper .sf-preview-bg,
+.sf-modal-preview-card .sf-preview-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Sisältökerros - SAMAT PROSENTTIMITAT kuin preview.css: ssä */
+.sf-modal-preview-wrapper .sf-preview-content,
+.sf-modal-preview-card .sf-preview-content {
+    position: absolute;
+    top: 22.2%;
+    bottom: 4.6%;
+    left: 5.7%;
+    right: 2.6%;
+    display: flex;
+    gap: 2%;
+    z-index: 1;
+}
+
+/* Vasen palsta (tekstit) */
+.sf-modal-preview-wrapper .sf-preview-text-col,
+.sf-modal-preview-card .sf-preview-text-col {
+    flex: 0 0 53%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.sf-modal-preview-wrapper .sf-preview-title,
+.sf-modal-preview-card .sf-preview-title {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+    overflow: hidden;
+    max-height: 3.6em;
+    text-indent: 0;
+    padding-left: 0;
+    text-align: left;
+    /* Tavutus */
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Kuvaus */
+.sf-modal-preview-wrapper .sf-preview-desc,
+.sf-modal-preview-card .sf-preview-desc {
+    font-size: 28px;
+    line-height: 1.35;
+    color: #1a1a1a;
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+/* Meta-rivi (työmaa + milloin) */
+.sf-modal-preview-wrapper .sf-preview-meta-row,
+.sf-modal-preview-card .sf-preview-meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: auto;
+    height: auto;
+    min-height: 80px;
+    flex-shrink: 0;
+}
+
+.sf-modal-preview-wrapper .sf-preview-meta-box,
+.sf-modal-preview-card .sf-preview-meta-box {
+    background: rgba(210, 210, 210, 0.85);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sf-modal-preview-wrapper .sf-preview-meta-label,
+.sf-modal-preview-card .sf-preview-meta-label {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.sf-modal-preview-wrapper .sf-preview-meta-value,
+.sf-modal-preview-card .sf-preview-meta-value {
+    font-size: 26px;
+    color: #1a1a1a;
+}
+
+/* Oikea palsta (kuva) */
+.sf-modal-preview-wrapper .sf-preview-image-col,
+.sf-modal-preview-card .sf-preview-image-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+}
+
+.sf-modal-preview-wrapper .sf-preview-image-frame,
+.sf-modal-preview-card .sf-preview-image-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+    background: transparent;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* TÄRKEÄ:    Kuva täyttää koko alueen - spesifisempi sääntö */
+.sf-modal-preview-wrapper .sf-preview-image-frame img,
+.sf-modal-preview-card .sf-preview-image-frame img,
+.sf-modal-preview-wrapper .sf-grid-bitmap-frame img,
+.sf-modal-preview-card .sf-grid-bitmap-frame img,
+.sf-modal-preview-wrapper .sf-grid-bitmap-frame .sf-preview-img-element,
+.sf-modal-preview-card .sf-grid-bitmap-frame .sf-preview-img-element,
+#sfPreviewWrapperModal .sf-preview-image-frame img,
+#sfPreviewWrapperModal .sf-grid-bitmap-frame img,
+#sfPreviewWrapperModal .sf-grid-bitmap-frame .sf-preview-img-element,
+#sfTranslationPreviewContainer .sf-preview-image-frame img,
+#sfTranslationPreviewContainer .sf-grid-bitmap-frame img,
+#sfTranslationPreviewContainer .sf-grid-bitmap-frame .sf-preview-img-element {
+    display: block ! important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center ! important;
+    border-radius: 16px ! important;
+    position: static ! important;
+    transform: none ! important;
+    top: auto ! important;
+    left: auto ! important;
+    min-width: 0 !important;
+    min-height: 0 ! important;
+    max-width: 100% !important;
+    max-height: 100% ! important;
+}
+
+/* Fallback jos aspect-ratio ei tueta */
+@supports not (aspect-ratio: 16 / 9) {
+    .sf-modal-preview-wrapper {
+        padding-bottom: 56.25%;
+        height: 0;
+    }
+}
+
+.sf-translation-status {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.sf-translation-status:empty {
+    display: none;
+}
+
+.sf-translation-status.sf-status-error {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.sf-translation-status.sf-status-success {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
+.sf-char-count {
+    text-align: right;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+    .sf-modal-translation {
+        max-width: 100%;
+        width: 100%;
+        max-height: 95vh;
+        margin: 0;
+        border-radius: 12px;
+        padding: 16px;
+    }
+
+    .sf-modal-translation .sf-textarea {
+        min-height: 60px;
+        max-height: 100px;
+    }
+
+    .sf-modal-translation .sf-modal-actions {
+        margin: 12px -16px -16px -16px;
+        padding: 12px 16px;
+    }
+}
+
+/* Isommat näytöt - leveämpi modal */
+@media (min-width: 1200px) {
+    .sf-modal-translation {
+        max-width: 1200px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .sf-modal-translation {
+        max-width: 1400px;
+    }
+
+
+    .sf-translation-preview-wrapper {
+        margin: 0 -24px;
+        border-radius: 0;
+    }
+}
+
+/* ===== MODAL PREVIEW - KUVA-ALUEEN OMAT TYYLIT ===== */
+
+.sf-modal-image-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.sf-modal-image-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: transparent;
+}
+
+.sf-modal-grid-img {
+    display: block;
+    position: static;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+    transform: none;
+    min-width: 0;
+    min-height: 0;
+    max-width: none;
+    max-height: none;
+}
+
+/* ===== FOOTER NÄKYVYYS VARMISTUS ===== */
+.view-footer-actions {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 9999 !important;
+    background: #ffffff !important;
+    border-top: 1px solid #e5e7eb !important;
+    box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.1) !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+}
+
+/* Kun modal on auki, piilota footer */
+body.sf-modal-open .view-footer-actions {
+    display: none !important;
+}
+
+/* Kun muu modaali on auki, piilota preview-painikkeet.
+   Älä piilota niitä preview-modalin aikana, jotta zoom- ja modal-näkymä toimii oikein. */
+body.sf-modal-open .preview-download-wrapper,
+body.sf-modal-open .preview-box .sf-copy-btn,
+body.sf-modal-open .sf-download-buttons {
+    display: none !important;
+}
+
+body.sf-modal-open #previewImageModal .preview-download-wrapper,
+body.sf-modal-open #previewImageModal .preview-box .sf-copy-btn,
+body.sf-modal-open #previewImageModal .sf-download-buttons {
+    display: initial !important;
+}
+
+.view-footer-buttons-4col {
+    display: flex !important;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.footer-btn {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* =========================
+   MODERNI JULKAISUMODAALI - Chip/Tag tyyli
+   ========================= */
+
+/* Lähetä jakelulistalle - siistimpi checkbox */
+.sf-publish-options .sf-checkbox-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-publish-options .sf-checkbox-option:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.sf-publish-options .sf-checkbox-option:has(input:checked) {
+    background: #eff6ff;
+    border-color: #3b82f6;
+}
+
+/* ===== KOMPAKTIT PYÖREÄT LIPPUPAINIKKEET ===== */
+.sf-country-selection {
+    margin-top: 1rem;
+}
+
+.sf-country-selection .sf-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 0.5rem;
+}
+
+.sf-country-flags {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.sf-flag-chip {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: visible;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+    background: #f1f5f9;
+    padding: 2px;
+}
+
+.sf-flag-chip:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Piilotettu checkbox */
+.sf-flag-chip input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Lippu-kuva pyöreänä */
+.sf-flag-chip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Ei-valittu: harmahtava */
+.sf-flag-chip:not(:has(input:checked)) {
+    opacity: 0.5;
+    filter: grayscale(50%);
+}
+
+.sf-flag-chip:not(:has(input:checked)):hover {
+    opacity: 0.8;
+    filter: grayscale(20%);
+}
+
+/* Valittu tila: sininen reunus + glow */
+.sf-flag-chip:has(input:checked) {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    opacity: 1;
+    filter: none;
+}
+
+/* Checkmark badge - oikeassa alakulmassa ULKOPUOLELLA */
+.sf-flag-chip:has(input:checked)::after {
+    content: '✓';
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    background: #3b82f6;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* ===== HENKILÖVAHINKO-VAROITUS ===== */
+.sf-checkbox-warning {
+    background: #fef2f2 !important;
+    border-color: #fecaca !important;
+}
+
+.sf-checkbox-warning:has(input:checked) {
+    background: #fee2e2 !important;
+    border-color: #f87171 !important;
+}
+
+/* ===== SÄHKÖPOSTIN ESIKATSELU ===== */
+.sf-email-subject-preview {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 3px solid #3b82f6;
+}
+
+.sf-email-subject-preview strong {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.sf-email-subject-preview code {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #1e293b;
+    background: transparent;
+    padding: 0;
+}
+
+/* ===== MOBIILI ===== */
+@media (max-width: 480px) {
+    .sf-flag-chip {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* ========================================
+   TYHJÄ TILA
+   ======================================== */
+.sf-empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.sf-empty-icon {
+    width: 64px;
+    height: 64px;
+    opacity: 0.3;
+    margin: 0 auto 1rem;
+}
+
+.sf-empty-state p {
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+/* ========================================
+   MOBIILI
+   ======================================== */
+@media (max-width: 768px) {
+    .sf-activity-tab {
+        flex-direction: column;
+        gap: 0.25rem;
+        font-size: 0.8rem;
+        padding: 0.75rem 0.5rem;
+        position: relative;
+    }
+
+    .sf-activity-tab span:not(.sf-tab-badge) {
+        display: none;
+    }
+
+    .sf-tab-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        font-size: 0.625rem;
+        border-radius: 8px;
+    }
+
+    .sf-tab-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .sf-event-item {
+        padding: 0.6rem 0.75rem;
+        border-radius: 10px;
+    }
+
+    .sf-event-icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+
+/* ===== PREVIEW PENDING MESSAGE ===== */
+
+/* Skeleton placeholder container for pending preview */
+.skeleton-preview-placeholder {
+    position: relative;
+    width: 100%;
+    min-height: 540px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skeleton-preview-placeholder .skeleton-preview-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f9fafb;
+    border-radius: 12px;
+}
+
+.skeleton-preview-placeholder .skeleton-preview-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+
+.sf-preview-pending-message {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    text-align: center;
+    max-width: 300px;
+}
+
+.sf-preview-pending-message .sf-spinner {
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+.sf-preview-pending-message p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.sf-preview-pending-message small {
+    margin: 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+
+/* Preview Generation Progress Indicator (View Page) */
+.sf-preview-pending-message.sf-generating-overlay {
+    position: relative;
+    background: rgba(15, 23, 42, 0.85);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.sf-preview-pending-message .sf-generating-content {
+    text-align: center;
+    color: #fff;
+}
+
+.sf-preview-pending-message .sf-generating-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fee000;
+    border-radius: 50%;
+    animation: sf-spin 1s linear infinite;
+    margin: 0 auto 12px;
+}
+
+.sf-preview-pending-message .sf-generating-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.sf-preview-pending-message .sf-preview-progress-wrap {
+    width: 160px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto 8px;
+}
+
+.sf-preview-pending-message .sf-preview-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #fee000, #8fc640);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.sf-preview-pending-message .sf-preview-progress-text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.sf-preview-pending-message.sf-generating-failed .sf-generating-text {
+    color: #ef4444;
+}
+
+.sf-preview-pending-message.sf-generating-failed .sf-generating-spinner {
+    display: none;
+}
+
+/* SafetyFlash: process spinner */
+.sf-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    vertical-align: -2px;
+    border: 2px solid rgba(0, 0, 0, .25);
+    border-top-color: rgba(0, 0, 0, .85);
+    border-radius: 50%;
+    animation: sf-spin .8s linear infinite;
+}
+
+@keyframes sf-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========================================
+   EDITING INDICATOR
+   ======================================== */
+
+.sf-editing-indicator {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    background: linear-gradient(90deg, #fef3c7, #fde68a, #fef3c7);
+    background-size: 200% 100%;
+    animation: sf-shimmer 2s infinite linear;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #92400e;
+}
+
+@keyframes sf-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.sf-editing-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(146, 64, 14, 0.3);
+    border-top-color: #92400e;
+    border-radius: 50%;
+    animation: sf-spin 0.8s linear infinite;
+}
+
+.sf-editing-text {
+    font-weight: 500;
+}
+
+/* Sidebar: status pill omaksi laatikoksi */
+.sf-status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Reviewer modal styles */
+.sf-search-select {
+    position: relative;
+}
+
+.sf-search-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.sf-search-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.sf-search-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+}
+
+/* Modal header for reviewer modals */
+.sf-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sf-modal-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #6b7280;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sf-modal-close-btn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.sf-modal-body {
+    margin-bottom: 20px;
+}
+
+.sf-field {
+    margin-bottom: 16px;
+}
+
+.sf-field:last-child {
+    margin-bottom: 0;
+}
+
+.sf-label {
+    display: block;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+/* Report button loading states */
+.btn-loading {
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.btn-loading svg,
+.btn-success svg,
+.btn-error svg {
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+.btn-loading span,
+.btn-success span,
+.btn-error span {
+    vertical-align: middle;
+}
+
+.btn-success {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    color: white !important;
+}
+
+.btn-error {
+    background-color: #ef4444 !important;
+    border-color: #ef4444 !important;
+    color: white !important;
+}
+
+/* ===== YKSITTÄISEN KIELIVERSION JULKAISU ===== */
+
+/* Julkaisupainike-kortti */
+.sf-publish-single-card {
+    border: 2px solid var(--sf-primary, #0066cc);
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.sf-publish-single-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.95em;
+}
+
+/* Kieliversioiden tilalista */
+.sf-lang-versions-card {
+    padding: 0.75rem;
+    border: 1px solid var(--sf-border, #e0e0e0);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.sf-lang-versions-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9em;
+    color: var(--sf-text-secondary, #666);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sf-lang-version-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--sf-border, #e0e0e0);
+    font-size: 0.9em;
+}
+
+.sf-lang-version-row:last-child {
+    border-bottom: none;
+}
+
+.sf-badge {
+    font-size: 0.8em;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.sf-badge-success {
+    background: #e6f4ea;
+    color: #1a7f37;
+}
+
+.sf-badge-draft {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.sf-badge-info {
+    background: #e7f1ff;
+    color: #0366d6;
+}
+
+.sf-display-count-badge {
+    font-size: 0.75em;
+    color: var(--sf-text-secondary, #666);
+    margin-left: auto;
+}
+
+.sf-link-small {
+    font-size: 0.8em;
+    color: var(--sf-primary, #0066cc);
+    text-decoration: none;
+}
+
+.sf-link-small:hover {
+    text-decoration: underline;
+}
+
+/* Preview Modal Styles */
+.sf-preview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.sf-preview-modal.active {
+    display: flex;
+}
+
+.sf-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+}
+
+.sf-preview-modal-content {
+    position: relative;
+    z-index: 10000;
+    background: #000;
+    border-radius: 8px;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.sf-modal-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sf-modal-close {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.sf-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sf-preview-modal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.sf-zoom-toolbar {
+    padding: 12px 16px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.sf-zoom-level {
+    color: #fff;
+    font-size: 14px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.sf-zoom-btn {
+    background: #333;
+    border: 1px solid #555;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.sf-zoom-btn:hover {
+    background: #444;
+    border-color: #666;
+}
+
+.sf-zoom-btn.reset {
+    background: #0066cc;
+    border-color: #0052a3;
+}
+
+.sf-zoom-btn.reset:hover {
+    background: #0052a3;
+}
+
+.sf-preview-image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 16px;
+}
+
+.sf-preview-modal-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.2s ease-out;
+}
+
+.preview-image-clickable {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.preview-image-clickable:hover {
+    opacity: 0.8;
+}
+
+.sf-view-preview-fullscreen-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sf-view-preview-fullscreen-modal.hidden {
+    display: none;
+}
+
+.sf-view-preview-fullscreen-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.82);
+    backdrop-filter: blur(4px);
+}
+
+.sf-view-preview-fullscreen-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(96vw, 1600px);
+    height: min(94vh, 980px);
+    background: #0f172a;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+}
+
+.sf-view-preview-fullscreen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    background: rgba(15, 23, 42, 0.96);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.sf-view-preview-fullscreen-header h3 {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.sf-view-preview-fullscreen-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sf-view-preview-fullscreen-toolbtn,
+.sf-view-preview-fullscreen-close {
+    appearance: none;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+    border-radius: 10px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0 14px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.sf-view-preview-fullscreen-toolbtn:hover,
+.sf-view-preview-fullscreen-close:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+}
+
+.sf-view-preview-fullscreen-body {
+    flex: 1;
+    overflow: auto;
+    padding: 18px;
+    cursor: grab;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    touch-action: none;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.03) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.03) 75%);
+    background-size: 32px 32px;
+    background-position: 0 0, 0 16px, 16px -16px, -16px 0;
+}
+
+.sf-view-preview-fullscreen-body.is-dragging {
+    cursor: grabbing;
+}
+
+.sf-view-preview-fullscreen-image {
+    display: block;
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    transform-origin: center center;
+    transform: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+    border-radius: 8px;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.sf-view-preview-fullscreen-image.is-visible {
+    transform: none;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .sf-view-preview-fullscreen-dialog {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .sf-view-preview-fullscreen-header {
+        padding: 12px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sf-view-preview-fullscreen-toolbar {
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .sf-view-preview-fullscreen-body {
+        padding: 10px;
+    }
+}
+
+/* -------------------------------------------------------
+ * Additional Info modal – Quill WYSIWYG editor height fix
+ *
+ * Quill sets height:100% on .ql-editor, which collapses to ~0
+ * when the parent has no explicit height. Override with
+ * min-height + height:auto so the editor area is always tall
+ * enough to click on and type in.
+ * ------------------------------------------------------- */
+#sfAdditionalInfoEditor .ql-editor {
+    min-height: 120px;
+    height: auto;
+}
+
+/* Remove yellow focus outline from Quill rich text editor */
+.ql-editor:focus,
+.ql-editor:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+/* =========================
+   Athena Badge
+   ========================= */
+.sf-view-language-status-row {
+    display: grid;
+    grid-template-columns: 1fr var(--sf-sidebar-width);
+    gap: var(--sf-spacing-page);
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.sf-view-language-status-row .lang-switcher {
+    margin-bottom: 0;
+}
+
+.sf-athena-status-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.sf-athena-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.25;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.sf-athena-badge--ok {
+    background: #ecfdf5;
+    color: #047857;
+    border-color: #a7f3d0;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.14);
+}
+
+.sf-athena-badge--missing {
+    background: #fff7ed;
+    color: #92400e;
+    border-color: #fed7aa;
+}
+
+.sf-athena-badge__icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.sf-athena-action-btn {
+    min-height: 38px;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 999px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+    transition: all 0.2s ease;
+}
+
+.sf-athena-action-btn:hover,
+.sf-athena-action-btn:focus {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    outline: none;
+}
+
+.sf-athena-remind-later-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 0.83rem;
+    cursor: pointer;
+    padding: 6px 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.sf-athena-remind-later-btn:hover {
+    color: #374151;
+}
+
+@media (max-width: 900px) {
+    .sf-view-language-status-row {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .sf-athena-status-card {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .sf-athena-badge,
+    .sf-athena-action-btn {
+        white-space: normal;
+        text-align: left;
+    }
+}
+
+@media (max-width: 640px) {
+    .sf-view-language-status-row {
+        --sf-lang-chip-gap: 4px;
+        --sf-lang-flag-size: 16px;
+    }
+
+    .sf-page-container {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .view-back {
+        display: flex !important;
+        align-items: stretch !important;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .view-back > .btn-back,
+    .view-back > .sf-view-back-right {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .sf-view-back-right {
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .btn-back,
+    .btn-report-topright {
+        min-height: 42px;
+        justify-content: center;
+        padding: 8px 10px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        border-radius: 10px;
+        white-space: nowrap;
+    }
+
+    .btn-report-topright {
+        width: 100%;
+    }
+
+    .btn-report-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .btn-back-label-desktop {
+        display: none;
+    }
+
+    .btn-back-label-mobile {
+        display: inline;
+    }
+
+    .view-container {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .sf-view-activity-section {
+        margin-top: 0.85rem;
+    }
+
+    .sf-view-language-status-row {
+        margin-bottom: 10px;
+    }
+
+    .sf-view-language-status-row .lang-switcher {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: var(--sf-lang-chip-gap);
+        padding: 0 0 1px;
+        scroll-snap-type: x proximity;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .sf-view-language-status-row .lang-switcher::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sf-view-language-status-row .lang-chip {
+        flex: 1 1 0%;
+        min-width: 0;
+        padding: 2px 4px;
+        border-radius: 999px;
+        scroll-snap-align: start;
+    }
+
+    .sf-view-language-status-row .lang-chip .lang-link,
+    .sf-view-language-status-row .lang-chip .lang-add-button {
+        justify-content: center;
+        gap: var(--sf-lang-chip-gap);
+        padding: 2px 0;
+        min-height: 28px;
+        font-size: 0.75rem;
+        min-width: 0;
+    }
+
+    .sf-view-language-status-row .lang-flag-img {
+        width: var(--sf-lang-flag-size);
+        height: var(--sf-lang-flag-size);
+        margin-right: 0;
+    }
+
+    .sf-view-language-status-row .lang-chip .lang-label {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .sf-view-language-status-row .lang-chip.no-version .lang-label {
+        font-size: 0;
+        line-height: 0;
+    }
+
+    .sf-view-language-status-row .lang-chip.no-version .lang-label::before {
+        content: "+";
+        font-size: 0.85rem;
+        line-height: 1;
+    }
+
+    .sf-view-language-status-row .lang-chip.active {
+        background: #fee000;
+        border-color: #fee000;
+    }
+
+    .sf-tab-content {
+        padding: 0.75rem;
+    }
+
+    .sf-events-timeline {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sf-event-item {
+        gap: 0.65rem;
+        padding: 0.58rem 0.7rem;
+        margin-bottom: 0.45rem;
+        border-radius: 11px;
+    }
+
+    .sf-event-header {
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .sf-event-label {
+        font-size: 0.84rem;
+    }
+
+    .sf-event-time {
+        font-size: 0.72rem;
+        white-space: nowrap;
+    }
+
+    .sf-event-user {
+        font-size: 0.76rem;
+        margin-bottom: 2px;
+    }
+
+    .sf-event-batch-list {
+        margin: 2px 0 0;
+        padding-left: 0.8rem;
+    }
+
+    .sf-event-batch-list li {
+        margin-bottom: 0.08rem;
+    }
+}
+/* =========================================================
+   MODERN PUBLISH STEPPER MODAL
+========================================================= */
+
+.sf-modal-publish-stepper {
+    width: min(980px, 94vw);
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 22px;
+}
+
+.sf-modal-publish-stepper form {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
+
+.sf-publish-step {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1;
+}
+
+.sf-publish-step.hidden {
+    display: none !important;
+}
+
+.sf-modal-publish-stepper .sf-step-indicator {
+    flex-shrink: 0;
+    margin: 0 0 1.8rem;
+}
+
+.sf-modal-publish-stepper .sf-modal-header {
+    flex-shrink: 0;
+    margin-bottom: 1.35rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sf-modal-publish-stepper .sf-modal-header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.sf-modal-publish-stepper .sf-modal-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0.25rem 0.25rem 0.75rem;
+}
+
+.sf-modal-publish-stepper .sf-modal-footer {
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+    margin-top: 1.4rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.sf-modal-publish-stepper .sf-modal-footer .sf-btn {
+    min-height: 48px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+/* =========================================================
+   DISPLAY TARGET STEP
+========================================================= */
+
+.sf-modal-publish-stepper .sf-display-targets-section,
+.sf-modal-publish-stepper .sf-lang-display-section {
+    margin-top: 0;
+}
+
+.sf-modal-publish-stepper .sf-display-target-selector {
+    overflow: visible;
+}
+
+/* =========================================================
+   STEP 3 TIME SETTINGS
+========================================================= */
+
+.sf-modal-publish-stepper .sf-dt-compact-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    gap: 1.75rem;
+    align-items: stretch;
+    width: 100%;
+}
+
+.sf-modal-publish-stepper .sf-dt-section {
+    min-width: 0;
+    height: 100%;
+}
+
+.sf-modal-publish-stepper .sf-dt-card,
+.sf-modal-publish-stepper .sf-display-duration-card,
+.sf-modal-publish-stepper .sf-display-ttl-card {
+    height: 100%;
+    min-height: 330px;
+    border-radius: 18px;
+}
+
+.sf-modal-publish-stepper .sf-dt-options,
+.sf-modal-publish-stepper .sf-duration-options,
+.sf-modal-publish-stepper .sf-ttl-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.sf-modal-publish-stepper .sf-dt-option,
+.sf-modal-publish-stepper .sf-duration-option,
+.sf-modal-publish-stepper .sf-ttl-option {
+    min-height: 44px;
+}
+
+/* =========================================================
+   FINAL NOTIFICATION TOGGLE
+========================================================= */
+
+.sf-publish-final-notification {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1.1rem 1.2rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(37, 99, 235, 0.12);
+}
+
+.sf-publish-final-notification-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #3b82f6;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sf-publish-final-notification-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sf-publish-final-notification-text strong {
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: #1e293b;
+}
+
+.sf-publish-final-notification-text small {
+    font-size: 0.82rem;
+    line-height: 1.35;
+    color: #475569;
+}
+
+/* Oma switch vain julkaisu-modaaliin, jotta vanhat toggle-säännöt eivät riko asettelua */
+.sf-publish-final-switch {
+    position: relative;
+    display: inline-flex;
+    width: 52px;
+    height: 30px;
+    flex: 0 0 52px;
+    cursor: pointer;
+}
+
+.sf-publish-final-switch input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sf-publish-final-switch span {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: #cbd5e1;
+    transition: background 0.2s ease;
+}
+
+.sf-publish-final-switch span::before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 3px;
+    top: 3px;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.22);
+    transition: transform 0.2s ease;
+}
+
+.sf-publish-final-switch input:checked + span {
+    background: #10b981;
+}
+
+.sf-publish-final-switch input:checked + span::before {
+    transform: translateX(22px);
+}
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.sf-publish-summary {
+    background: #f8fafc;
+    border: 1px solid #dbe3f0;
+    border-radius: 18px;
+    padding: 1.15rem 1.25rem;
+}
+
+.sf-summary-list {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 0.65rem 1rem;
+    margin: 0;
+}
+
+.sf-summary-list dt {
+    font-weight: 800;
+    color: #64748b;
+}
+
+.sf-summary-list dd {
+    margin: 0;
+    color: #1f2937;
+    word-break: break-word;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .sf-modal-publish-stepper {
+        width: min(720px, 94vw);
+    }
+
+    .sf-modal-publish-stepper .sf-dt-compact-row {
+        grid-template-columns: 1fr;
+    }
+
+    .sf-modal-publish-stepper .sf-dt-card,
+    .sf-modal-publish-stepper .sf-display-duration-card,
+    .sf-modal-publish-stepper .sf-display-ttl-card {
+        min-height: auto;
+    }
+
+}
+
+@media (max-width: 640px) {
+
+    .sf-modal-publish-stepper {
+        width: 100vw;
+        max-height: 100vh;
+        border-radius: 18px 18px 0 0;
+    }
+
+    .sf-modal-publish-stepper .sf-modal-header h2 {
+        font-size: 1.15rem;
+    }
+
+    .sf-modal-publish-stepper .sf-modal-footer {
+        grid-template-columns: 1fr;
+    }
+
+    .sf-publish-final-notification {
+        grid-template-columns: 40px minmax(0, 1fr);
+    }
+
+    .sf-publish-final-switch {
+        grid-column: 1 / -1;
+        justify-self: start;
+        margin-left: 0.15rem;
+    }
+
+    .sf-summary-list {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =========================================================
+   Publish modal tabs
+========================================================= */
+
+.sf-modal-publish-stepper .sf-publish-target-tabs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    overflow: hidden;
+}
+
+.sf-modal-publish-stepper .sf-publish-target-tabs .sf-dt-tab {
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.sf-modal-publish-stepper .sf-dt-tab-panel {
+    display: none;
+}
+
+.sf-modal-publish-stepper .sf-dt-tab-panel.sf-dt-tab-panel-active {
+    display: block;
+}
+/* =========================================================
+   Display target priority chips
+========================================================= */
+
+.sf-dt-priority-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.65rem 0 0.85rem;
+}
+
+.sf-modal-publish-stepper .sf-dt-priority-chip {
+    position: relative;
+}
+
+.sf-modal-publish-stepper .sf-dt-priority-chip input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sf-modal-publish-stepper .sf-dt-priority-chip:has(input:checked) {
+    background: #0b73d9;
+    border-color: #0b73d9;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.sf-modal-publish-stepper .sf-dt-priority-chip:has(input:checked):hover {
+    background: #075fb5;
+    border-color: #075fb5;
+    color: #ffffff;
+}
+
+/* =========================================================
+   Display target selector: hide default-display category chip
+========================================================= */
+
+.sf-modal-publish-stepper .sf-dt-filter-chip[data-filter="default"],
+.sf-modal-publish-stepper .sf-dt-filter-chip[data-filter="default_display"],
+.sf-modal-publish-stepper .sf-dt-filter-chip[data-filter="is_default_display"],
+.sf-modal-publish-stepper .sf-dt-filter-chip[data-filter="defaults"] {
+    display: none !important;
+}
+/* =========================================================
+   Publish display target header actions
+========================================================= */
+
+.sf-modal-publish-stepper .sf-publish-display-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.sf-modal-publish-stepper .sf-publish-clear-targets-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0.42rem 0.95rem;
+    border: 1px solid #d7dce4;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #64748b;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.18s ease;
+}
+
+.sf-modal-publish-stepper .sf-publish-clear-targets-btn:hover {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #dc2626;
+}
+
+.sf-modal-publish-stepper .sf-dt-selected-box button,
+.sf-modal-publish-stepper .sf-dt-clear-btn,
+.sf-modal-publish-stepper .sf-display-clear-btn {
+    display: none !important;
+}
+/* =========================================================
+   VIEW PAGE FIXES — WIDE LAYOUT, ACTIVITY TABS, QUICK COMMENT
+========================================================= */
+
+.sf-page-container:has(.view-container) {
+    padding-top: 18px !important;
+}
+
+.view-container,
+.sf-view-page,
+.sf-page-view {
+    width: min(100%, 1900px) !important;
+    max-width: none !important;
+    margin: 0 auto var(--sf-spacing-large) !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+}
+
+.view-layout,
+.sf-view-content {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 360px) !important;
+    gap: 12px !important;
+    align-items: start !important;
+}
+
+.view-left {
+    gap: 12px !important;
+}
+
+.view-right {
+    width: 100% !important;
+    gap: 12px !important;
+    top: 12px !important;
+}
+
+.view-box {
+    padding: 14px 16px;
+}
+
+.sf-view-activity-section {
+    margin-top: 0.75rem !important;
+    padding: 0 !important;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.sf-activity-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.sf-activity-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.65rem 0.8rem;
+    border: 0;
+    border-right: 1px solid #e5e7eb;
+    background: transparent;
+    color: #64748b;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1.1;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.16s ease, color 0.16s ease;
+}
+
+.sf-activity-tab:last-child {
+    border-right: 0;
+}
+
+.sf-activity-tab:hover {
+    background: #ffffff;
+    color: #1d4ed8;
+}
+
+.sf-activity-tab.active {
+    background: #ffffff;
+    color: #1d4ed8;
+}
+
+.sf-activity-tab.active::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 0;
+    height: 3px;
+    border-radius: 999px 999px 0 0;
+    background: #2563eb;
+}
+
+.sf-activity-tab[data-tab="comments"] {
+    flex: 1.25 1 0;
+}
+
+.sf-tab-icon {
+    width: 22px !important;
+    height: 22px !important;
+    max-width: 22px !important;
+    max-height: 22px !important;
+    object-fit: contain;
+    flex: 0 0 22px;
+    display: block;
+}
+
+.sf-tab-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #e0ecff;
+    color: #1d4ed8;
+    font-size: 0.72rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.sf-tab-content {
+    padding: 0.9rem !important;
+}
+
+@media (max-width: 900px) {
+    .view-layout,
+    .sf-view-content {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sf-activity-tabs {
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .sf-activity-tab {
+        flex: 0 0 auto;
+        min-width: 94px;
+        min-height: 48px;
+        padding: 0.55rem 0.65rem;
+        font-size: 0.8rem;
+    }
+
+    .sf-tab-icon {
+        width: 20px !important;
+        height: 20px !important;
+        max-width: 20px !important;
+        max-height: 20px !important;
+        flex-basis: 20px;
+    }
+}
+
+/* =========================================================
+   VIEW MOBILE UX FINAL
+   Prosessi ja tabit selkeiksi mobiilissa ilman vaakaskrollia
+========================================================= */
+
+@media (max-width: 640px) {
+    .view-container,
+    .sf-view-page,
+    .sf-page-view {
+        width: 100% !important;
+        margin: 0 !important;
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+    }
+
+    .view-left {
+        gap: 10px !important;
+    }
+
+    .view-box {
+        border-radius: 12px !important;
+        padding: 2px !important;
+    }
+
+    /* Tabit ilman vaakaskrollia */
+    .sf-activity-tabs {
+        display: grid !important;
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        overflow: visible !important;
+        width: 100% !important;
+    }
+
+    .sf-activity-tab {
+        min-width: 0 !important;
+        width: 100% !important;
+        min-height: 48px !important;
+        padding: 0.48rem 0.25rem !important;
+        gap: 0.15rem !important;
+        flex-direction: column !important;
+        font-size: 0.62rem !important;
+        line-height: 1.05 !important;
+    }
+
+    .sf-tab-icon {
+        width: 21px !important;
+        height: 21px !important;
+        max-width: 21px !important;
+        max-height: 21px !important;
+        flex: 0 0 21px !important;
+    }
+
+    .sf-activity-tab span:not(.sf-tab-badge) {
+        display: none !important;
+    }
+
+    .sf-activity-tab.active span:not(.sf-tab-badge) {
+        display: block !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    .sf-tab-badge {
+        position: absolute !important;
+        top: 4px !important;
+        right: 4px !important;
+        min-width: 16px !important;
+        height: 16px !important;
+        padding: 0 4px !important;
+        font-size: 0.62rem !important;
+    }
+
+    .sf-tab-content {
+        padding: 0.65rem !important;
+    }
+}
+@media (max-width: 640px) {
+    .sf-tab-content {
+        padding: 0.65rem !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .sf-meta-dashboard {
+        padding: 0.7rem !important;
+        border-radius: 14px !important;
+    }
+
+    .sf-meta-card {
+        padding: 0.75rem;
+        border-radius: 14px;
+    }
+
+    .sf-meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sf-meta-system-row {
+        grid-template-columns: 26px minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .sf-meta-system-row .sf-meta-value {
+        grid-column: 2;
+    }
+}
+/* =========================================================
+   VIEW RIGHT SIDEBAR — BALANCED FINAL TUNING
+   Oikea paneeli yhtenäiseksi, mutta infonäyttölaatikkoon
+   jätetään tarpeeksi hengitystilaa.
+========================================================= */
+
+.view-right {
+    gap: 0.9rem !important;
+    position: static !important;
+    top: auto !important;
+    align-self: start !important;
+}
+
+/* Yleinen oikean paneelin korttipohja */
+.view-right .view-box,
+.view-right .sf-view-meta-panel,
+.view-right .sf-playlist-status-card {
+    border-radius: 18px !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    background:
+        radial-gradient(circle at top right, rgba(37, 99, 235, 0.055), transparent 42%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.075) !important;
+}
+
+/* Infonäyttölaatikko */
+.view-right .sf-playlist-status-card {
+    padding: 1.2rem 1.4rem !important;
+    border-color: #dbeafe !important;
+}
+
+.view-right .sf-playlist-status-header {
+    margin-bottom: 0.75rem !important;
+}
+
+.view-right .sf-playlist-status-header h4 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    margin: 0 !important;
+    color: #15803d !important;
+    font-size: 0.96rem !important;
+    font-weight: 950 !important;
+    line-height: 1.25 !important;
+}
+
+.view-right .sf-playlist-status-header img {
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+    object-fit: contain !important;
+}
+
+.view-right .sf-playlist-status-body {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.8rem !important;
+}
+
+.sf-playlist-display-chip-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.38rem !important;
+}
+
+.sf-playlist-display-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    min-height: 24px !important;
+    padding: 0.24rem 0.55rem !important;
+    border-radius: 999px !important;
+    background: #eef6ff !important;
+    border: 1px solid #dbeafe !important;
+    color: #334155 !important;
+    font-size: 0.74rem !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.sf-playlist-meta-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.16rem !important;
+    padding-top: 0.05rem !important;
+}
+
+.sf-playlist-meta-label {
+    color: #475569 !important;
+    font-size: 0.82rem !important;
+    font-weight: 750 !important;
+    line-height: 1.35 !important;
+}
+
+.sf-playlist-meta-value {
+    color: #94a3b8 !important;
+    font-size: 0.76rem !important;
+    font-weight: 850 !important;
+    line-height: 1.25 !important;
+}
+
+.view-right .sf-playlist-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.58rem !important;
+    margin-top: 0.9rem !important;
+}
+
+.view-right .sf-playlist-view-button,
+.view-right .sf-playlist-republish-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+    min-height: 38px !important;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: 12px !important;
+    border: 1px solid #cfe0ff !important;
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    font-family: inherit !important;
+    font-size: 0.8rem !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.1) !important;
+    transition: background 0.16s ease, border-color 0.16s ease, transform 0.16s ease !important;
+}
+
+.view-right .sf-playlist-view-button:hover,
+.view-right .sf-playlist-republish-button:hover {
+    background: #dbeafe !important;
+    border-color: #93c5fd !important;
+    transform: translateY(-1px) !important;
+}
+
+.view-right .sf-playlist-view-button-icon img {
+    width: 16px !important;
+    height: 16px !important;
+    display: block !important;
+    object-fit: contain !important;
+}
+
+.view-right .sf-playlist-status-expired .sf-playlist-status-header h4 {
+    color: #92400e !important;
+}
+
+.view-right .sf-playlist-status-expired .sf-playlist-republish-button {
+    background: #fff7ed !important;
+    border-color: #fed7aa !important;
+    color: #9a3412 !important;
+}
+
+.view-right .sf-playlist-status-expired .sf-playlist-republish-button:hover {
+    background: #ffedd5 !important;
+    border-color: #fdba74 !important;
+}
+
+/* Metapaneeli pidetään tiiviinä */
+/* Metapaneeli pidetään tiiviinä */
+.sf-view-meta-panel {
+    gap: 0.68rem !important;
+    padding: 0.76rem !important;
+}
+
+.sf-view-meta-hero {
+    padding: 0.76rem !important;
+    border-radius: 15px !important;
+}
+
+.sf-view-meta-type-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 12px !important;
+}
+
+.sf-view-meta-type-icon img {
+    width: 23px !important;
+    height: 23px !important;
+}
+
+.sf-view-meta-eyebrow {
+    font-size: 0.61rem !important;
+}
+
+.sf-view-meta-hero-content strong {
+    font-size: 0.94rem !important;
+}
+
+.sf-view-meta-status {
+    min-height: 21px !important;
+    padding: 0.2rem 0.52rem !important;
+    font-size: 0.68rem !important;
+}
+
+.sf-view-meta-section {
+    padding: 0.72rem !important;
+    border-radius: 15px !important;
+}
+
+.sf-view-meta-section-head {
+    margin-bottom: 0.38rem !important;
+}
+
+.sf-view-meta-section-head h2,
+.sf-view-meta-details summary span:nth-child(2) {
+    font-size: 0.86rem !important;
+}
+
+.sf-view-meta-row {
+    min-height: 36px !important;
+    padding: 0.42rem 0 !important;
+}
+
+.sf-view-meta-row-label {
+    font-size: 0.62rem !important;
+}
+
+.sf-view-meta-row-value {
+    font-size: 0.8rem !important;
+}
+
+.sf-view-meta-details summary {
+    padding: 0.72rem !important;
+}
+/* =========================================================
+   DISPLAY TARGETS MODAL — EXPIRED STATE CLEANUP
+========================================================= */
+
+#displayTargetsModal .sf-dt-modal-content {
+    width: min(860px, 94vw) !important;
+    max-height: min(760px, 88vh) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+}
+
+#displayTargetsModal .sf-modal-header {
+    flex-shrink: 0 !important;
+    padding: 1.25rem 1.55rem !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #e5e7eb !important;
+}
+
+#displayTargetsModal .sf-modal-header h3 {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    margin: 0 !important;
+    color: #0f172a !important;
+    font-size: 1.12rem !important;
+    font-weight: 900 !important;
+}
+
+#displayTargetsModal .sf-modal-header h3 img {
+    width: 22px !important;
+    height: 22px !important;
+    margin: 0 !important;
+}
+
+#displayTargetsModal .sf-modal-close {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 999px !important;
+    border: 2px solid #fee000 !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 1.2rem !important;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1) !important;
+}
+
+#displayTargetsModal .sf-modal-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    padding: 1.2rem 1.55rem 1rem !important;
+}
+
+#displayTargetsModal .sf-modal-footer {
+    flex-shrink: 0 !important;
+    position: sticky !important;
+    bottom: 0 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 0.75rem !important;
+    padding: 1rem 1.55rem !important;
+    margin: 0 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    border-top: 1px solid #e5e7eb !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+#displayTargetsModal .sf-dt-expired-banner-modern {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) !important;
+    gap: 0.85rem !important;
+    align-items: start !important;
+    margin: 0 0 1rem !important;
+    padding: 0.95rem 1rem !important;
+    border-radius: 16px !important;
+    border: 1px solid #fed7aa !important;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%) !important;
+}
+
+#displayTargetsModal .sf-dt-expired-banner-modern .sf-dt-expired-icon {
+    width: 42px !important;
+    height: 42px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 14px !important;
+    background: #ffedd5 !important;
+    border: 1px solid #fed7aa !important;
+}
+
+#displayTargetsModal .sf-dt-expired-banner-modern .sf-dt-expired-icon img {
+    width: 20px !important;
+    height: 20px !important;
+    display: block !important;
+    object-fit: contain !important;
+}
+
+#displayTargetsModal .sf-dt-expired-text strong {
+    display: block !important;
+    margin: 0 0 0.2rem !important;
+    color: #9a3412 !important;
+    font-size: 0.95rem !important;
+    font-weight: 950 !important;
+    line-height: 1.25 !important;
+}
+
+#displayTargetsModal .sf-dt-expired-text p {
+    margin: 0 !important;
+    color: #475569 !important;
+    font-size: 0.86rem !important;
+    font-weight: 550 !important;
+    line-height: 1.45 !important;
+}
+
+#displayTargetsModal .sf-dt-tabs {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.45rem !important;
+    margin: 0 0 1.05rem !important;
+    padding: 0.35rem !important;
+    border-radius: 16px !important;
+    background: #f1f5f9 !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+#displayTargetsModal .sf-dt-tab {
+    min-height: 42px !important;
+    border-radius: 12px !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #64748b !important;
+    font-family: inherit !important;
+    font-size: 0.86rem !important;
+    font-weight: 850 !important;
+    cursor: pointer !important;
+}
+
+#displayTargetsModal .sf-dt-tab.sf-dt-tab-active {
+    background: #0066cc !important;
+    color: #ffff !important;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08) !important;
+}
+
+#displayTargetsModal .sf-dt-compact-row {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.1rem !important;
+}
+
+#displayTargetsModal .sf-dt-section {
+    min-width: 0 !important;
+}
+
+#displayTargetsModal .sf-ttl-header,
+#displayTargetsModal .sf-duration-header,
+#displayTargetsModal .sf-dt-displays-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+#displayTargetsModal .sf-ttl-header h4,
+#displayTargetsModal .sf-duration-header h4,
+#displayTargetsModal .sf-dt-displays-header h4 {
+    margin: 0 !important;
+    color: #0f172a !important;
+    font-size: 0.9rem !important;
+    font-weight: 900 !important;
+}
+
+#displayTargetsModal .sf-ttl-chips,
+#displayTargetsModal .sf-duration-chips {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.55rem !important;
+}
+
+#displayTargetsModal .sf-ttl-chip,
+#displayTargetsModal .sf-duration-chip {
+    min-height: 38px !important;
+    padding: 0.45rem 0.72rem !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    border: 1px solid #dbe3ef !important;
+    color: #475569 !important;
+    font-size: 0.82rem !important;
+    font-weight: 750 !important;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.035) !important;
+}
+
+#displayTargetsModal .sf-ttl-chip-selected,
+#displayTargetsModal .sf-duration-chip-selected {
+    background: #0b73d9 !important;
+    border-color: #0b73d9 !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22) !important;
+}
+
+#displayTargetsModal .sf-dt-ttl-preview-card {
+    margin-top: 1rem !important;
+    padding: 0.75rem 0.9rem !important;
+    border-radius: 14px !important;
+    background: #f8fafc !important;
+    border: 1px solid #dbeafe !important;
+}
+
+#displayTargetsModal .sf-dt-ttl-preview-row {
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+    color: #475569 !important;
+}
+
+#displayTargetsModal #dtSaveStatus {
+    margin-top: 0.75rem !important;
+}
+
+@media (max-width: 760px) {
+    #displayTargetsModal .sf-dt-modal-content {
+        width: 100vw !important;
+        max-height: 100vh !important;
+        border-radius: 18px 18px 0 0 !important;
+    }
+
+    #displayTargetsModal .sf-dt-compact-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    #displayTargetsModal .sf-modal-header,
+    #displayTargetsModal .sf-modal-body,
+    #displayTargetsModal .sf-modal-footer {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* =========================================================
+   VIEW SIDEBAR SIMPLIFICATION
+   Säilytetään vain työmaa-, tapahtuma-aika-, kehonosat- ja
+   järjestelmätiedot-ikonit. Infonäyttökortti rauhoitetaan.
+========================================================= */
+
+/* Poistaa SafetyFlash-tiedot -kortin tyyppi-ikonin oikeasta metapaneelista */
+.sf-view-meta-hero {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.sf-view-meta-type-icon {
+    display: none !important;
+}
+
+/* Järjestelmätiedot-osion sisäiset rivikuvakkeet piiloon */
+.sf-view-meta-system-list .sf-view-meta-row-icon {
+    display: none !important;
+}
+
+.sf-view-meta-system-list .sf-view-meta-row {
+    grid-template-columns: minmax(82px, 0.75fr) minmax(0, 1.25fr) !important;
+}
+
+.sf-view-meta-system-list .sf-view-meta-row-value {
+    grid-column: auto !important;
+}
+
+/* Infonäyttökortin otsikkoikoni pois */
+.view-right .sf-playlist-status-header .sf-status-icon,
+.view-right .sf-playlist-status-header img {
+    display: none !important;
+}
+
+/* Aktiivisen infonäyttökortin chipit ovat nyt painikkeita */
+.sf-playlist-display-chip-button {
+    appearance: none !important;
+    border: 1px solid #dbeafe !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    text-align: left !important;
+}
+
+.sf-playlist-display-chip-button:hover,
+.sf-playlist-display-chip-button:focus {
+    background: #dbeafe !important;
+    border-color: #93c5fd !important;
+    color: #1d4ed8 !important;
+    outline: none !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Katso ajolistat -painikkeen ikoni pois, jos painiketta käytetään vielä muualla */
+.view-right .sf-playlist-view-button-icon {
+    display: none !important;
+}
+
+/* Infonäyttökortin erillinen ajolistapainike piiloon aktiivisessa tilassa.
+   Vanhentuneen tilan Julkaise uudelleen -painike jää näkyviin. */
+.view-right .sf-playlist-status-active .sf-playlist-actions {
+    display: none !important;
+}
+
+/* Vähän kevyempi infonäyttökortti */
+.view-right .sf-playlist-status-card {
+    padding: 1.4rem 1rem !important;
+}
+
+.view-right .sf-playlist-status-header {
+    margin-bottom: 0.65rem !important;
+}
+
+.view-right .sf-playlist-status-header h4 {
+    font-size: 0.9rem !important;
+    gap: 0 !important;
+}
+
+.view-right .sf-playlist-status-body {
+    gap: 0.65rem !important;
+}
+
+.sf-playlist-display-chip-list {
+    gap: 0.35rem !important;
+}
+
+.sf-playlist-display-chip {
+    min-height: 23px !important;
+    padding: 0.22rem 0.52rem !important;
+    font-size: 0.72rem !important;
+    background: #f1f5f9 !important;
+    border-color: #e2e8f0 !important;
+    color: #475569 !important;
+}
+
+.sf-playlist-meta-label {
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+}
+
+.sf-playlist-meta-value {
+    font-size: 0.74rem !important;
+}
+
+/* Säilytetään nämä oikean paneelin metatietojen ikonit näkyvissä */
+.sf-view-meta-section--compact .sf-view-meta-row-icon,
+.sf-view-meta-details summary .sf-view-meta-head-icon {
+    display: inline-flex !important;
+}
+/* =========================================================
+   VIEW PLAIN TEXT PANEL
+   Plain tekstiversio SafetyFlash-kortin sisällöistä kopiointia varten.
+========================================================= */
+
+.sf-view-plain-content {
+    padding: 0 0.78rem 0.78rem !important;
+}
+
+.sf-view-plain-copy-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 32px !important;
+    margin: 0 0 0.65rem !important;
+    padding: 0.4rem 0.72rem !important;
+    border: 1px solid #dbeafe !important;
+    border-radius: 999px !important;
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    font-family: inherit !important;
+    font-size: 0.76rem !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+}
+
+.sf-view-plain-copy-btn:hover,
+.sf-view-plain-copy-btn:focus {
+    background: #dbeafe !important;
+    border-color: #93c5fd !important;
+    outline: none !important;
+}
+
+.sf-view-plain-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.62rem !important;
+}
+
+.sf-view-plain-block {
+    padding-top: 0.58rem !important;
+    border-top: 1px dashed #e5e7eb !important;
+}
+
+.sf-view-plain-block:first-child {
+    padding-top: 0 !important;
+    border-top: 0 !important;
+}
+
+.sf-view-plain-block h3 {
+    margin: 0 0 0.22rem !important;
+    color: #000000 !important;
+    font-size: 0.75rem !important;
+    font-weight: 950 !important;
+    line-height: 1.15 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.045em !important;
+}
+
+.sf-view-plain-block p {
+    margin: 0 !important;
+    color: #0f172a !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    line-height: 1.42 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.sf-view-plain-empty {
+    color: #94a3b8 !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+}
+/* =========================================================
+   VIEW PLAIN TEXT LIST INDENTATION
+   Korjaa tekstiversion luetteloiden rivittymisen.
+========================================================= */
+
+.sf-view-plain-text {
+    color: #0f172a !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    line-height: 1.42 !important;
+}
+
+.sf-view-plain-text p {
+    margin: 0 0 0.45rem !important;
+}
+
+.sf-view-plain-text p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.sf-view-plain-list-items {
+    margin: 0.15rem 0 0.45rem !important;
+    padding-left: 1.15rem !important;
+    list-style-position: outside !important;
+}
+
+.sf-view-plain-list-items:last-child {
+    margin-bottom: 0 !important;
+}
+
+.sf-view-plain-list-items li {
+    margin: 0 0 0.28rem !important;
+    padding-left: 0.12rem !important;
+    color: #0f172a !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    line-height: 1.42 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.sf-view-plain-list-items li:last-child {
+    margin-bottom: 0 !important;
+}
+
+.sf-view-plain-block > p {
+    display: none !important;
+}
+
+/* Ajolista-modaali mobiilissa */
+@media (max-width: 640px) {
+    #modalKatsoAjolista {
+        align-items: flex-end !important;
+        padding: 0 !important;
+    }
+
+    #modalKatsoAjolista .sf-pm-preview-modal {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: 92vh !important;
+        max-height: 92vh !important;
+        margin: 0 !important;
+        border-radius: 24px 24px 0 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-head {
+        flex: 0 0 auto !important;
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) 48px !important;
+        gap: 0.75rem !important;
+        align-items: center !important;
+        padding: 1rem 1rem 0.85rem !important;
+        border-bottom: 1px solid #e5e7eb !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-title h3 {
+        margin: 0 !important;
+        font-size: 1.05rem !important;
+        line-height: 1.2 !important;
+        font-weight: 950 !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-title h3 img {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-title p {
+        display: none !important;
+    }
+
+    #modalKatsoAjolista .sf-modal-close {
+        width: 46px !important;
+        height: 46px !important;
+        margin: 0 !important;
+        justify-self: end !important;
+        border-radius: 999px !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-toolbar {
+        flex: 0 0 auto !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 0.7rem !important;
+        padding: 0.85rem 1rem !important;
+        background: #f8fafc !important;
+        border-bottom: 1px solid #e5e7eb !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-target-selector,
+    #modalKatsoAjolista .sf-playlist-target-selector-compact {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-target-selector label {
+        display: block !important;
+        margin: 0 0 0.35rem !important;
+        color: #64748b !important;
+        font-size: 0.72rem !important;
+        font-weight: 900 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.04em !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-target-select {
+        width: 100% !important;
+        min-height: 44px !important;
+        border-radius: 14px !important;
+        font-size: 0.95rem !important;
+        font-weight: 850 !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-meta-row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.45rem !important;
+        min-width: 0 !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-meta-pill {
+        max-width: 100% !important;
+        min-height: 30px !important;
+        padding: 0.35rem 0.62rem !important;
+        border-radius: 999px !important;
+        font-size: 0.76rem !important;
+        line-height: 1.15 !important;
+        white-space: normal !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-nav {
+        display: grid !important;
+        grid-template-columns: 42px minmax(0, 1fr) 42px 42px !important;
+        gap: 0.45rem !important;
+        align-items: center !important;
+        justify-content: stretch !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-nav-btn {
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+        border-radius: 14px !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-counter {
+        text-align: center !important;
+        font-size: 0.92rem !important;
+        font-weight: 900 !important;
+    }
+
+    #modalKatsoAjolista .sf-pm-preview-body {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        background: #eef2f7 !important;
+        padding: 0 !important;
+    }
+
+    #modalKatsoAjolista .sf-pm-preview-iframe {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        border: 0 !important;
+        background: #ffffff !important;
+    }
+}
+
+/* Oikea sivupaneeli mobiilissa: ikonit ja otsikot samaan linjaan */
+@media (max-width: 640px) {
+    .view-right {
+        gap: 0.75rem !important;
+    }
+
+    .sf-view-meta-panel {
+        padding: 0.75rem !important;
+        border-radius: 18px !important;
+    }
+
+    .sf-view-meta-hero {
+        padding: 0.85rem !important;
+        border-radius: 16px !important;
+    }
+
+    .sf-view-meta-section {
+        padding: 0.85rem !important;
+        border-radius: 16px !important;
+    }
+
+    .sf-view-meta-section-head,
+    .sf-view-meta-details summary {
+        display: grid !important;
+        grid-template-columns: 38px minmax(0, 1fr) auto !important;
+        gap: 0.55rem !important;
+        align-items: center !important;
+    }
+
+    .sf-view-meta-section-head {
+        margin-bottom: 0.72rem !important;
+    }
+
+    .sf-view-meta-section-head h2,
+    .sf-view-meta-details summary span:nth-child(2) {
+        margin: 0 !important;
+        font-size: 1rem !important;
+        line-height: 1.18 !important;
+        align-self: center !important;
+    }
+
+    .sf-view-meta-head-icon {
+        width: 38px !important;
+        height: 38px !important;
+        flex: 0 0 38px !important;
+        border-radius: 14px !important;
+    }
+
+    .sf-view-meta-head-icon img {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .sf-view-meta-row {
+        grid-template-columns: 38px minmax(0, 1fr) !important;
+        gap: 0.35rem 0.72rem !important;
+        align-items: start !important;
+        min-height: 0 !important;
+        padding: 0.72rem 0 !important;
+    }
+
+    .sf-view-meta-row-icon {
+        grid-row: 1 / span 2 !important;
+        width: 38px !important;
+        height: 38px !important;
+        flex: 0 0 38px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 14px !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    .sf-view-meta-row-icon img {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    .sf-view-meta-row-label {
+        grid-column: 2 !important;
+        font-size: 0.72rem !important;
+        line-height: 1.15 !important;
+        align-self: end !important;
+    }
+
+    .sf-view-meta-row-value {
+        grid-column: 2 !important;
+        font-size: 0.96rem !important;
+        line-height: 1.3 !important;
+        align-self: start !important;
+    }
+
+    .sf-view-meta-system-list .sf-view-meta-row {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 0.28rem !important;
+    }
+
+    .sf-view-meta-system-list .sf-view-meta-row-label,
+    .sf-view-meta-system-list .sf-view-meta-row-value {
+        grid-column: 1 !important;
+    }
+
+    .sf-view-body-parts-value {
+        justify-content: flex-start !important;
+    }
+
+    .sf-body-parts-empty-action {
+        min-height: 32px !important;
+        padding: 0.35rem 0.75rem !important;
+        font-size: 0.82rem !important;
+    }
+}
+/* =========================================================
+   PLAYLIST MODAL MOBILE PREVIEW POSITION
+   Nostaa SafetyFlash-esikatselun lähemmäs hallintapainikkeita.
+========================================================= */
+
+@media (max-width: 640px) {
+    #modalKatsoAjolista .sf-pm-preview-body {
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        padding-top: 0 !important;
+        overflow: hidden !important;
+    }
+
+    #modalKatsoAjolista .sf-pm-preview-iframe {
+        height: 100% !important;
+        min-height: 100% !important;
+        transform: translateY(-25px) !important;
+        transform-origin: top center !important;
+    }
+}
+/* =========================================================
+   PLAYLIST MODAL MOBILE COMPACT FINAL
+   Tiivistää infonäyttöjen ajolista-modaalin yläosan mobiilissa.
+========================================================= */
+
+@media (max-width: 640px) {
+    #modalKatsoAjolista .sf-pm-preview-modal {
+        height: 88vh !important;
+        max-height: 88vh !important;
+        border-radius: 22px 22px 0 0 !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-head {
+        min-height: 0 !important;
+        padding: 0.7rem 0.9rem 0.55rem !important;
+        grid-template-columns: minmax(0, 1fr) 42px !important;
+        gap: 0.65rem !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-title h3 {
+        font-size: 0.98rem !important;
+        line-height: 1.15 !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-title h3 img {
+        width: 17px !important;
+        height: 17px !important;
+    }
+
+    #modalKatsoAjolista .sf-modal-close {
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+        border-radius: 999px !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-compact-toolbar {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        grid-template-areas:
+            "selector selector"
+            "meta nav" !important;
+        gap: 0.45rem 0.55rem !important;
+        align-items: center !important;
+        padding: 0.58rem 0.9rem !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-target-selector,
+    #modalKatsoAjolista .sf-playlist-target-selector-compact {
+        grid-area: selector !important;
+        display: grid !important;
+        grid-template-columns: 58px minmax(0, 1fr) !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-target-selector label {
+        margin: 0 !important;
+        font-size: 0.68rem !important;
+        line-height: 1 !important;
+        letter-spacing: 0.04em !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-target-select {
+        min-height: 38px !important;
+        height: 38px !important;
+        border-radius: 13px !important;
+        padding: 0 2.1rem 0 0.75rem !important;
+        font-size: 0.86rem !important;
+        line-height: 1.1 !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-meta-row {
+        grid-area: meta !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        flex-wrap: wrap !important;
+        gap: 0.32rem !important;
+        min-width: 0 !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-meta-pill {
+        min-height: 25px !important;
+        padding: 0.25rem 0.5rem !important;
+        border-radius: 999px !important;
+        font-size: 0.68rem !important;
+        line-height: 1.1 !important;
+        white-space: nowrap !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-meta-pill strong {
+        font-size: 0.72rem !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-nav {
+        grid-area: nav !important;
+        display: grid !important;
+        grid-template-columns: 34px 44px 34px 34px !important;
+        gap: 0.32rem !important;
+        align-items: center !important;
+        justify-content: end !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-nav-btn {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        border-radius: 12px !important;
+        font-size: 0.82rem !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-counter {
+        min-width: 44px !important;
+        text-align: center !important;
+        font-size: 0.82rem !important;
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+
+    #modalKatsoAjolista .sf-pm-preview-body {
+        padding: 0 !important;
+        background: #eef2f7 !important;
+    }
+
+    #modalKatsoAjolista .sf-pm-preview-iframe {
+        transform: none !important;
+        height: 100% !important;
+        min-height: 0 !important;
+    }
+}
+
+@media (max-width: 420px) {
+    #modalKatsoAjolista .sf-playlist-compact-toolbar {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "selector"
+            "meta"
+            "nav" !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-nav {
+        justify-content: center !important;
+    }
+
+    #modalKatsoAjolista .sf-playlist-meta-row {
+        justify-content: center !important;
+    }
+}
+.fb-language-review {
+    color: #374151;
+}
+
+.fb-language-review:hover::before {
+    background: #374151;
+}
+
+.fb-language-review:hover {
+    background: #f3f4f6;
+}
+
+.sf-language-review-modal {
+    width: min(820px, calc(100vw - 32px));
+}
+
+.sf-language-review-help {
+    margin: 0 0 18px;
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+.sf-language-review-list {
+    display: grid;
+    gap: 14px;
+}
+
+.sf-language-review-row {
+    display: grid;
+    grid-template-columns: minmax(140px, 0.75fr) minmax(260px, 1.35fr) minmax(124px, auto);
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid rgba(17, 24, 39, 0.1);
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+}
+
+.sf-language-review-lang {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.sf-language-review-lang strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #111827;
+}
+
+.sf-language-review-lang span {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.sf-language-review-flag {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(17, 24, 39, 0.08);
+}
+
+.sf-language-review-user {
+    min-width: 0;
+}
+
+.sf-language-review-publish {
+    display: inline-grid;
+    grid-template-columns: 16px auto;
+    align-items: center;
+    justify-content: center;
+    column-gap: 8px;
+    min-height: 40px;
+    padding: 9px 13px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    color: #111827;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.sf-language-review-publish input {
+    appearance: auto;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    display: block;
+    align-self: center;
+    justify-self: center;
+    accent-color: #111827;
+}
+
+.sf-language-review-publish span {
+    display: block;
+    line-height: 16px;
+}
+
+.sf-language-review-modal .sf-search-select {
+    position: relative;
+}
+
+.sf-language-review-modal .sf-search-dropdown {
+    z-index: 10050;
+}
+
+@media (max-width: 760px) {
+    .sf-language-review-modal {
+        width: 100%;
+    }
+
+    .sf-language-review-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .sf-language-review-publish {
+        justify-content: center;
+        width: fit-content;
+    }
+}
+
+.sf-language-review-modal .sf-search-select {
+    position: relative;
+}
+
+.sf-language-review-modal .sf-search-dropdown {
+    z-index: 10050;
+}
+
+@media (max-width: 760px) {
+    .sf-language-review-modal {
+        width: 100%;
+    }
+
+    .sf-language-review-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .sf-language-review-publish {
+        justify-content: center;
+        width: fit-content;
+    }
+}
+.sf-language-review-message-field {
+    margin: 0 0 16px;
+}
+
+.sf-language-review-message {
+    width: 100%;
+    min-height: 82px;
+    padding: 12px 14px;
+    border: 1px solid #dbe3ef;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #111827;
+    font: inherit;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.sf-language-review-message:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.sf-language-review-publish {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    min-height: 38px !important;
+    padding: 6px 10px !important;
+    border-radius: 999px !important;
+}
+
+.sf-language-review-publish input {
+    appearance: none !important;
+    position: relative !important;
+    width: 34px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    background: #cbd5e1 !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease !important;
+}
+
+.sf-language-review-publish input::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 2px;
+    top: 2px;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.25);
+    transition: transform 0.2s ease;
+}
+
+.sf-language-review-publish input:checked {
+    background: #2563eb !important;
+}
+
+.sf-language-review-publish input:checked::before {
+    transform: translateX(14px);
+}
+
+.sf-language-review-publish span {
+    line-height: 1.1 !important;
+}
+/* =========================================================
+   LANGUAGE REVIEW MODAL FINAL OVERRIDE
+========================================================= */
+
+.sf-language-review-message-field {
+    margin: 0 0 16px;
+}
+
+.sf-language-review-message {
+    width: 100%;
+    min-height: 82px;
+    padding: 12px 14px;
+    border: 1px solid #dbe3ef;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #111827;
+    font: inherit;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.sf-language-review-message:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.sf-language-review-publish {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 9px !important;
+    min-height: 38px !important;
+    padding: 7px 11px !important;
+    border-radius: 999px !important;
+    background: #f3f4f6 !important;
+}
+
+.sf-language-review-publish input {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    position: relative !important;
+    width: 36px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    flex: 0 0 36px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: #cbd5e1 !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease !important;
+}
+
+.sf-language-review-publish input::before {
+    content: "" !important;
+    position: absolute !important;
+    width: 16px !important;
+    height: 16px !important;
+    left: 2px !important;
+    top: 2px !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.25) !important;
+    transition: transform 0.2s ease !important;
+}
+
+.sf-language-review-publish input:checked {
+    background: #2563eb !important;
+}
+
+.sf-language-review-publish input:checked::before {
+    transform: translateX(16px) !important;
+}
+
+.sf-language-review-publish span {
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 1.1 !important;
+}
+.sf-publish-step-help,
+.sf-dt-auto-filter-note {
+    margin: 0 0 16px;
+    padding: 12px 14px!important;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.sf-dt-auto-filter-note {
+    margin-bottom: 14px;
+}
+.sf-language-review-section {
+    border-color: rgba(59, 130, 246, 0.35);
+    background: linear-gradient(135deg, rgba(239, 246, 255, 0.96), rgba(255, 255, 255, 0.96));
+}
+
+.sf-language-reviewer-list {
+    margin-top: 0.75rem;
+}
+
+.sf-language-reviewer-card {
+    border-color: rgba(59, 130, 246, 0.22);
+}
+
+.sf-language-review-publish-note {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    margin-top: 0.45rem;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(34, 197, 94, 0.12);
+    color: #047857;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+/* =========================
+   Mobile footer actions menu
+   Desktop remains visually unchanged
+   ========================= */
+
+.sf-footer-actions-details {
+    display: contents;
+}
+
+.sf-footer-actions-toggle {
+    display: none !important;
+}
+
+.sf-mobile-actions-menu {
+    display: contents;
+}
+
+.sf-footer-menu-form {
+    display: contents;
+}
+
+@media (max-width: 900px) {
+    .view-footer-actions[data-mobile-has-footer="0"] {
+        display: none !important;
+    }
+
+    .view-footer-actions[data-mobile-has-footer="0"] ~ .sf-view-language-status-row {
+        margin-bottom: 0;
+    }
+
+    .view-footer-actions[data-mobile-has-footer="0"] + .sf-view-language-status-row {
+        margin-bottom: 0;
+    }
+
+    .view-container:has(.view-footer-actions[data-mobile-has-footer="0"]) {
+        padding-bottom: 8px;
+    }
+
+    .view-footer-buttons-4col {
+        position: relative;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .sf-footer-primary-action {
+        display: flex !important;
+    }
+
+    .sf-footer-actions-details {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+        max-width: none;
+        position: relative;
+    }
+
+    .sf-footer-actions-toggle {
+        display: flex !important;
+        width: 100%;
+        list-style: none;
+    }
+
+    .sf-mobile-actions-menu {
+        position: absolute;
+        right: 8px;
+        bottom: calc(100% + 10px);
+        display: flex;
+        flex-direction: column;
+        width: min(280px, calc(100vw - 24px));
+        max-height: min(70vh, 420px);
+        overflow-y: auto;
+        padding: 8px;
+        border: 1px solid rgba(229, 231, 235, 0.95);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.22);
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+        transform-origin: right bottom;
+        pointer-events: none;
+        transition:
+            opacity 160ms ease,
+            transform 160ms ease;
+        z-index: 10000;
+    }
+
+    .sf-footer-actions-details.is-open .sf-mobile-actions-menu {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+    }
+
+    .sf-mobile-actions-menu .footer-btn,
+    .sf-mobile-actions-menu .sf-footer-menu-action {
+        width: 100%;
+        max-width: none;
+        min-height: 48px;
+        flex: none;
+        display: flex !important;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 13px;
+        color: #111827;
+        text-align: left;
+    }
+
+    .sf-mobile-actions-menu .footer-btn:hover,
+    .sf-mobile-actions-menu .footer-btn:focus {
+        background: #f3f4f6;
+    }
+
+    .sf-mobile-actions-menu .fb-send-safety:hover,
+    .sf-mobile-actions-menu .fb-send-safety:focus {
+        background: #fff9bf;
+    }
+
+    .sf-mobile-actions-menu .footer-icon {
+        width: 22px;
+        height: 22px;
+        flex: 0 0 22px;
+    }
+
+    .sf-mobile-actions-menu .footer-btn .btn-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 700;
+        line-height: 1.25;
+        text-align: left;
+        white-space: normal;
+    }
+
+    .sf-mobile-actions-menu .footer-btn::before {
+        display: none;
+    }
+
+    .sf-footer-desktop-only {
+        display: none !important;
+    }
+}
+/* =========================================================
+   VIEW MOBILE OVERFLOW FIX
+   Estää näkymättömien leveiden elementtien aiheuttaman
+   sivusuuntaisen rullauksen view-näkymässä.
+========================================================= */
+
+body:has(.view-container) {
+    overflow-x: hidden !important;
+}
+
+body:has(.view-container) #sfContainer {
+    max-width: 100vw !important;
+    overflow-x: clip !important;
+}
+
+.view-container,
+.sf-view-page,
+.sf-page-view,
+.view-layout,
+.sf-view-content,
+.view-left,
+.view-right,
+.sf-view-activity-section,
+.sf-tab-content {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 900px) {
+    .view-container,
+    .sf-view-page,
+    .sf-page-view {
+        overflow-x: hidden !important;
+    }
+
+    .view-left,
+    .view-right,
+    .view-box,
+    .preview-box,
+    .sf-view-activity-section {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .preview-image,
+    .sf-preview-image-loader {
+        max-width: 100% !important;
+    }
+}
+/* =========================================================
+   VIEW FOOTER: desktop/mobile action separation
+   Julkaise näkyy viestinnällä oikeassa paneelissa desktopissa,
+   mutta mobiilissa Toiminnot-valikon sisällä.
+========================================================= */
+
+@media (min-width: 901px) {
+    .sf-footer-mobile-only-action {
+        display: none !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .sf-mobile-actions-menu .sf-footer-mobile-only-action {
+        display: flex !important;
+    }
+}
+
+/* =========================================================
+   SEND TO COMMS MODAL — language chips alignment
+   Korjaa Lähetä viestintään -modaalin lippujen ja kielikoodien
+   keskityksen.
+========================================================= */
+
+#modalToComms .sf-language-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+
+#modalToComms .sf-chip-toggle {
+    position: relative;
+    display: inline-grid;
+    grid-template-rows: 38px auto;
+    justify-items: center;
+    align-items: center;
+    gap: 0.35rem;
+    width: 64px;
+    min-height: 74px;
+    padding: 0.45rem 0.35rem 0.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #6b7280;
+    font-size: 0.76rem;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease,
+        transform 0.18s ease;
+}
+
+#modalToComms .sf-chip-toggle:hover {
+    border-color: #bfdbfe;
+    background: #f8fbff;
+    transform: translateY(-1px);
+}
+
+#modalToComms .sf-chip-toggle.selected,
+#modalToComms .sf-chip-toggle:has(input:checked) {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    color: #1d4ed8;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
+}
+
+#modalToComms .sf-chip-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#modalToComms .sf-chip-toggle .lang-flag-img {
+    display: block !important;
+    width: 34px !important;
+    height: 34px !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    object-fit: cover !important;
+    justify-self: center;
+    align-self: center;
+}
+
+#modalToComms .sf-chip-toggle span {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 1;
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    #modalToComms .sf-language-chips {
+        gap: 0.65rem;
+    }
+
+    #modalToComms .sf-chip-toggle {
+        width: 58px;
+        min-height: 68px;
+        grid-template-rows: 34px auto;
+    }
+
+    #modalToComms .sf-chip-toggle .lang-flag-img {
+        width: 30px !important;
+        height: 30px !important;
+    }
+}
+/* =========================================================
+   COMMENT MENTIONS
+========================================================= */
+
+.sf-comment-body .sf-comment-mention {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 0.08rem 0.38rem;
+    border-radius: 999px;
+    background: #e0ecff;
+    color: #1d4ed8;
+    font-weight: 600;
+    line-height: 1.35;
+    white-space: nowrap;
+}

@@ -1,0 +1,1932 @@
+/**
+ * preview.css - Tiivis ja yhtenäinen versio
+ * Skaalautuva preview-kortti kaikille laitteille
+ */
+
+/* ===== PREVIEW SECTION ===== */
+
+.sf-preview-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+/* Varmista että framet ovat relative jotta absolute-kuvat toimivat */
+.sf-preview-image-frame,
+.sf-preview-thumb-frame {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ===== HEADER ROW (Otsikko + Asettelu) ===== */
+
+.sf-preview-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sf-preview-step-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.sf-layout-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sf-layout-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.sf-grid-buttons {
+    display: flex;
+    gap: 3px;
+}
+
+.sf-grid-btn {
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #94a3b8;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sf-grid-btn:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.sf-grid-btn.active,
+.sf-grid-btn.sf-grid-btn-active {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+/* ===== PREVIEW WRAPPER ===== */
+
+.sf-preview-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 4px;
+    margin: -4px;
+    box-sizing: content-box;
+}
+
+/* Green card wrapper needs proper scaling */
+#sfPreviewWrapperGreen {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+/* Scale green card to fit container */
+#sfPreviewCardGreen,
+#sfPreviewCard2Green {
+    transform-origin: top center;
+    /* JS sets transform: scale() value */
+}
+
+/* ===== PREVIEW CARD - SKAALAUTUVA ===== */
+
+.sf-preview-card {
+    position: relative;
+    width: 960px;
+    height: 540px;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Open Sans', sans-serif;
+    transform-origin: top center;
+    font-size: 10px;
+}
+
+.sf-preview-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+/* ===== SISÄLTÖKERROS ===== */
+
+.sf-preview-content {
+    position: absolute;
+    top: 22.2%;
+    bottom: 4.6%;
+    left: 5.7%;
+    right: 2.6%;
+    display: flex;
+    gap: 2%;
+    z-index: 1;
+}
+
+/* ===== VASEN PALSTA ===== */
+
+.sf-preview-text-col {
+    flex: 0 0 53%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.sf-preview-title {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin: 0 0 1% 0;
+    overflow: hidden;
+    max-height: 3.6em;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: manual;
+    -webkit-hyphens: manual;
+    text-indent: 0;
+    padding-left: 0;
+    text-align: left;
+}
+
+.sf-preview-desc {
+    font-size: 1.1em;
+    line-height: 1.3;
+    color: #1a1a1a;
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 1%;
+}
+
+/* ===== META-RIVI ===== */
+
+.sf-preview-meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3%;
+    margin-top: auto;
+    height: 13%;
+    flex-shrink: 0;
+}
+
+.sf-preview-meta-box {
+    background: rgba(210, 210, 210, 0.85);
+    border-radius: 6px;
+    padding: 2% 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sf-preview-meta-label {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1px;
+}
+
+.sf-preview-meta-value {
+    font-size: 1em;
+    color: #1a1a1a;
+}
+
+/* ===== OIKEA PALSTA (kuvat) ===== */
+
+.sf-preview-image-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+}
+
+.sf-preview-image-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+    background: rgba(220, 220, 220, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: box-shadow 0.15s ease;
+}
+
+.sf-preview-image-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Better compatibility with varied layouts. */
+    object-position: center;
+}
+
+.sf-preview-thumbs-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3%;
+    flex: 1;
+    min-height: 50px;
+}
+
+.sf-preview-thumb-frame {
+    position: relative;
+    border-radius: 6px;
+    background: rgba(220, 220, 220, 0.5);
+    cursor: pointer;
+    overflow: hidden;
+    transition: box-shadow 0.15s ease;
+}
+
+.sf-preview-thumb-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===== AKTIIVINEN KUVA ===== */
+
+.sf-preview-image-frame.sf-active,
+.sf-preview-thumb-frame.sf-active {
+    box-shadow: 0 0 0 3px #3b82f6;
+    z-index: 10;
+}
+
+.sf-preview-card.capturing .sf-active {
+    box-shadow: none ! important;
+}
+
+/* ===== 2 KUVAN LAYOUTIT ===== */
+
+.sf-preview-card.grid-2-stacked .sf-preview-image-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+}
+
+.sf-preview-card.grid-2-stacked .sf-preview-image-frame {
+    flex: 2;
+}
+
+.sf-preview-card.grid-2-stacked .sf-preview-thumbs-row {
+    flex: 1;
+    display: block;
+}
+
+.sf-preview-card.grid-2-stacked .sf-preview-thumb-frame:nth-child(1) {
+    width: 100%;
+    height: 100%;
+}
+
+.sf-preview-card.grid-2-stacked .sf-preview-thumb-frame:nth-child(2) {
+    display: none;
+}
+
+.sf-preview-card.grid-2-overlay .sf-preview-image-col {
+    position: relative;
+}
+
+.sf-preview-card.grid-2-overlay .sf-preview-image-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.sf-preview-card.grid-2-overlay .sf-preview-thumbs-row {
+    position: absolute;
+    bottom: 8%;
+    right: 4%;
+    width: 32%;
+    height: auto;
+    z-index: 10;
+    display: block;
+}
+
+.sf-preview-card.grid-2-overlay .sf-preview-thumb-frame:nth-child(1) {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+}
+
+.sf-preview-card.grid-2-overlay .sf-preview-thumb-frame:nth-child(2) {
+    display: none;
+}
+
+/* ===== 3 KUVAN LAYOUTIT ===== */
+
+.sf-preview-card.grid-3-main-top .sf-preview-image-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+}
+
+.sf-preview-card.grid-3-main-top .sf-preview-image-frame {
+    flex: 2;
+}
+
+.sf-preview-card.grid-3-main-top .sf-preview-thumbs-row {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3%;
+    min-height: 60px;
+}
+
+.sf-preview-card.grid-3-overlay .sf-preview-image-col {
+    position: relative;
+}
+
+.sf-preview-card.grid-3-overlay .sf-preview-image-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.sf-preview-card.grid-3-overlay .sf-preview-thumbs-row {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 45%;
+    height: auto;
+    display: flex;
+    gap: 4%;
+    z-index: 10;
+}
+
+.sf-preview-card.grid-3-overlay .sf-preview-thumb-frame {
+    flex: 1;
+    aspect-ratio: 4 / 3;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+}
+
+.sf-preview-card.grid-main-only .sf-preview-thumbs-row {
+    display: none ! important;
+}
+
+.sf-preview-card.grid-main-only .sf-preview-image-col {
+    /* Issue 9: Ensure image column fills full height */
+    height: 100%;
+}
+
+.sf-preview-card.grid-main-only .sf-preview-image-frame {
+    flex: 1;
+    /* Issue 9: Ensure full height usage for single image layout */
+    height: 100%;
+    min-height: 0;
+}
+
+.sf-preview-card.grid-main-only .sf-preview-image-frame img {
+    /* Issue 9: Ensure image fills frame properly */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* ===== TYÖKALUVÄLILEHDET ===== */
+
+.sf-tools-tabs {
+    display: flex;
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 3px;
+    gap: 3px;
+}
+
+.sf-tools-tab {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-tools-tab:hover {
+    color: #334155;
+}
+
+.sf-tools-tab.active {
+    background: #fff;
+    color: #1e293b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== TYÖKALUPANEELIT ===== */
+
+.sf-tools-panel {
+    display: none;
+    padding: 10px 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.sf-tools-panel.active {
+    display: block;
+}
+
+.sf-tools-hint {
+    margin: 6px 0 0 0;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-align: center;
+}
+
+/* ===== SLIDERIT ===== */
+
+.sf-sliders-compact {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.sf-slider-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+}
+
+.sf-slider-icon {
+    font-size: 0.9rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sf-slider-item input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #e2e8f0;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.sf-slider-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== TOIMINTOPAINIKKEET ===== */
+
+.sf-action-buttons {
+    display: flex;
+    gap: 10px;
+    padding-top: 8px;
+}
+
+.sf-btn {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+ 
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.sf-btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.sf-btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.sf-btn-primary {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.sf-btn-primary:hover {
+    background: #2563eb;
+}
+
+/* ===== TUTKINTATIEDOTE LISÄYKSET ===== */
+
+.sf-preview-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.sf-preview-tab-btn {
+    padding: 8px 16px;
+    border: none;
+    background: #f3f4f6;
+    border-radius: 6px 6px 0 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+.sf-preview-tab-btn.active,
+.sf-preview-tab-btn.sf-preview-tab-active {
+    background: #fff;
+    color: #111827;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.sf-preview-card-secondary {
+    display: none;
+}
+
+.sf-preview-card-secondary.visible {
+    display: block;
+}
+
+.sf-preview-subtitle {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #15803d;
+    margin: 0 0 4px 0;
+}
+
+.sf-green-card1-only {}
+
+/* ===== MERKINNÄT KUVASSA ===== */
+
+.sf-annotation {
+    position: absolute;
+    z-index: 100;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sf-annotation-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.sf-annotation-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.sf-annotation-controls {
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 4px 6px;
+    border-radius: 6px;
+    z-index: 9999;
+    pointer-events: auto;
+}
+
+.sf-annotation.active .sf-annotation-controls,
+.sf-annotation.sf-annotation-active .sf-annotation-controls,
+.sf-annotation:hover .sf-annotation-controls {
+    display: flex;
+}
+
+.sf-annotation-rotate,
+.sf-annotation-delete {
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    z-index: 10000;
+}
+
+.sf-annotation-rotate {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.sf-annotation-rotate:hover {
+    background: #2563eb;
+}
+
+.sf-annotation-delete {
+    background: #ef4444;
+    color: #fff;
+}
+
+.sf-annotation-delete:hover {
+    background: #dc2626;
+}
+
+.sf-annotation.active .sf-annotation-image,
+.sf-annotation.sf-annotation-active .sf-annotation-image {
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.8));
+}
+
+/* ===== MERKINTÄTYÖKALUPALKKI ===== */
+
+.sf-annotations-compact {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.sf-anno-btn {
+    width: 38px;
+    height: 38px;
+    padding: 5px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-anno-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.sf-anno-btn:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-anno-btn.active {
+    border-color: #3b82f6;
+    background: #dbeafe;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.sf-anno-clear {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    color: #991b1b;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.sf-anno-clear:hover {
+    background: #fecaca;
+}
+
+/* ===== MOBIILI - UI ELEMENTIT ===== */
+
+@media (max-width: 640px) {
+    .sf-preview-section {
+        padding: 0 8px;
+        padding-top: 10px;
+    }
+
+    .sf-preview-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sf-layout-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .sf-sliders-compact {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .sf-slider-item {
+        width: 100%;
+    }
+
+    .sf-action-buttons {
+        flex-direction: column;
+    }
+
+    .sf-btn {
+        width: 100%;
+    }
+}
+
+/* ===== TUTKINTATIEDOTE SLIDERIT ===== */
+
+.sf-image-controls {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.sf-controls-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sf-controls-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.sf-controls-hint {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.sf-sliders-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.sf-slider-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.sf-slider-group label {
+    font-size: 1rem;
+    width: 24px;
+    text-align: center;
+}
+
+.sf-slider-group input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #e2e8f0;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.sf-slider-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sf-slider-group input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== TOOLBAR ROW ===== */
+
+.sf-toolbar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.sf-toolbar-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+/* ===== ANNOTATION BAR ===== */
+
+.sf-annotation-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 8px;
+}
+
+.sf-annotation-buttons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.sf-annotation-btn {
+    width: 36px;
+    height: 36px;
+    padding: 4px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.sf-annotation-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.sf-annotation-btn:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.sf-annotation-btn.active {
+    border-color: #3b82f6;
+    background: #dbeafe;
+}
+
+/* ===== MOBIILI SLIDERIT ===== */
+
+@media (max-width: 640px) {
+    .sf-sliders-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .sf-slider-group {
+        width: 100%;
+    }
+
+    .sf-annotation-bar {
+        flex-wrap: wrap;
+    }
+}
+
+/* ===== GRID-VALITSIN KORTIN YLÄPUOLELLA ===== */
+
+.sf-grid-selector-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.sf-grid-selector-row .sf-layout-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.sf-grid-selector-row .sf-grid-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.sf-grid-selector-row .sf-grid-btn {
+    width: 28px;
+    height: 28px;
+    padding: 3px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #94a3b8;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sf-grid-selector-row .sf-grid-btn:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.sf-grid-selector-row .sf-grid-btn.active,
+.sf-grid-selector-row .sf-grid-btn.sf-grid-btn-active {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+/* Piilota vanha header-row layout controls */
+.sf-preview-header-row .sf-layout-controls {
+    display: none ! important;
+}
+
+/* Mobiili grid-valitsin */
+@media (max-width: 640px) {
+    .sf-grid-selector-row {
+        justify-content: center;
+    }
+
+    .sf-grid-selector-row .sf-grid-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.sf-tools-hidden {
+    display: none ! important;
+}
+
+/* ===== YHDEN DIAN MALLI: Juurisyyt/toimenpiteet kortilla 1 ===== */
+
+.sf-preview-root-actions-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.sf-preview-subtitle-small {
+    font-size: 0.9em;
+    font-weight: 700;
+    color: #1a1a1a;
+    background: rgba(30, 30, 30, 0.9);
+    color: #fff;
+    padding: 1% 3%;
+    margin: 0 0 2% 0;
+    border-radius: 4px;
+}
+
+.sf-preview-desc-small {
+    font-size: 0.85em;
+    line-height: 1.25;
+    color: #1a1a1a;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Kortti 2 piilotetaan oletuksena */
+#sfPreviewCard2Green {
+    display: none;
+}
+
+/* Varmista että sisältö näkyy oikein */
+#sfPreviewCard2Green .sf-preview-content {
+    position: relative;
+    z-index: 1;
+}
+
+#sfPreviewCard2Green .sf-preview-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* ===== KORTTI 2 - JUURISYYT LAYOUT ===== */
+
+.sf-preview-card-2 .sf-preview-content-card2 {
+    position: absolute;
+    top: 22.2%;
+    bottom: 4.6%;
+    left: 5.7%;
+    right: 5.7%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2%;
+    z-index: 1;
+    min-height: 0;
+}
+
+.sf-preview-card2-title-row {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.sf-preview-title-full {
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.sf-preview-card2-desc-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 0;
+}
+
+.sf-preview-card2-desc-body {
+    font-size: 14px;
+    line-height: 1.35;
+    color: #1a1a1a;
+    padding: 0 1% 0 1%;
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.sf-preview-card2-columns {
+    display: flex;
+    gap: 3%;
+    flex: 1;
+    align-items: stretch;
+    min-height: 0;
+}
+
+.sf-preview-card2-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+}
+
+.sf-preview-card2-header {
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 2% 4%;
+    border-radius: 4px 4px 0 0;
+    flex-shrink: 0;
+}
+
+.sf-preview-card2-body {
+    font-size: 13px;
+    line-height: 1.3;
+    color: #1a1a1a;
+    padding: 3% 2% 2% 2%;
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.sf-preview-card-2 .sf-preview-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.sf-bullet {
+    color: #15803d;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+/* ===== CARD 2 ADAPTIVE TEXT SIZING ===== */
+
+.sf-preview-card-2.content-medium .sf-preview-card2-body,
+.sf-preview-card-2.content-medium .sf-preview-card2-desc-body {
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+.sf-preview-card-2.content-medium .sf-preview-card2-header {
+    font-size: 14px;
+    padding: 1.5% 3%;
+}
+
+.sf-preview-card-2.content-medium .sf-preview-title-full {
+    font-size: 1.4em;
+}
+
+.sf-preview-card-2.content-large .sf-preview-card2-body,
+.sf-preview-card-2.content-large .sf-preview-card2-desc-body {
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.sf-preview-card-2.content-large .sf-preview-card2-header {
+    font-size: 13px;
+    padding: 1.2% 2.5%;
+}
+
+.sf-preview-card-2.content-large .sf-preview-title-full {
+    font-size: 1.2em;
+    line-height: 1.1;
+}
+
+.sf-preview-card-2.content-xlarge .sf-preview-card2-body,
+.sf-preview-card-2.content-xlarge .sf-preview-card2-desc-body {
+    font-size: 10px;
+    line-height: 1.15;
+}
+
+.sf-preview-card-2.content-xlarge .sf-preview-card2-header {
+    font-size: 12px;
+    padding: 1% 2%;
+}
+
+.sf-preview-card-2.content-xlarge .sf-preview-title-full {
+    font-size: 1.1em;
+    line-height: 1.1;
+}
+
+/* Medium amount of content - slightly smaller text */
+.sf-preview-card-2.content-medium .sf-preview-card2-body {
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+.sf-preview-card-2.content-medium .sf-preview-card2-header {
+    font-size: 14px;
+    padding: 1.5% 3%;
+}
+
+.sf-preview-card-2.content-medium .sf-preview-title-full {
+    font-size: 1.4em;
+}
+
+/* Large amount of content - compact text */
+.sf-preview-card-2.content-large .sf-preview-card2-body {
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.sf-preview-card-2.content-large .sf-preview-card2-header {
+    font-size: 13px;
+    padding: 1.2% 2.5%;
+}
+
+.sf-preview-card-2.content-large .sf-preview-title-full {
+    font-size: 1.2em;
+    line-height: 1.1;
+}
+
+/* Extra large content - most compact */
+.sf-preview-card-2.content-xlarge .sf-preview-card2-body {
+    font-size: 10px;
+    line-height: 1.15;
+}
+
+.sf-preview-card-2.content-xlarge .sf-preview-card2-header {
+    font-size: 12px;
+    padding: 1% 2%;
+}
+
+.sf-preview-card-2.content-xlarge .sf-preview-title-full {
+    font-size: 1.1em;
+    line-height: 1.1;
+}
+
+/* Bullet lists - tighter spacing */
+.sf-preview-card-2 .sf-bullet-line {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.3em;
+    gap: 0;
+}
+
+.sf-preview-card-2 .sf-bullet {
+    flex-shrink: 0;
+    width: 1.2em;
+    min-width: 1.2em;
+    margin-right: 0;
+}
+
+.sf-preview-card-2 .sf-bullet-text {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ===== VÄLILEHTIEN AKTIIVINEN VÄRI ===== */
+
+.sf-preview-tab-btn.sf-preview-tab-active {
+    background: #15803d;
+    color: #fff;
+    border-bottom: none;
+}
+
+.sf-preview-tab-btn:hover:not(.sf-preview-tab-active) {
+    background: #e5e7eb;
+}
+
+/* ===== BULLET LIST INDENTATION (hanging indent) ===== */
+
+/* Bullet line: indentation for continuation lines */
+.sf-bullet-line {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.3em;
+    gap: 0;
+}
+
+.sf-bullet {
+    color: #15803d;
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 1.2em;
+    min-width: 1.2em;
+    text-align: left;
+}
+
+.sf-bullet-text {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ===== KORTTI 2:N TYÖKALUT PIILOTETTU ===== */
+
+/* Kun kortti 2 on aktiivinen, piilota vain grid-valitsin, ei kaikkia työkaluja */
+.sf-preview-card-2:not([style*="display: none"])~.sf-tools-tabs,
+.sf-preview-card-2:not([style*="display: none"])~.sf-tools-panel {
+    /* Tämä ei toimi suoraan, käytetään JS:ää */
+}
+
+/* ===== KORTTI 1 - JUURISYYT/TOIMENPITEET (yhden dian malli) ===== */
+
+.sf-preview-root-actions-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2%;
+    margin-top: 2%;
+    flex-shrink: 0;
+}
+
+.sf-preview-ra-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.sf-preview-ra-header {
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 1.5% 3%;
+    border-radius: 3px 3px 0 0;
+}
+
+.sf-preview-ra-body {
+    font-size: 14px;
+    line-height: 1.25;
+    color: #1a1a1a;
+    padding: 2% 2%;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sf-preview-ra-body .sf-bullet-line {
+    margin-bottom: 0.2em;
+}
+
+.sf-preview-ra-body .sf-bullet {
+    font-size: 14px;
+}
+
+/* ===== KIELIVERSIO-MODAALI KOMPAKTI ===== */
+@media (max-width: 640px) {
+    .sf-modal-translation {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 12px 12px 0 0;
+        padding: 12px;
+        margin: 0;
+    }
+
+    .sf-translation-step h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    .sf-step-indicator {
+        margin-bottom: 14px;
+        gap: 6px;
+    }
+
+    .sf-step {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+
+    .sf-step-line {
+        width: 30px;
+        height: 2px;
+    }
+
+    .sf-field {
+        margin-bottom: 12px;
+    }
+
+    .sf-label {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+
+    .sf-textarea {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+        min-height: 80px;
+    }
+
+    .sf-char-count {
+        font-size: 0.65rem;
+        margin-top: 2px;
+    }
+
+    .sf-translation-lang-display {
+        padding: 8px 10px;
+        gap: 8px;
+        font-size: 0.85rem;
+    }
+
+    .sf-translation-lang-display img {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Preview wrapper - tiivis */
+    .sf-translation-preview-wrapper {
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+    #sfTranslationPreviewContainer {
+        border-radius: 4px;
+    }
+
+    /* Status */
+    .sf-translation-status {
+        padding: 8px;
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+
+    /* Napit */
+    .sf-modal-actions {
+        padding: 12px 0 0 0;
+        gap: 8px;
+    }
+
+    .sf-modal-actions .sf-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+}
+
+/* ===== KIELIVERSIO-MODAALI KOMPAKTI ===== */
+@media (max-width: 640px) {
+    .sf-modal-translation {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 12px 12px 0 0;
+        padding: 12px;
+        margin: 0;
+    }
+
+    .sf-translation-step h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    .sf-step-indicator {
+        margin-bottom: 14px;
+        gap: 6px;
+    }
+
+    .sf-step {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+
+    .sf-step-line {
+        width: 30px;
+        height: 2px;
+    }
+
+    .sf-field {
+        margin-bottom: 12px;
+    }
+
+    .sf-label {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+
+    .sf-textarea {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+        min-height: 80px;
+    }
+
+    .sf-char-count {
+        font-size: 0.65rem;
+        margin-top: 2px;
+    }
+
+    .sf-translation-lang-display {
+        padding: 8px 10px;
+        gap: 8px;
+        font-size: 0.85rem;
+    }
+
+    .sf-translation-lang-display img {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Preview wrapper - tiivis */
+    .sf-translation-preview-wrapper {
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+    }
+
+    #sfTranslationPreviewContainer {
+        border-radius: 4px;
+    }
+
+    /* Status */
+    .sf-translation-status {
+        padding: 8px;
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+
+    /* Napit */
+    .sf-modal-actions {
+        padding: 12px 0 0 0;
+        gap: 8px;
+    }
+
+    .sf-modal-actions .sf-btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+}
+
+/* Grid bitmap täyttää koko alueen */
+.sf-grid-bitmap-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(220, 220, 220, 0.3);
+}
+
+.sf-grid-bitmap-frame .sf-preview-img-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: none;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* =============================================================================
+   CAPTURE MODE - FIXED LAYOUT FOR HTML2CANVAS
+   Forces exact 1920x1080 dimensions with pixel-perfect positioning to prevent
+   flex layout issues during capture that cause vertical compression
+   ============================================================================= */
+
+/* Force card to exact 1920x1080 dimensions in capture mode */
+.sf-capture-mode.sf-preview-card,
+.sf-preview-card.sf-capture-mode {
+    width: 1920px !important;
+    height: 1080px !important;
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+}
+
+/* Content layer - use exact pixel values instead of percentages */
+.sf-capture-mode .sf-preview-content {
+    position: absolute !important;
+    top: 240px !important;
+    /* 22.2% of 1080 = ~240px */
+    bottom: 50px !important;
+    /* 4.6% of 1080 = ~50px */
+    left: 109px !important;
+    /* 5.7% of 1920 = ~109px */
+    right: 50px !important;
+    /* 2.6% of 1920 = ~50px */
+    height: 790px !important;
+    /* 1080 - 240 - 50 = 790px */
+    display: flex !important;
+    gap: 38px !important;
+    /* 2% of 1920 = ~38px */
+}
+
+/* Text column - ~53% width */
+.sf-capture-mode .sf-preview-text-col {
+    flex: 0 0 933px !important;
+    /* 53% of (1920-109-50) = ~933px */
+    width: 933px !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Image column - remaining space, MUST have explicit height */
+.sf-capture-mode .sf-preview-image-col {
+    flex: 1 !important;
+    position: relative !important;
+    height: 790px !important;
+    /* Same as content height */
+    min-height: 790px !important;
+    display: block !important;
+    /* Not flex - simpler */
+}
+
+/* Grid bitmap frame - fill entire image column */
+.sf-capture-mode .sf-preview-image-frame,
+.sf-capture-mode .sf-grid-bitmap-frame {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Image inside frame - maintain aspect ratio with contain */
+.sf-capture-mode .sf-grid-bitmap-frame img,
+.sf-capture-mode .sf-grid-bitmap-frame .sf-preview-img-element,
+.sf-capture-mode .sf-preview-image-frame img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-title,
+.sf-capture-mode .sf-preview-title {
+    font-size: 48px !important;
+    line-height: 1.2 !important;
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-desc,
+.sf-capture-mode .sf-preview-desc {
+    font-size: 24px !important;
+    line-height: 1.3 !important;
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-meta-label,
+.sf-capture-mode .sf-preview-meta-label {
+    font-size: 18px !important;
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-meta-value,
+.sf-capture-mode .sf-preview-meta-value {
+    font-size: 20px !important;
+}
+
+/* ===== GREEN CARD SCALING ===== */
+/* Base font size scales with card width */
+.sf-preview-card[data-type="green"] {
+    --card-scale: 1;
+    font-size: calc(16px * var(--card-scale));
+}
+
+/* Title - 48px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-title {
+    font-size: 3em;
+    /* 48px / 16px = 3em */
+    line-height: 1.2;
+}
+
+/* Description - 24px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-desc {
+    font-size: 1.5em;
+    /* 24px / 16px = 1.5em */
+    line-height: 1.35;
+}
+
+/* Root causes / Actions headers - 14px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-ra-header {
+    font-size: 0.875em;
+    /* 14px / 16px = 0.875em */
+}
+
+/* Root causes / Actions body - 14px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-ra-body {
+    font-size: 0.875em;
+    line-height: 1.25;
+}
+
+/* Meta labels - 18px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-meta-label {
+    font-size: 1.125em;
+    /* 18px / 16px = 1.125em */
+}
+
+/* Meta values - 20px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-meta-value {
+    font-size: 1.25em;
+    /* 20px / 16px = 1.25em */
+}
+
+/* Card 2 title - 48px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-title-full {
+    font-size: 3em;
+}
+
+/* Card 2 headers - 16px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-card2-header {
+    font-size: 1em;
+}
+
+/* Card 2 body - 14px at 1920px */
+.sf-preview-card[data-type="green"] .sf-preview-card2-body,
+.sf-preview-card[data-type="green"] .sf-preview-card2-desc-body {
+    font-size: 0.875em;
+    line-height: 1.3;
+}
+
+/* Bullet points */
+.sf-preview-card[data-type="green"] .sf-bullet {
+    font-size: 1em;
+}
+
+/* Force scale = 1 in capture mode */
+.sf-preview-card[data-type="green"].sf-capture-mode,
+.sf-capture-mode .sf-preview-card[data-type="green"] {
+    --card-scale: 1 !important;
+    font-size: 16px !important;
+}
+
+/* Green card (Tutkintatiedote) fixed sizes */
+.sf-preview-card.sf-capture-mode .sf-preview-subtitle,
+.sf-capture-mode .sf-preview-subtitle {
+    font-size: 42px !important;
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-title-full,
+.sf-capture-mode .sf-preview-title-full {
+    font-size: 48px !important;
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-card2-header,
+.sf-capture-mode .sf-preview-card2-header {
+    font-size: 24px !important;
+    /* Was 16px, now 50% larger for better readability */
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-card2-body,
+.sf-capture-mode .sf-preview-card2-body,
+.sf-preview-card.sf-capture-mode .sf-preview-card2-desc-body,
+.sf-capture-mode .sf-preview-card2-desc-body {
+    font-size: 21px !important;
+    line-height: 1.4 !important;
+}
+
+/* Root causes / Actions on card 1 (single slide mode) - LARGER FONTS */
+.sf-preview-card.sf-capture-mode .sf-preview-ra-header,
+.sf-capture-mode .sf-preview-ra-header {
+    font-size: 22px !important;
+    /* Was 14px, now 57% larger for better readability */
+}
+
+.sf-preview-card.sf-capture-mode .sf-preview-ra-body,
+.sf-capture-mode .sf-preview-ra-body {
+    font-size: 20px !important;
+    /* Was 14px, now 43% larger for better readability */
+    line-height: 1.35 !important;
+}
+
+/* ===== MOBIILI - UI ELEMENTIT ===== */
+
+@media (max-width: 640px) {
+    .sf-preview-section {
+        padding: 0 8px;
+        padding-top: 10px;
+    }
+
+    .sf-preview-wrapper {
+        width: 100%;
+        max-width: 100vw;
+        display: flex;
+        justify-content: center;
+        /* Center the card wrapper */
+        overflow-x: hidden;
+        /* Prevent horizontal scroll */
+    }
+
+    .sf-preview-card {
+        width: 960px;
+        height: 540px;
+        transform-origin: top center !important;
+        /* Force center scaling on mobile */
+    }
+
+    .sf-preview-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sf-layout-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .sf-sliders-compact {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .sf-slider-item {
+        width: 100%;
+    }
+
+    .sf-action-buttons {
+        flex-direction: column;
+    }
+
+    .sf-btn {
+        width: 100%;
+    }
+}
+
+/* ===== SERVER PREVIEW: Skeleton overlay fills the image area ===== */
+
+.sf-preview-loading .skeleton-preview-box {
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    border-radius: 12px;
+}
+
+.sf-preview-loading .skeleton-preview-image {
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+}
+
+/* ===== DYNAMIC FONT SIZING FOR INVESTIGATION REPORTS ===== */
+/* NOTE: Font sizes are now controlled by JavaScript inline styles in _applyFontSizesToPreview() */
+/* These CSS classes are kept as fallback for the rare case where JavaScript fails to load */
+/* Inline styles will always override these (no !important needed) */
+
+/* Large - under 500 characters total */
+.sf-content-size-lg .sf-preview-title {
+    font-size: 2.2rem;
+    /* 38px scaled */
+    line-height: 1.2;
+}
+
+.sf-content-size-lg .sf-preview-desc {
+    font-size: 1.1rem;
+    /* 26px scaled */
+    line-height: 1.35;
+}
+
+.sf-content-size-lg .sf-preview-ra-body {
+    font-size: 1.0rem;
+    /* 22px scaled */
+    line-height: 1.3;
+}
+
+/* Medium - 500-700 characters total */
+.sf-content-size-md .sf-preview-title {
+    font-size: 1.9rem;
+    /* 36px scaled */
+    line-height: 1.2;
+}
+
+.sf-content-size-md .sf-preview-desc {
+    font-size: 1.0rem;
+    /* 24px scaled */
+    line-height: 1.3;
+}
+
+.sf-content-size-md .sf-preview-ra-body {
+    font-size: 0.95rem;
+    /* 20px scaled */
+    line-height: 1.25;
+}
+
+/* Small - 700-900 characters total */
+.sf-content-size-sm .sf-preview-title {
+    font-size: 1.6rem;
+    /* 34px scaled */
+    line-height: 1.15;
+}
+
+.sf-content-size-sm .sf-preview-desc {
+    font-size: 0.95rem;
+    /* 22px scaled */
+    line-height: 1.25;
+}
+
+.sf-content-size-sm .sf-preview-ra-body {
+    font-size: 0.9rem;
+    /* 18px scaled */
+    line-height: 1.2;
+}
+
+/* Extra Small - over 900 characters total */
+.sf-content-size-xs .sf-preview-title {
+    font-size: 1.4rem;
+    /* 32px scaled */
+    line-height: 1.1;
+}
+
+.sf-content-size-xs .sf-preview-desc {
+    font-size: 0.9rem;
+    /* 20px scaled */
+    line-height: 1.2;
+}
+
+.sf-content-size-xs .sf-preview-ra-body {
+    font-size: 0.85rem;
+    /* 16px scaled */
+    line-height: 1.15;
+}

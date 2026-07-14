@@ -1,0 +1,1854 @@
+/* ===== NAVIGATION BAR ===== */
+
+.sf-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: #0f172a;
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.sf-nav-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* nav.css - lisää kielivalitsin-lomakkeiden tuki */
+/* ===== KIELIVALITSIN (LOMAKE-VERSIO) ===== */
+.sf-lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sf-lang-form {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+}
+
+.sf-lang-flag-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.sf-lang-flag-btn:not(.active) {
+    opacity: 0.6;
+    transform: scale(0.9);
+}
+
+.sf-lang-flag-btn:not(.active):hover {
+    opacity: 0.9;
+    transform: scale(0.95);
+}
+
+.sf-lang-flag-btn.active {
+    border-color: #fff;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.sf-lang-flag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .sf-lang-switcher {
+        gap: 4px;
+    }
+
+    .sf-lang-flag-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* ===== LEFT: LOGO ===== */
+.sf-nav-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.sf-brand-link {
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+}
+
+.sf-brand-link:hover {
+    opacity: 0.85;
+}
+
+.tapojarvi-logo-img {
+    height: 25px;
+    width: auto;
+    display: block;
+}
+
+/* ===== CENTER: NAV LINKS ===== */
+.sf-nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.sf-nav-links-wrapper {
+    display: flex;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.sf-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ===== PERUSLINKIT (Lista, Asetukset) ===== */
+.sf-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #0f172a;
+    background: #fee000;
+    padding: 10px 18px 10px 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(254, 224, 0, 0.3);
+    position: relative;
+}
+
+.sf-nav-link:hover {
+    background: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(254, 224, 0, 0.4);
+}
+
+.sf-nav-link.sf-nav-active {
+    background: #fff;
+    color: #0f172a;
+}
+
+.sf-nav-link-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* ===== ICON-ONLY NAV LINK (Asetukset, Xibo Koonti) ===== */
+.sf-nav-link-icon-only {
+    padding: 10px 12px;
+    gap: 0;
+}
+
+.sf-nav-link-icon-only span {
+    display: none;
+}
+
+/* ===== NOTIFICATION BADGE (Updates) ===== */
+.sf-nav-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: #ef4444;
+    border-radius: 999px;
+    border: 2px solid #0f172a;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    animation: sf-badge-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes sf-badge-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sf-nav-badge {
+        animation: none;
+    }
+}
+
+/* ===== CTA: UUSI SAFETYFLASH ===== */
+.sf-nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px 10px 14px;
+    background: #8fc640;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(254, 224, 0, 0.3);
+}
+
+.sf-nav-cta:hover {
+    background: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(254, 224, 0, 0.4);
+}
+
+.sf-nav-cta.sf-nav-cta-active {
+    background: #fff;
+}
+
+.sf-nav-cta-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.sf-nav-cta-text {
+    white-space: nowrap;
+}
+
+.sf-nav-cta:not(.sf-nav-cta-active):not(:hover) {
+    animation: sf-cta-pulse 2.5s ease-in-out infinite;
+}
+
+/* ===== RIGHT: LANGUAGE + USER + LOGOUT ===== */
+.sf-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* ===== KIELIVALITSIN ===== */
+.sf-lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sf-lang-flag-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.sf-lang-flag-btn:not(.active) {
+    opacity: 0.6;
+    transform: scale(0.9);
+}
+
+.sf-lang-flag-btn:not(.active):hover {
+    opacity: 0.9;
+    transform: scale(0.95);
+}
+
+.sf-lang-flag-btn.active {
+    border-color: #fff;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.sf-lang-flag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* ===== KÄYTTÄJÄINFO ===== */
+.sf-user-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sf-user-info:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.sf-user-info.sf-user-active {
+    background: #fee000;
+    border-color: #fee000;
+}
+
+.sf-user-info.sf-user-active .sf-user-name {
+    color: #0f172a;
+}
+
+.sf-user-info.sf-user-active .sf-user-icon {
+    stroke: #0f172a;
+}
+
+.sf-user-name {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.sf-user-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    stroke: rgba(255, 255, 255, 0.8);
+}
+
+.sf-user-info:hover .sf-user-icon {
+    stroke: #fff;
+}
+
+/* ===== UPDATES ICON BUTTON (always visible, including mobile) ===== */
+.sf-nav-updates-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding: 10px 18px 10px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.sf-nav-updates-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.sf-nav-updates-btn.sf-nav-active {
+    background: #fee000;
+    border-color: #fee000;
+    color: #0f172a;
+}
+
+.sf-nav-updates-btn.sf-nav-active .sf-nav-updates-icon {
+    filter: brightness(0);
+}
+
+.sf-nav-updates-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+    flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+    .sf-nav-updates-btn {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .sf-nav-updates-text {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-nav-updates-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sf-nav-updates-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ===== BOTTOM NAVIGATION (MOBILE/TABLET) ===== */
+.sf-bottom-nav {
+    display: none;
+    /* Piilotettu desktopissa */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #0f172a;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 0;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    justify-content: space-around;
+    align-items: flex-end;
+    /* Tärkeä: align-items flex-end jotta CTA nousee ylös */
+}
+
+.sf-bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.sf-bottom-nav-item:hover,
+.sf-bottom-nav-item.active {
+    color: #fee000;
+}
+
+.sf-bottom-nav-icon {
+    width: 24px;
+    height: 24px;
+    /* Muuta musta SVG valkoiseksi */
+    filter: brightness(0) invert(1);
+}
+
+/* Aktiivinen ikoni keltaiseksi */
+.sf-bottom-nav-item.active .sf-bottom-nav-icon {
+    filter: brightness(0) saturate(100%) invert(89%) sepia(65%) saturate(1000%) hue-rotate(359deg) brightness(103%) contrast(106%);
+}
+
+/* SVG-ikonit (Profiili) valkoisiksi */
+.sf-bottom-nav-item svg.sf-bottom-nav-icon {
+    stroke: rgba(255, 255, 255, 0.8);
+}
+
+.sf-bottom-nav-item.active svg.sf-bottom-nav-icon {
+    stroke: #fee000;
+}
+
+/* ===== KOROSTETTU KESKIMMÄINEN NAPPI (UUSI SAFETYFLASH) ===== */
+.sf-bottom-nav-cta {
+    position: relative;
+    top: -12px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #8fc640 0%, #7ab030 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(143, 198, 64, 0.4);
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+}
+
+.sf-bottom-nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(143, 198, 64, 0.5);
+}
+
+.sf-bottom-nav-cta:active {
+    transform: scale(0.95);
+}
+
+/* Aktiivinen tila (form-sivulla) */
+.sf-bottom-nav-cta.active {
+    background: linear-gradient(135deg, #7ab030 0%, #6a9a28 100%);
+    box-shadow: 0 2px 8px rgba(143, 198, 64, 0.3);
+}
+
+.sf-bottom-nav-cta-icon {
+    width: 28px;
+    height: 28px;
+    /* Valkoinen ikoni */
+    filter: brightness(0) invert(1);
+}
+
+.sf-bottom-nav-inner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.sf-bottom-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    transition: color 0.2s;
+    border-radius: 8px;
+}
+
+.sf-bottom-nav-link:hover,
+.sf-bottom-nav-link.active {
+    color: #fee000;
+}
+
+.sf-bottom-nav-link .nav-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.sf-bottom-nav-link.active .nav-icon {
+    filter: brightness(0) saturate(100%) invert(89%) sepia(65%) saturate(1000%) hue-rotate(359deg) brightness(103%) contrast(106%);
+}
+
+/* ===== TOAST NOTIFICATION ===== */
+.sf-toast {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    left: auto;
+    bottom: auto;
+    transform: none;
+
+    z-index: 999999;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    padding: 10px 12px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    animation: sf-toast-in 0.25s ease;
+
+    max-width: 340px;
+    width: auto;
+    height: auto;
+}
+
+@keyframes sf-toast-in {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sf-toast.sf-toast-hide {
+    animation: sf-toast-out 0.3s ease forwards;
+}
+
+@keyframes sf-toast-out {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+.sf-toast-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.sf-toast-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.sf-toast-text {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.sf-toast-close {
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: inherit;
+    font-size: 1.2rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.sf-toast-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Toast värit */
+.sf-toast-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+}
+
+.sf-toast-info {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #fff;
+}
+
+.sf-toast-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #fff;
+}
+
+.sf-toast-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #fff;
+}
+
+/* ===== KIELIVALINTA MOBILE/DESKTOP ===== */
+/* Compact language selector - always show trigger button, hide desktop flags */
+.sf-lang-desktop {
+    display: none;
+    /* Always hidden - use trigger button instead */
+    gap: 8px;
+}
+
+/* ===== VARMISTA ETTEI TEKSTIT LEIKKAUDU ===== */
+@media (min-width: 1101px) and (max-width: 1300px) {
+
+    /* Tiivistä navigaatiolinkit */
+    .sf-nav-link,
+    .sf-nav-cta {
+        padding: 8px 12px 8px 10px;
+        font-size: 0.85rem;
+        gap: 6px;
+    }
+
+    .sf-nav-link-icon,
+    .sf-nav-cta-icon-img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .sf-nav-links {
+        gap: 4px;
+    }
+}
+
+/* ===== BREAKPOINT: SIIRRY FOOTER-NAVIGAATIOON ===== */
+@media (min-width: 1101px) {
+    .sf-bottom-nav {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    .sf-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .sf-nav-center {
+        display: none !important;
+    }
+
+    .hamburger-menu {
+        display: none !important;
+    }
+
+    .sf-bottom-nav {
+        display: flex !important;
+    }
+
+    .sf-nav-inner {
+        min-height: 64px;
+        padding: 8px 14px;
+        gap: 10px;
+    }
+
+    .tapojarvi-logo-img {
+        height: 25px;
+    }
+
+    .sf-user-name {
+        display: none;
+    }
+
+    .sf-user-info {
+        padding: 8px;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+    }
+
+    .sf-nav-right {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-nav-inner {
+        min-height: 56px;
+        padding: 6px 8px;
+        gap: 6px;
+    }
+
+    .tapojarvi-logo-img {
+        height: 24px;
+    }
+
+    .sf-lang-switcher {
+        gap: 6px;
+    }
+
+    .sf-lang-flag-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sf-nav-right {
+        gap: 6px;
+    }
+
+    .sf-toast {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        max-width: none;
+        padding: 12px 14px;
+    }
+
+    .sf-toast-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .sf-toast-text {
+        font-size: 0.85rem;
+    }
+
+    .sf-toast-close {
+        width: 44px;
+        height: 44px;
+        font-size: 1.2rem;
+    }
+}
+
+/* ===== iOS SAFE AREA ===== */
+@supports (padding-top: env(safe-area-inset-top)) {
+    .sf-nav-inner {
+        padding-left: max(14px, env(safe-area-inset-left));
+        padding-right: max(14px, env(safe-area-inset-right));
+    }
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .sf-bottom-nav {
+        padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ===== PARANNETTU NAVIGAATIO - KESKIKOKOISET NÄYTÖT ===== */
+@media (min-width: 901px) and (max-width: 1200px) {
+
+    /* Tiivistetyt navigaatiolinkit */
+    .sf-nav-link,
+    .sf-nav-cta {
+        padding: 8px 12px 8px 10px;
+        font-size: 0.85rem;
+        gap: 6px;
+    }
+
+    .sf-nav-link-icon,
+    .sf-nav-cta-icon-img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .sf-nav-links {
+        gap: 4px;
+    }
+
+    /* Kielivalitsin kompaktimpi */
+    .sf-lang-flag-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .sf-lang-flag-img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Käyttäjäinfo kompaktimpi */
+    .sf-user-name {
+        max-width: 100px;
+        font-size: 0.8rem;
+    }
+
+    .sf-user-info {
+        padding: 6px 10px;
+        gap: 6px;
+    }
+
+    .sf-nav-right {
+        gap: 8px;
+    }
+}
+
+/* ===== TABLETTI - IKONIT + TOOLTIPS ===== */
+@media (min-width: 901px) and (max-width: 1050px) {
+
+    /* Piilota käyttäjänimi, näytä vain ikoni */
+    .sf-user-name {
+        display: none;
+    }
+
+    .sf-user-info {
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+    }
+
+    /* Navigaatiolinkeissä vain ikonit + tooltip */
+    .sf-nav-link span,
+    .sf-nav-cta .sf-nav-cta-text {
+        display: none;
+    }
+
+    .sf-nav-link,
+    .sf-nav-cta {
+        padding: 10px;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        justify-content: center;
+    }
+
+    /* Tooltips ikonien hoverissa */
+    .sf-nav-link,
+    .sf-nav-cta {
+        position: relative;
+    }
+
+    .sf-nav-link[data-tooltip]::after,
+    .sf-nav-cta[data-tooltip]::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1f2937;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+        z-index: 1001;
+    }
+
+    .sf-nav-link[data-tooltip]:hover::after,
+    .sf-nav-cta[data-tooltip]:hover::after {
+        opacity: 1;
+    }
+
+    /* Note: Language selector no longer needs tablet-specific rules.
+       .sf-lang-trigger is always shown, .sf-lang-desktop is always hidden. */
+}
+
+/* ==========================================================================
+   Language Switcher Improvements
+   ========================================================================== */
+
+.sf-lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sf-lang-flag-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sf-lang-flag-btn:hover {
+    transform: scale(1.05);
+}
+
+.sf-lang-flag-btn.active {
+    border-color: #fff;
+    background: transparent;
+}
+
+.sf-lang-flag-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .sf-lang-switcher {
+        gap: 6px;
+    }
+
+    .sf-lang-flag-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* ===== FLOATING ACTION BUTTON (FAB) ===== */
+.sf-fab {
+    /* FAB ei enää tarvita, koska se on nyt footerissa */
+    display: none !important;
+}
+
+/* ===== PIILOTA FOOTER FORM-SIVUILLA ===== */
+body.form-page .sf-bottom-nav,
+body[data-page="form"] .sf-bottom-nav,
+body[data-page="form_language"] .sf-bottom-nav {
+    display: none !important;
+}
+
+/* ===== PWA INSTALL BUTTON ===== */
+#sf-install-btn {
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Show button when not hidden (controlled by JS) */
+#sf-install-btn:not(.hidden) {
+    display: flex;
+}
+
+#sf-install-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+#sf-install-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: rgba(255, 255, 255, 0.9);
+}
+
+#sf-install-btn:hover svg {
+    stroke: #fff;
+}
+
+/* Hide on desktop (>1100px), only show on mobile */
+@media (min-width: 1101px) {
+    #sf-install-btn {
+        display: none !important;
+    }
+}
+
+/* Hide profile button on mobile (<1100px) */
+@media (max-width: 1100px) {
+    .sf-user-info {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1100px) {
+    .sf-bottom-nav-item {
+        min-width: 44px;
+        min-height: 44px;
+        font-weight: 600;
+    }
+
+    .sf-bottom-nav-item.active {
+        color: var(--sf-mobile-nav-active-color, #fde047);
+        font-weight: 700;
+    }
+}
+
+/* ==========================================================================
+   Mobile Language Trigger Button (Flag + Chevron)
+   ========================================================================== */
+
+.sf-lang-trigger {
+    display: flex;
+    /* Always shown - same on mobile and desktop */
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sf-lang-trigger:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.sf-lang-trigger-flag {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sf-lang-trigger-chevron {
+    flex-shrink: 0;
+    stroke: rgba(255, 255, 255, 0.8);
+}
+
+/* Note: Language selector visibility no longer needs media query switching.
+   .sf-lang-trigger is always shown, .sf-lang-desktop is always hidden. */
+
+/* Smaller on very small screens */
+@media (max-width: 480px) {
+    .sf-lang-trigger {
+        padding: 6px 10px;
+        gap: 4px;
+    }
+
+    .sf-lang-trigger-flag {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ==========================================================================
+   Language Modal Styles
+   ========================================================================== */
+
+.sf-lang-modal-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sf-lang-modal-option {
+    flex: 0 0 calc(50% - 4px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.sf-lang-modal-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(4px);
+}
+
+.sf-lang-modal-option.active {
+    background: rgba(254, 224, 0, 0.15);
+    border-color: #fee000;
+    color: #000;
+}
+
+.sf-lang-modal-flag {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.sf-lang-modal-label {
+    color: #000;
+    flex: 1;
+}
+
+.sf-lang-modal-check {
+    flex-shrink: 0;
+    stroke: #a09646;
+}
+
+/* ==========================================================================
+   Mobile Settings Icon (Admin Only)
+   ========================================================================== */
+
+.sf-nav-settings-mobile {
+    display: none;
+    /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sf-nav-settings-mobile:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.sf-nav-settings-mobile.sf-nav-active {
+    background: #fee000;
+    border-color: #fee000;
+}
+
+.sf-nav-settings-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.sf-nav-settings-mobile.sf-nav-active .sf-nav-settings-icon {
+    filter: brightness(0);
+}
+
+/* Show on mobile, hide on desktop */
+@media (max-width: 1100px) {
+    .sf-nav-settings-mobile {
+        display: flex;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-nav-settings-mobile {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sf-nav-settings-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ==========================================================================
+   Profile Modal – Admin Section & Logout Button
+   ========================================================================== */
+
+.sf-profile-admin-section {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin-top: 4px;
+}
+
+.sf-profile-admin-section h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin: 0 0 12px;
+}
+
+.sf-profile-admin-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sf-profile-admin-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #0f172a;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sf-profile-admin-link:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.sf-profile-admin-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    filter: brightness(0) opacity(0.6);
+}
+
+.sf-profile-logout-section {
+    padding: 16px 20px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    margin-top: 4px;
+}
+
+.sf-profile-logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.sf-profile-logout-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    filter: brightness(0) invert(1);
+}
+/* ===== LOGOUT BUTTON (DESKTOP HEADER) ===== */
+.sf-nav-logout-btn {
+    display: none; /* piilotettu mobiilissa oletuksena */
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 999px;
+    color: #fca5a5;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.sf-nav-logout-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.6);
+    color: #fff;
+}
+
+.sf-nav-logout-btn svg {
+    flex-shrink: 0;
+}
+
+/* Näytä desktopilla (≥1101px) */
+@media (min-width: 1101px) {
+    .sf-nav-logout-btn {
+        display: inline-flex;
+    }
+}
+
+/* Tabletti (901–1050px): näytä vain ikoni, piilota teksti */
+@media (min-width: 901px) and (max-width: 1050px) {
+    .sf-nav-logout-btn {
+        display: inline-flex;
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+        gap: 0;
+    }
+    .sf-nav-logout-text {
+        display: none;
+    }
+}
+/* ===== PWA / PUSH PROMPT BANNER ===== */
+
+.sf-pwa-install-prompt {
+    width: min(1180px, calc(100% - 32px));
+    margin: 14px auto 0;
+}
+
+.sf-pwa-install-prompt.hidden {
+    display: none !important;
+}
+
+.sf-pwa-install-prompt-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    background: #111827;
+    color: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 16px 42px rgba(15, 23, 42, 0.22);
+}
+
+.sf-pwa-install-prompt-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sf-pwa-install-prompt-content strong {
+    font-size: 0.96rem;
+    line-height: 1.25;
+    font-weight: 800;
+}
+
+.sf-pwa-install-prompt-content span {
+    font-size: 0.86rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.sf-pwa-install-prompt-actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sf-pwa-install-prompt-primary,
+.sf-pwa-install-prompt-secondary {
+    border: 0;
+    border-radius: 999px;
+    padding: 9px 14px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sf-pwa-install-prompt-primary {
+    background: #fee000;
+    color: #111827;
+}
+
+.sf-pwa-install-prompt-secondary {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.sf-pwa-install-prompt-primary:hover {
+    filter: brightness(0.96);
+}
+
+.sf-pwa-install-prompt-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 700px) {
+    .sf-pwa-install-prompt {
+        width: calc(100% - 20px);
+        margin-top: 10px;
+    }
+
+    .sf-pwa-install-prompt-inner {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 14px;
+        border-radius: 16px;
+    }
+
+    .sf-pwa-install-prompt-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .sf-pwa-install-prompt-primary,
+    .sf-pwa-install-prompt-secondary {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+/* ===== HEADER RESPONSIVE FIX 2026-06-14 ===== */
+
+/* Estetään header-nappien ja ikonien puristuminen pieniksi pisteiksi */
+.sf-nav-link,
+.sf-nav-cta,
+.sf-nav-updates-btn,
+.sf-user-info,
+.sf-nav-logout-btn,
+.sf-lang-trigger,
+.sf-nav-settings-mobile,
+#sf-install-btn {
+    flex: 0 0 auto;
+    min-width: max-content;
+}
+
+.sf-nav-link-icon,
+.sf-nav-cta-icon-img,
+.sf-nav-updates-icon,
+.sf-nav-settings-icon {
+    flex: 0 0 auto;
+}
+
+/* Kompakti desktop/tablet ennen mobiilinavigaatiota */
+@media (min-width: 1201px) and (max-width: 1550px) {
+    .sf-nav-inner {
+        padding-left: 14px;
+        padding-right: 14px;
+        gap: 10px;
+    }
+
+    .sf-nav-links {
+        gap: 5px;
+    }
+
+    .sf-nav-link,
+    .sf-nav-cta {
+        padding: 8px 12px 8px 10px;
+        gap: 6px;
+        font-size: 0.84rem;
+    }
+
+    .sf-nav-link-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .sf-nav-cta-icon-img {
+        width: 20px;
+        height: 20px;
+    }
+
+	    .sf-nav-updates-btn {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        justify-content: center;
+        gap: 0;
+        min-width: 40px;
+    }
+
+    .sf-nav-updates-text {
+        display: none;
+    }
+
+    .sf-user-name {
+        max-width: 92px;
+        font-size: 0.82rem;
+    }
+
+    .sf-user-info {
+        padding: 7px 10px;
+    }
+
+    .sf-nav-logout-btn {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        justify-content: center;
+        gap: 0;
+        min-width: 40px;
+    }
+
+    .sf-nav-logout-text {
+        display: none;
+    }
+
+    .sf-nav-right {
+        gap: 8px;
+    }
+	    .sf-nav-logout-btn {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        justify-content: center;
+        gap: 0;
+        min-width: 40px;
+    }
+
+    .sf-nav-logout-text {
+        display: none;
+    }
+}
+
+/* Vaihdetaan alavalikkoon aiemmin, koska admin-header ei mahdu 1100-1200px välillä */
+@media (max-width: 1200px) {
+    .sf-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .sf-nav-center {
+        display: none !important;
+    }
+
+    .hamburger-menu {
+        display: none !important;
+    }
+
+    .sf-bottom-nav {
+        display: flex !important;
+    }
+
+    .sf-nav-inner {
+        min-height: 64px;
+        padding: 8px 14px;
+        gap: 10px;
+    }
+
+    .tapojarvi-logo-img {
+        height: 25px;
+    }
+
+    .sf-user-info {
+        display: none !important;
+    }
+
+    .sf-nav-logout-btn {
+        display: none !important;
+    }
+
+    .sf-nav-right {
+        gap: 8px;
+    }
+
+    .sf-nav-settings-mobile {
+        display: flex;
+    }
+}
+
+@media (min-width: 1201px) {
+    .sf-bottom-nav {
+        display: none !important;
+    }
+
+    .sf-nav-settings-mobile {
+        display: none !important;
+    }
+}
+
+/* PWA install -painike vain mobiili/tablet-headerissa */
+@media (min-width: 1201px) {
+    #sf-install-btn {
+        display: none !important;
+    }
+}
+/* ===== USER EVENTS CENTER ===== */
+
+.sf-user-events {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.sf-user-events-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding: 10px 18px 10px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sf-user-events-btn:hover,
+.sf-user-events-btn[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.sf-user-events-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+    flex-shrink: 0;
+}
+
+@media (min-width: 1201px) and (max-width: 1550px) {
+    .sf-user-events-btn {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        padding: 8px;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .sf-user-events-text {
+        display: none;
+    }
+}
+
+.sf-user-events-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(360px, calc(100vw - 24px));
+    max-height: min(520px, calc(100vh - 100px));
+    overflow: hidden;
+    background: #fff;
+    color: #0f172a;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
+    z-index: 200100;
+}
+
+.sf-user-events-panel.hidden {
+    display: none;
+}
+
+.sf-user-events-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f8fafc;
+}
+
+.sf-user-events-head strong {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #0f172a;
+}
+
+.sf-user-events-list {
+    display: flex;
+    flex-direction: column;
+    max-height: 440px;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.sf-user-event {
+    display: grid;
+    grid-template-columns: 10px 1fr;
+    gap: 12px;
+    padding: 13px 12px;
+    border-radius: 14px;
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sf-user-event:hover {
+    background: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.sf-user-event-dot {
+    width: 9px;
+    height: 9px;
+    margin-top: 6px;
+    border-radius: 999px;
+    background: #64748b;
+}
+
+.sf-user-event--action .sf-user-event-dot {
+    background: #ef4444;
+}
+
+.sf-user-event--info .sf-user-event-dot {
+    background: #3b82f6;
+}
+
+.sf-user-event-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.sf-user-event-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #334155;
+}
+
+.sf-user-event-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sf-user-event-time {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.sf-user-events-empty {
+    padding: 24px 16px;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1100px) {
+    .sf-user-events-btn {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .sf-user-events-text {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-user-events-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sf-user-events-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    .sf-user-events-panel {
+        position: fixed;
+        top: 70px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+    }
+}
+.sf-user-events-mark-all {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 0;
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: transparent;
+    color: #334155;
+    font-size: 0.76rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.sf-user-events-mark-all:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.sf-user-events-mark-all:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.sf-user-events-mark-all.hidden {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .sf-user-events-head {
+        gap: 10px;
+    }
+
+    .sf-user-events-mark-all {
+        padding: 8px 10px;
+        font-size: 0.72rem;
+    }
+}

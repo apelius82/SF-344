@@ -1,0 +1,197 @@
+/**
+ * Image Captions CSS
+ * Styling for inline caption editor
+ */
+
+/* Caption wrapper container */
+.image-caption-wrapper {
+    margin-top: 8px;
+    width: 100%;
+}
+
+/* Caption display (read mode) */
+.image-caption-display {
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    min-height: 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.image-caption-display.editable {
+    cursor: pointer;
+}
+
+.image-caption-display.editable:hover {
+    background: #ffffff;
+    border-color: #4CAF50;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.caption-text {
+    display: block;
+    word-wrap: break-word;
+}
+
+.caption-placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* Caption editor (edit mode) */
+.caption-editor {
+    padding: 8px;
+    background: #ffffff;
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.caption-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 60px;
+}
+
+.caption-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+/* Caption actions (button row) */
+.caption-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.caption-char-count {
+    font-size: 12px;
+    color: #666;
+    margin-right: auto;
+}
+
+/* Caption buttons */
+.caption-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.caption-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.caption-btn-save {
+    background: #4CAF50;
+    color: white;
+}
+
+.caption-btn-save:hover:not(:disabled) {
+    background: #45a049;
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.caption-btn-cancel {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.caption-btn-cancel:hover {
+    background: #e0e0e0;
+}
+
+/* Loading spinner */
+.caption-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: caption-spin 0.6s linear infinite;
+}
+
+@keyframes caption-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast notifications */
+.caption-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    background: #333;
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 10000;
+}
+
+.caption-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.caption-toast-success {
+    background: #4CAF50;
+}
+
+.caption-toast-error {
+    background: #f44336;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    .image-caption-display {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    
+    .caption-editor {
+        padding: 6px;
+    }
+    
+    .caption-input {
+        padding: 6px;
+        font-size: 13px;
+    }
+    
+    .caption-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+    
+    .caption-toast {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        font-size: 13px;
+    }
+}

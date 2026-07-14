@@ -1,0 +1,735 @@
+/* ==========================================================
+   VIEW / EVENTS
+   ========================================================== */
+
+/* =========================================================
+   EVENTS TAB WIDTH FIX
+   Leventää tapahtumat-välilehden sisällön koko moduulin levyiseksi
+========================================================= */
+
+#tabEvents .sf-events-timeline {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#tabEvents .sf-event-item {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#tabEvents .sf-event-content {
+    min-width: 0 !important;
+}
+
+#tabEvents .sf-event-description {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+}
+/* ==========================================================
+   EVENTS TIMELINE
+   ========================================================== */
+
+.sf-events-timeline {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 0.25rem;
+}
+
+.sf-event-item {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.7rem 1rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(60, 60, 100, 0.07);
+    border: 1px solid #eef0f5;
+    margin-bottom: 0.55rem;
+    position: relative;
+    transition: box-shadow 0.17s ease, background 0.13s ease;
+}
+
+.sf-event-item--published {
+    position: relative;
+    border: 2px solid rgba(34, 197, 94, 0.35);
+    background: linear-gradient(
+        135deg,
+        rgba(34, 197, 94, 0.08) 0%,
+        rgba(255, 255, 255, 1) 45%
+    );
+    box-shadow:
+        0 10px 24px rgba(34, 197, 94, 0.12),
+        0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.sf-event-item--published .sf-event-label {
+    color: #047857;
+    font-weight: 800;
+}
+
+.sf-event-item--published .sf-event-icon {
+    box-shadow:
+        0 0 0 6px rgba(34, 197, 94, 0.12),
+        0 8px 18px rgba(34, 197, 94, 0.18);
+}
+
+.sf-event-item:hover {
+    box-shadow: 0 4px 16px rgba(32, 64, 210, 0.10);
+    background: #f6f8fc;
+}
+
+.sf-event-item:last-child {
+    margin-bottom: 0;
+}
+
+.sf-event-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: #f0f4ff;
+    border: 1px solid #dde3f4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin-top: 1px;
+    position: static;
+}
+
+.sf-event-icon img {
+    width: 100%;
+    height: 100%;
+    opacity: 0.75;
+}
+
+.sf-event-icon--has-secondary {
+    position: relative;
+    overflow: visible;
+}
+
+.sf-event-icon--has-secondary .sf-event-main-icon {
+    width: 82%;
+    height: 82%;
+}
+
+.sf-event-secondary-icon {
+    position: absolute;
+    right: -10px;
+    bottom: -8px;
+    width: 23px !important;
+    height: 23px !important;
+    padding: 4px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #dbe4f0;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.18);
+    opacity: 1 !important;
+}
+
+.sf-event-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.sf-event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 2px;
+}
+
+.sf-event-label {
+    font-weight: 700;
+    color: #1a2440;
+    font-size: 0.88rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.sf-event-time {
+    font-size: 0.77rem;
+    color: #94a3b8;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.sf-event-user {
+    font-size: 0.81rem;
+    color: #64748b;
+    margin-bottom: 3px;
+}
+
+.sf-event-description {
+    font-size: 0.84rem;
+    color: #475569;
+    line-height: 1.45;
+    background: none;
+    border: none;
+    border-left: 2px solid #dde3f4;
+    padding: 2px 0 2px 8px;
+    margin-top: 4px;
+    word-break: break-word;
+    box-shadow: none;
+}
+
+.sf-event-batch-list {
+    margin: 0;
+    padding: 0 0 0 0.9rem;
+    list-style: disc;
+}
+
+.sf-event-batch-list li {
+    margin-bottom: 0.15rem;
+    word-break: break-word;
+    font-size: 0.84rem;
+    color: #475569;
+    padding-left: 0;
+}
+
+.sf-event-batch-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================
+   LEGACY LOG PANEL
+   Vanha tapahtumaloki / lokipaneeli.
+   ========================================================== */
+
+.sf-log-section {
+    max-width: var(--sf-container-lg);
+    margin: var(--sf-spacing-page) auto;
+}
+
+.sf-log-panel {
+    padding: 18px;
+    background: #ffffff;
+    border: 1px solid #e6e9ee;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+    font-size: 14px;
+    line-height: 1.5;
+    color: #111827;
+}
+
+.sf-log-title {
+    margin: 0 0 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    background-color: #f3f6f9;
+    padding: 10px 12px;
+    border-radius: 10px;
+}
+
+.sf-log-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.sf-log-item {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 10px 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-top: 1px solid #f3f6f9;
+    position: relative;
+}
+
+.sf-log-item:first-child {
+    border-top: none;
+}
+
+.sf-log-item:hover {
+    background: #fbfcfe;
+}
+
+.sf-log-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #e6f0ff, #d7e9ff);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b3a8a;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(3, 10, 26, 0.04);
+}
+
+.sf-log-header-row {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    margin-bottom: 2px;
+}
+
+.sf-log-type {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.sf-log-time {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.sf-log-message {
+    font-size: 14px;
+    color: #111827;
+    line-height: 1.4;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    max-height: 4.2rem;
+    overflow: hidden;
+    transition: max-height 0.18s ease;
+}
+
+.sf-log-message.expanded {
+    max-height: 1000px;
+}
+
+.sf-log-more {
+    display: inline-block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1158ff;
+    cursor: pointer;
+}
+
+.sf-log-meta {
+    text-align: right;
+    min-width: 140px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.sf-log-user {
+    display: block;
+    margin-top: 2px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.log-status-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+    vertical-align: middle;
+    line-height: 1.2;
+}
+
+@media (max-width: 700px) {
+    .sf-log-item {
+        grid-template-columns: 32px 1fr;
+    }
+
+    .sf-log-meta {
+        grid-column: 2;
+        text-align: left;
+        margin-top: 4px;
+    }
+}
+
+/* ==========================================================
+   LEGACY LOG MESSAGE BOXES
+   ========================================================== */
+
+.sf-log-message-box {
+    margin-top: 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.sf-log-message-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+}
+
+.sf-log-message-box.sf-log-comment {
+    background: #f0f4f8;
+    border-left-color: #64748b;
+}
+
+.sf-log-message-box.sf-log-comment .sf-log-message-label {
+    color: #475569;
+}
+
+.sf-log-message-box.sf-log-comms {
+    background: #ecfdf5;
+    border-left-color: #10b981;
+}
+
+.sf-log-message-box.sf-log-comms .sf-log-message-label {
+    color: #047857;
+}
+
+.sf-log-message-box.sf-log-return {
+    background: #fffbeb;
+    border-left-color: #f59e0b;
+}
+
+.sf-log-message-box.sf-log-return .sf-log-message-label {
+    color: #b45309;
+}
+
+/* ==========================================================
+   LOG DELETE BUTTON
+   Admin-käyttäjälle näkyvä tapahtumalokin poistopainike.
+   ========================================================== */
+
+.sf-log-delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.sf-log-item:hover .sf-log-delete-btn {
+    opacity: 0.6;
+}
+
+.sf-log-delete-btn:hover {
+    opacity: 1;
+    background: #fee2e2;
+}
+
+.sf-log-delete-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+}
+
+.sf-log-delete-btn:hover .sf-log-delete-icon {
+    opacity: 1;
+}
+/* =========================================================
+   VIEW EVENTS ICON FINAL
+========================================================= */
+
+.sf-event-language-flag {
+    width: 22px;
+    height: 22px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+#tabEvents .sf-event-icon {
+    position: relative !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 34px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #f8fafc !important;
+    border: 1px solid #dbe3ef !important;
+    border-radius: 999px !important;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08) !important;
+}
+
+#tabEvents .sf-event-icon > .sf-event-main-icon {
+    width: 22px !important;
+    height: 22px !important;
+    max-width: 22px !important;
+    max-height: 22px !important;
+    object-fit: contain !important;
+    opacity: 0.9 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+#tabEvents .sf-event-icon--has-language {
+    margin-right: 8px !important;
+}
+
+#tabEvents .sf-event-icon > .sf-event-language-badge {
+    position: absolute !important;
+    right: -9px !important;
+    bottom: -5px !important;
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    object-fit: cover !important;
+    border-radius: 999px !important;
+    border: 2px solid #ffffff !important;
+    background: #ffffff !important;
+    box-shadow:
+        0 2px 6px rgba(15, 23, 42, 0.28),
+        0 0 0 1px rgba(203, 213, 225, 0.8) !important;
+    opacity: 1 !important;
+    z-index: 3 !important;
+}
+
+#tabEvents .sf-event-item[data-event-type="published"] .sf-event-icon,
+#tabEvents .sf-event-item[data-event-type="supervisor_approved"] .sf-event-icon,
+#tabEvents .sf-event-item[data-event-type="sent_to_comms"] .sf-event-icon {
+    background: #ffffff !important;
+    border-color: #78c694 !important;
+}
+
+#tabEvents .sf-event-item[data-event-type="request_info"] .sf-event-icon,
+#tabEvents .sf-event-item[data-event-type="info_requested"] .sf-event-icon {
+    background: #fff7ed !important;
+    border-color: #fed7aa !important;
+}
+
+#tabEvents .sf-event-item[data-event-type="language_review_requested"] .sf-event-icon {
+    background: #eff6ff !important;
+    border-color: #bfdbfe !important;
+}
+
+/* =========================================================
+   VIEW EVENTS MOBILE FINAL
+========================================================= */
+
+@media (max-width: 640px) {
+    #tabEvents .sf-events-timeline {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #tabEvents .sf-event-item {
+        display: grid !important;
+        grid-template-columns: 34px minmax(0, 1fr) !important;
+        gap: 0.62rem !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0.68rem 0.72rem !important;
+        margin-bottom: 0.52rem !important;
+        border-radius: 12px !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
+    #tabEvents .sf-event-icon {
+        grid-column: 1 !important;
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
+        margin: 0 !important;
+        margin-top: 0.05rem !important;
+        padding: 0 !important;
+    }
+
+    #tabEvents .sf-event-icon > .sf-event-main-icon {
+        width: 22px !important;
+        height: 22px !important;
+        max-width: 22px !important;
+        max-height: 22px !important;
+    }
+
+    #tabEvents .sf-event-icon > .sf-event-language-badge {
+        right: -7px !important;
+        bottom: -5px !important;
+        width: 18px !important;
+        height: 18px !important;
+        max-width: 18px !important;
+        max-height: 18px !important;
+        border-width: 2px !important;
+    }
+
+    #tabEvents .sf-event-content {
+        grid-column: 2 !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    #tabEvents .sf-event-header {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        grid-template-areas:
+            "label time"
+            "badge time";
+        align-items: start !important;
+        column-gap: 0.45rem !important;
+        row-gap: 0.18rem !important;
+        margin-bottom: 0.18rem !important;
+    }
+
+    #tabEvents .sf-event-label {
+        grid-area: label !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        font-size: 0.84rem !important;
+        font-weight: 900 !important;
+        line-height: 1.16 !important;
+        color: #111827 !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    #tabEvents .sf-comment-type-badge {
+        grid-area: badge !important;
+        justify-self: start !important;
+        align-self: start !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        margin-top: 0.05rem !important;
+        font-size: 0.62rem !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+    }
+
+    #tabEvents .sf-event-time {
+        grid-area: time !important;
+        justify-self: end !important;
+        align-self: start !important;
+        max-width: 4.8rem !important;
+        font-size: 0.68rem !important;
+        font-weight: 700 !important;
+        line-height: 1.15 !important;
+        color: #94a3b8 !important;
+        text-align: right !important;
+        white-space: normal !important;
+    }
+
+    #tabEvents .sf-event-user {
+        margin-top: 0.18rem !important;
+        margin-bottom: 0.22rem !important;
+        font-size: 0.74rem !important;
+        line-height: 1.2 !important;
+        color: #64748b !important;
+    }
+
+    #tabEvents .sf-event-description {
+        margin-top: 0.24rem !important;
+        padding: 0.18rem 0 0.18rem 0.58rem !important;
+        border-left: 2px solid #dbe3ef !important;
+        font-size: 0.78rem !important;
+        line-height: 1.34 !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    #tabEvents .sf-event-batch-list {
+        margin: 0 !important;
+        padding-left: 0.9rem !important;
+    }
+
+    #tabEvents .sf-event-batch-list li {
+        margin-bottom: 0.12rem !important;
+        font-size: 0.78rem !important;
+        line-height: 1.34 !important;
+    }
+}
+
+/* =========================================================
+   VIEW EVENTS MOBILE COMPACT FINAL
+========================================================= */
+
+@media (max-width: 640px) {
+    #tabEvents .sf-events-timeline {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.38rem !important;
+    }
+
+    #tabEvents .sf-event-item {
+        grid-template-columns: 30px minmax(0, 1fr) !important;
+        gap: 0.5rem !important;
+        padding: 0.56rem 0.6rem !important;
+        margin-bottom: 0 !important;
+        border-radius: 11px !important;
+        box-shadow: 0 1px 5px rgba(15, 23, 42, 0.07) !important;
+    }
+
+    #tabEvents .sf-event-icon {
+        width: 27px !important;
+        height: 27px !important;
+        min-width: 27px !important;
+        max-width: 27px !important;
+    }
+
+    #tabEvents .sf-event-icon > .sf-event-main-icon {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    #tabEvents .sf-event-icon > .sf-event-language-badge {
+        right: -6px !important;
+        bottom: -5px !important;
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    #tabEvents .sf-event-header {
+        column-gap: 0.35rem !important;
+        row-gap: 0.1rem !important;
+        margin-bottom: 0.08rem !important;
+    }
+
+    #tabEvents .sf-event-label {
+        font-size: 0.8rem !important;
+        line-height: 1.12 !important;
+    }
+
+    #tabEvents .sf-comment-type-badge {
+        font-size: 0.58rem !important;
+        padding: 0.12rem 0.42rem !important;
+    }
+
+    #tabEvents .sf-event-time {
+        max-width: 4.3rem !important;
+        font-size: 0.64rem !important;
+    }
+
+    #tabEvents .sf-event-user {
+        margin-top: 0.08rem !important;
+        margin-bottom: 0.12rem !important;
+        font-size: 0.7rem !important;
+    }
+
+    #tabEvents .sf-event-description {
+        margin-top: 0.14rem !important;
+        padding: 0.12rem 0 0.12rem 0.5rem !important;
+        font-size: 0.74rem !important;
+        line-height: 1.28 !important;
+    }
+
+    #tabEvents .sf-event-batch-list {
+        padding-left: 0.8rem !important;
+    }
+
+    #tabEvents .sf-event-batch-list li {
+        margin-bottom: 0.08rem !important;
+        font-size: 0.74rem !important;
+        line-height: 1.28 !important;
+    }
+}
